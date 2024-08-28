@@ -68,13 +68,11 @@ textarea {
 #serverName {
   padding-left: 0.14in;
 }
-#servertd {
-  background: var(--channels-bg);
-}
 .servertd {
+  height: .5in;
   border: none;
   border-bottom-color: var(--server-border);
-  border-bottom-width: .03in;
+  border-bottom-width: 2px;
   border-bottom-style: solid;
 }
 .channels {
@@ -114,21 +112,32 @@ textarea {
 #userinfo {
   margin-left: 0.4em;
   min-width: 50%;
+  background: none;
+}
+#userinfo:hover {
+  background: var(--user-info-bg);
 }
 #userpfp {
   width: 32px;
   height: 32px;
 }
+#user-actions {
+  margin-right: .05in;
+}
 
 /* Messages Area */
 .messagediv {
-  padding: 0.15em .16in;
+  padding: .03in .16in 0 .16in;
 }
 .topMessage {
   margin-top: 1em;
+  padding-top: .05in;
 }
 .pfprow {
   width: .54in;
+}
+.username {
+  margin-bottom: 0.05in;
 }
 .timestamp {
   padding-left: 0.5rem;
@@ -211,20 +220,11 @@ pre {
 #replybox span {
   font-size: 0.9rem;
 }
-/* when typing indicator is back
 #typing {
-  top: auto;
-  right: auto;
-  left: 1rem;
-  bottom: -1.4rem;
-  background: none;
-  border: none;
   font-size: 0.8rem;
   flex-direction: row-reverse;
+  gap: 2px;
 }
-.dot {
-  line-height: 5px;
-}*/
 
 /* Profile */
 .profile, .hypoprofile {
@@ -232,6 +232,9 @@ pre {
 }
 .infosection {
   border-radius: .1in;
+}
+.rolediv {
+  border: none;
 }
 
 /* Menu */
@@ -252,14 +255,11 @@ pre {
 .flexspace {
   padding: .2in;
 }
-.flexspace .flexspace {
+.flexspace .flexspace, .flexspace:has(.Buttons) {
   padding: 0;
 }
 .flexspace.flexltr {
   gap: .2in;
-}
-.flexspace:has(.Buttons){
-  padding: 0;
 }
 .optionElement {
   width: 100%;
@@ -268,7 +268,6 @@ pre {
 .setting {
   box-shadow: none;
   margin-left: 1em;
-  margin-top: 1em;
   padding: 1em;
   width: calc(100% - 2em);
   box-sizing: border-box;
