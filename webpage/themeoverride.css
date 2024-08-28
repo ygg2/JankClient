@@ -1,0 +1,75 @@
+.Light-theme { /* Not actually Light Theme, but no one uses that one */
+  color-scheme: dark;
+
+  /* General */
+  --primary-bg: #2d3036;
+  --primary-text: #e7e7e7;
+  --icon-color: #a2f7ee;
+
+  --black: #141718;
+  --red: #ff5555;
+  --green: #22a696;
+  --focus: #44cfbf;
+  --link: #44cfbf;
+  --shadow: #000000;
+
+  --scrollbar-track: #393d44;
+  --scrollbar-thumb: #545967;
+  --scrollbar-thumb-hover: #545967;
+
+  --loading-bg: #2d3036;
+
+  /* Server List */
+  --server-list: #141718;
+  --light-border: #393d44;
+  --blank-bg: #2d3036;
+
+  /* Channels Area */
+  --server-name-bg: #232628;
+  --server-border: #141718;
+  --channels-bg: #232628;
+  --channel-hover: #545967;
+
+  /* User */
+  --user-dock-bg: #141718;
+  --user-info-bg: #393d44;
+  --settings-hover: #393d44;
+
+  /* Messages Area */
+  --server-bg: #2d3036;
+  --message-bg-hover: #232628;
+  --message-jump: #545967;
+  --timestamp-color: #bac4c5;
+  --reply-border: #545967;
+  --reply-bg: #000000;
+  --reply-text: #bac4c5;
+  --code-bg: #141718;
+  --spoiler-hover: #000000;
+  --spoiler-open-bg: #000000;
+  --embed: #141718;
+
+  /* Typing */
+  --textarea-bg: #393d44;
+
+  /* Profile */
+  --profile-bg: #141718;
+  --profile-info-bg: #141718;
+  --pronouns: #bac4c5;
+
+  /* Menu */
+  --dialog-bg: #2d3036;
+  --dialog-border: #2d3036;
+  --discovery-bg: #2d3036;;
+
+  /* Unknown */
+  --typing-bg: red;
+  --quote-bg: red;
+  --button-bg: red;
+  --button-hover: red;
+  --filename: red;
+  --mention-bg: red;
+  --unknown-file-bg: red;
+  --unknown-file-border: red;
+  --login-border: red;
+  --markdown-timestamp: red;
+}
