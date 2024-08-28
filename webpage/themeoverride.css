@@ -8,6 +8,7 @@
 
   --black: #141718;
   --red: #ff5555;
+  --yellow: #f4e770;
   --green: #22a696;
   --focus: #44cfbf;
   --link: #44cfbf;
@@ -17,7 +18,7 @@
   --scrollbar-thumb: #545967;
   --scrollbar-thumb-hover: #545967;
 
-  --loading-bg: #2d3036;
+  --loading-bg: #232628;
 
   /* Server List */
   --server-list: #141718;

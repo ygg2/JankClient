@@ -49,7 +49,7 @@ textarea {
   padding: .085in .085in 0 .085in;
 }
 .servericon {
-  margin-bottom: .05in;
+  margin-bottom: .07in;
 }
 .unread {
   transform: translate(-.2in, .2in);
@@ -103,6 +103,19 @@ textarea {
 }
 .space {
   padding: 0.2em 0.2em 0 0.4em;
+}
+.cunread {
+  box-shadow: none;
+}
+.cunread:after {
+  content: '';
+  height: .075in;
+  width: .075in;
+  position: absolute;
+  background: var(--primary-text);
+  border-radius: 50%;
+  left: -.115in;
+  top: .14in;
 }
 
 /* User */
@@ -176,6 +189,18 @@ pre {
 }
 
 /* Embed, Emote */
+.bot {
+  border: none;
+  border-radius: 4px;
+  font-size: .8rem;
+  height: .8rem;
+  padding: 1px 5px 4px 5px;
+  margin: 2px 0 0 .05in;
+}
+.embed-color {
+  padding-left: 4px;
+  margin-top: .05in;
+}
 .embed {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -196,12 +221,22 @@ pre {
 .reaction {
   min-width: .4in;
   border-width: 2px;
+  border-color: transparent;
+  padding: 1px 2px;
 }
 .reaction:hover {
   border-color: var(--focus);
 }
 .reaction.meReacted {
   border-color: color-mix(in srgb, var(--primary-bg) 60%, var(--focus));
+}
+.reaction p {
+  font-size: 1em;
+}
+.smallemoji {
+  max-width: 1em;
+  max-height: 1em;
+  align-self: center;
 }
 
 /* Typing */
@@ -249,7 +284,7 @@ pre {
   border: none;
   background: none;
   padding-left: 1em;
-  margin: 0 5%;
+  margin: 0;
   height: .36in;
 }
 .flexspace {
