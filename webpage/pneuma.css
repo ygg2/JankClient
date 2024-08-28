@@ -188,7 +188,7 @@ pre {
   border-radius: 0;
 }
 
-/* Embed, Emote */
+/* Additions */
 .bot {
   border: none;
   border-radius: 4px;
@@ -272,7 +272,7 @@ pre {
   border: none;
 }
 
-/* Menu */
+/* Settings Menus */
 .settingstitle {
   border-bottom-width: .04in;
   padding: .1in 0 .1in .2in;
@@ -319,7 +319,7 @@ pre {
   gap: 1em;
 }
 
-/* Context Menu */
+/* Other Menus */
 .contextmenu {
   padding: 0.5em;
 }
@@ -330,4 +330,22 @@ pre {
   height: auto;
   border: none;
   margin: .01in 0;
+}
+.guildy h2 {
+  margin: 5px 0 5px 8px;
+}
+.discovery-guild {
+  box-shadow: none;
+  background: var(--profile-bg);
+  padding: 0.5em 1em;
+  position: relative;
+}
+.discovery-guild p {
+  margin-top: 2px;
+  max-width: calc(100% - 215px);
+}
+.discovery-guild .banner {
+  position: absolute;
+  left: auto;
+  right: 0;
 }
