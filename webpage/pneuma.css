@@ -1,0 +1,299 @@
+/* General */
+button, select {
+  font-size: 1rem;
+  padding: 0.2em 0.5em;
+  border-style: solid;
+  box-shadow: none;
+}
+fieldset input[type="radio"] {
+  margin-right: 0.5em;
+}
+input {
+  background: var(--textarea-bg);
+  box-shadow: none;
+}
+input[type=text], input[type=password] {
+  width: 100%;
+  padding-left: 0.8em;
+  box-sizing: border-box;
+}
+input[type=color] {
+  display: block;
+  width: .4in;
+}
+hr {
+  border-width: 1px;
+}
+textarea {
+  width: 100%;
+  padding: 0.8em;
+  box-sizing: border-box;
+}
+
+/* Login */
+#logindiv h1 {
+  padding-bottom: 1rem;
+}
+#logindiv input {
+  height: 2.8em;
+  margin-top: 0.2em;
+  margin-bottom: 1em;
+}
+#logindiv br {
+  line-height: 0;
+}
+
+/* Server List */
+#servers {
+  margin: 0;
+  padding: .085in .085in 0 .085in;
+}
+.servericon {
+  margin-bottom: .05in;
+}
+.unread {
+  transform: translate(-.2in, .2in);
+}
+.notiunread {
+  transform: translate(-.14in, .2in);
+}
+.serveropen .unread {
+  transform: translate(-0.14in, 0.1in) !important;
+}
+.servernoti:hover .unread {
+  transform: translate(-.14in, 0.15in);
+}
+
+/* Channels Area */
+#serverName {
+  padding-left: 0.14in;
+}
+#servertd {
+  background: var(--channels-bg);
+}
+.servertd {
+  border: none;
+  border-bottom-color: var(--server-border);
+  border-bottom-width: .03in;
+  border-bottom-style: solid;
+}
+.channels {
+  box-sizing: border-box;
+  padding: 0 0.5em;
+}
+.channel {
+  padding: 0;
+  min-height: 2em;
+  position: relative;
+}
+.channel span {
+  position: absolute;
+  top: 0.4em;
+}
+.channeleffects {
+  margin: 0.6em 0 0 0;
+  padding: 0;
+  width: 100%;
+  box-shadow: none;
+}
+.channeleffects:hover {
+  background-color: inherit;
+}
+#channels p2 {
+  font-weight: normal;
+  margin-left: 0.3em;
+}
+.space {
+  padding: 0.2em 0.2em 0 0.4em;
+}
+
+/* User */
+#userdock {
+  height: .52in;
+}
+#userinfo {
+  margin-left: 0.4em;
+  min-width: 50%;
+}
+#userpfp {
+  width: 32px;
+  height: 32px;
+}
+
+/* Messages Area */
+.messagediv {
+  padding: 0.15em .16in;
+}
+.topMessage {
+  margin-top: 1em;
+}
+.pfprow {
+  width: .54in;
+}
+.timestamp {
+  padding-left: 0.5rem;
+}
+/* when date line returns
+.replyflex {
+  margin-top:.6em;
+  margin-bottom: -.4em;
+}*/
+/* when quotes return
+.quoteline {
+  width: 0.26em;
+  border-radius: 0.13em;
+}
+.quote > span {
+  margin-left: 1.2em;
+}
+span .quoteline {
+  border-radius: unset;
+}
+span .quote:first-of-type .quoteline {
+  border-top-left-radius: 0.15em;
+  border-top-right-radius: 0.15em;
+}
+span .quote:last-of-type .quoteline {
+  border-bottom-left-radius: 0.15em;
+  border-bottom-right-radius: 0.15em;
+}*/
+pre {
+  padding: 1em;
+  border-radius: .05in;
+}
+.replytext pre {
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Embed, Emote */
+.embed {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 1em;
+  font-size: 0.8rem;
+}
+.embed a {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.embed p {
+  margin-bottom: 0.5em;
+}
+.reactiondiv {
+  margin-top: .05in;
+  margin-left: .5in;
+}
+.reaction {
+  min-width: .4in;
+  border-width: 2px;
+}
+.reaction:hover {
+  border-color: var(--focus);
+}
+.reaction.meReacted {
+  border-color: color-mix(in srgb, var(--primary-bg) 60%, var(--focus));
+}
+
+/* Typing */
+#realbox {
+  width: calc(100% - .32in);
+  padding: 0.6em 1em;
+  margin: .0in .16in .25in .16in;
+  box-shadow: none;
+}
+#typebox {
+  min-height: 1em;
+}
+#replybox {
+  padding: 0.2em 1em;
+}
+#replybox span {
+  font-size: 0.9rem;
+}
+/* when typing indicator is back
+#typing {
+  top: auto;
+  right: auto;
+  left: 1rem;
+  bottom: -1.4rem;
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  flex-direction: row-reverse;
+}
+.dot {
+  line-height: 5px;
+}*/
+
+/* Profile */
+.profile, .hypoprofile {
+  border-radius: .1in;
+}
+.infosection {
+  border-radius: .1in;
+}
+
+/* Menu */
+.settingstitle {
+  border-bottom-width: .04in;
+  padding: .1in 0 .1in .2in;
+}
+.settingbuttons {
+  border-right: solid .04in var(--message-bg-hover);
+}
+.SettingsButton {
+  border: none;
+  background: none;
+  padding-left: 1em;
+  margin: 0 5%;
+  height: .36in;
+}
+.flexspace {
+  padding: .2in;
+}
+.flexspace .flexspace {
+  padding: 0;
+}
+.flexspace.flexltr {
+  gap: .2in;
+}
+.flexspace:has(.Buttons){
+  padding: 0;
+}
+.optionElement {
+  width: 100%;
+  box-shadow: none;
+}
+.setting {
+  box-shadow: none;
+  margin-left: 1em;
+  margin-top: 1em;
+  padding: 1em;
+  width: calc(100% - 2em);
+  box-sizing: border-box;
+}
+.settingsname {
+  font-size: 1.3rem;
+}
+.exitsettings {
+  top: .1in;
+  right: .08in;
+}
+.savediv {
+  border: none;
+  gap: 1em;
+}
+
+/* Context Menu */
+.contextmenu {
+  padding: 0.5em;
+}
+.contextbutton {
+  font-size: 0.9rem;
+  font-weight: normal;
+  padding: 0.5em 1em;
+  height: auto;
+  border: none;
+  margin: .01in 0;
+}
