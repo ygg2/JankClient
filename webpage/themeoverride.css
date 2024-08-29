@@ -1,77 +1,100 @@
-.Light-theme { /* Not actually Light Theme, but no one uses that one */
+:root {
+  --color-bg-primary: #2d3036;
+  --color-bg-primary-darker: #232628;
+  --color-bg-primary-lighter: #545967;
+  --color-bg-secondary: #141718;
+  --color-textarea-bg: #393d44;
+
+  --color-text-primary: #e7e7e7;
+  --color-text-secondary: #bac4c5;
+  --color-link: #44cfbf;
+
+  --color-button-bg: #545967;
+  --color-button-bg-hover: #393d44;
+  --color-channel-area-button-bg-hover: #393d44;
+
+  --color-black: #000000;
+  --color-red: #ff5555;
+  --color-yellow: #f4e770;
+  --color-green: #22a696;
+
+  --accent-color: #16c3a9;
+}
+
+.Light-theme { /* Not actually Light Theme, but overrides it */
   color-scheme: dark;
 
   /* General */
-  --primary-bg: #2d3036;
-  --primary-text: #e7e7e7;
-  --icon-color: #16c3a9;
+  --primary-bg: var(--color-bg-primary);
+  --primary-text: var(--color-text-primary);
+  --icon-color: var(--accent-color);
 
-  --black: #141718;
-  --red: #ff5555;
-  --yellow: #f4e770;
-  --green: #22a696;
-  --focus: #44cfbf;
-  --link: #44cfbf;
-  --shadow: #000000;
+  --black: var(--color-black);
+  --red: var(--color-red);
+  --yellow: var(--color-yellow);
+  --green: var(--color-green);
+  --focus: color-mix(in srgb, var(--accent-color) 50%, transparent);
+  --link: var(--color-link);
+  --shadow: var(--color-black);
 
-  --scrollbar-track: #393d44;
-  --scrollbar-thumb: #545967;
-  --scrollbar-thumb-hover: #545967;
+  --scrollbar-track: var(--color-bg-secondary);
+  --scrollbar-thumb: var(--color-bg-primary-lighter);
+  --scrollbar-thumb-hover: var(--color-bg-primary-lighter);
 
-  --loading-bg: #232628;
+  --loading-bg: var(--color-bg-primary-darker);
 
   /* Server List */
-  --server-list: #141718;
-  --light-border: #393d44;
-  --blank-bg: #2d3036;
+  --server-list: var(--color-bg-secondary);
+  --light-border: var(--color-bg-primary-darker);
+  --blank-bg: var(--color-bg-primary);
 
   /* Channels Area */
-  --server-name-bg: #232628;
-  --server-border: #141718;
-  --channels-bg: #232628;
-  --channel-hover: #545967;
+  --server-name-bg: var(--color-bg-primary-darker);
+  --server-border: var(--color-bg-secondary);
+  --channels-bg: var(--color-bg-primary-darker);
+  --channel-hover: var(--color-channel-area-button-bg-hover);
 
   /* User */
-  --user-dock-bg: #141718;
-  --user-info-bg: #393d44;
-  --settings-hover: #393d44;
+  --user-dock-bg: var(--color-bg-secondary);
+  --user-info-bg: var(--color-channel-area-button-bg-hover);
+  --settings-hover: var(--color-channel-area-button-bg-hover);
 
   /* Messages Area */
-  --channel-name-bg: #2d3036;
-  --message-bg-hover: #232628;
-  --message-jump: #545967;
-  --timestamp-color: #bac4c5;
-  --reply-border: #545967;
-  --reply-bg: #000000;
-  --reply-text: #bac4c5;
-  --code-bg: #141718;
-  --spoiler-hover: #000000;
-  --spoiler-open-bg: #000000;
+  --channel-name-bg: var(--color-bg-primary);
+  --message-bg-hover: var(--color-bg-primary-darker);
+  --message-jump: var(--color-bg-primary-lighter);
+  --timestamp-color: var(--color-text-secondary);
+  --reply-border: var(--color-bg-primary-lighter);
+  --reply-bg: var(--color-bg-secondary);
+  --reply-text: var(--color-text-secondary);
+  --code-bg: var(--color-bg-secondary);
+  --spoiler-hover: var(--color-black);
+  --spoiler-open-bg: var(--color-black);
 
   /* Upload, External */
-  --embed: #141718;
-  --unknown-file-bg: #141718;
+  --embed: var(--color-bg-secondary);
+  --unknown-file-bg: var(--color-bg-secondary);
   --unknown-file-border: transparent;
 
   /* Typing */
-  --textarea-bg: #393d44;
+  --textarea-bg: var(--color-textarea-bg);
 
   /* Profile */
-  --profile-bg: #141718;
-  --profile-info-bg: #141718;
-  --pronouns: #bac4c5;
+  --profile-bg: var(--color-bg-secondary);
+  --profile-info-bg: var(--color-bg-secondary);
+  --pronouns: var(--color-text-secondary);
 
   /* Menu */
-  --dialog-bg: #2d3036;
-  --dialog-border: #2d3036;
-  --discovery-bg: #2d3036;
-  --button-bg: #545967;
-  --button-hover: #393d44;
-  --login-border: #000000;
+  --dialog-bg: var(--color-bg-primary);
+  --dialog-border: var(--color-bg-primary);
+  --discovery-bg: var(--color-bg-primary);
+  --button-bg: var(--color-button-bg);
+  --button-hover: var(--color-button-bg-hover);
+  --login-border: var(--color-bg-secondary);
 
   /* Currently Unused */
-  --filename: #44cfbf;
-  --mention-bg: #3d5755;
-  --quote-bg: #44cfbf;
-  --markdown-timestamp: #e7e7e7;
+  --filename: var(--color-link);
+  --mention-bg: color-mix(in srgb, var(--color-bg-primary) 80%, var(--accent-color));
+  --quote-bg: var(--accent-color);
+  --markdown-timestamp: var(--color-text-primary);
 }

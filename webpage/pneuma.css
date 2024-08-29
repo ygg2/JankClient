@@ -29,6 +29,9 @@ textarea {
   padding: 0.8em;
   box-sizing: border-box;
 }
+.title {
+  text-shadow: none;
+}
 
 /* Login */
 #logindiv h1 {
@@ -53,6 +56,7 @@ textarea {
 }
 .unread {
   transform: translate(-.2in, .2in);
+  border-color: var(--server-list);
 }
 .notiunread {
   transform: translate(-.14in, .2in);
@@ -325,8 +329,12 @@ pre {
   font-size: 1.3rem;
 }
 .exitsettings {
+  height: .35in;
   top: .1in;
   right: .08in;
+  background: var(--button-bg);
+  border: none;
+  box-shadow: none;
 }
 .savediv {
   border: none;
@@ -371,4 +379,15 @@ pre {
   height: 32px;
   width: 32px;
   margin: 0 0.5em 0 1em;
+}
+.invitediv {
+  padding: 0 0.5em;
+  border: none;
+}
+.copycontainer {
+  margin-right: .05in;
+  background: var(--button-bg);
+  border: none;
+  border-radius: 0 .1in .1in 0;
+  box-shadow: none;
 }
