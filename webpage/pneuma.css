@@ -45,8 +45,8 @@ textarea {
 
 /* Server List */
 #servers {
-  margin: 0;
   padding: .085in .085in 0 .085in;
+  margin: 0;
 }
 .servericon {
   margin-bottom: .07in;
@@ -71,17 +71,17 @@ textarea {
 .servertd {
   height: .5in;
   border: none;
-  border-bottom-color: var(--server-border);
-  border-bottom-width: 2px;
   border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: var(--server-border);
 }
 .channels {
-  box-sizing: border-box;
   padding: 0 0.5em;
+  box-sizing: border-box;
 }
 .channel {
-  padding: 0;
   min-height: 2em;
+  padding: 0;
   position: relative;
 }
 .channel span {
@@ -89,13 +89,15 @@ textarea {
   top: 0.4em;
 }
 .channeleffects {
-  margin: 0.6em 0 0 0;
-  padding: 0;
   width: 100%;
+  padding: 0;
+  margin: 0.6em 0 0 0;
+  color: var(--reply-text);
   box-shadow: none;
 }
 .channeleffects:hover {
   background-color: inherit;
+  color: var(--primary-text);
 }
 #channels p2 {
   font-weight: normal;
@@ -112,10 +114,10 @@ textarea {
   height: .075in;
   width: .075in;
   position: absolute;
-  background: var(--primary-text);
-  border-radius: 50%;
   left: -.115in;
   top: .14in;
+  background: var(--primary-text);
+  border-radius: 50%;
 }
 
 /* User */
@@ -123,16 +125,16 @@ textarea {
   height: .52in;
 }
 #userinfo {
-  margin-left: 0.4em;
   min-width: 50%;
+  margin-left: 0.4em;
   background: none;
 }
 #userinfo:hover {
   background: var(--user-info-bg);
 }
 #userpfp {
-  width: 32px;
   height: 32px;
+  width: 32px;
 }
 #user-actions {
   margin-right: .05in;
@@ -143,8 +145,8 @@ textarea {
   padding: .03in .16in 0 .16in;
 }
 .topMessage {
-  margin-top: 1em;
   padding-top: .05in;
+  margin-top: 1em;
 }
 .pfprow {
   width: .54in;
@@ -190,22 +192,22 @@ pre {
 
 /* Additions */
 .bot {
-  border: none;
-  border-radius: 4px;
   font-size: .8rem;
   height: .8rem;
   padding: 1px 5px 4px 5px;
   margin: 2px 0 0 .05in;
+  border: none;
+  border-radius: 4px;
 }
 .embed-color {
   padding-left: 4px;
   margin-top: .05in;
 }
 .embed {
+  font-size: 0.8rem;
+  padding: 1em;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  padding: 1em;
-  font-size: 0.8rem;
 }
 .embed a {
   font-size: 1rem;
@@ -220,9 +222,9 @@ pre {
 }
 .reaction {
   min-width: .4in;
+  padding: 1px 2px;
   border-width: 2px;
   border-color: transparent;
-  padding: 1px 2px;
 }
 .reaction:hover {
   border-color: var(--focus);
@@ -234,8 +236,8 @@ pre {
   font-size: 1em;
 }
 .smallemoji {
-  max-width: 1em;
   max-height: 1em;
+  max-width: 1em;
   align-self: center;
 }
 
@@ -281,11 +283,11 @@ pre {
   border-right: solid .04in var(--message-bg-hover);
 }
 .SettingsButton {
-  border: none;
-  background: none;
+  height: .36in;
   padding-left: 1em;
   margin: 0;
-  height: .36in;
+  background: none;
+  border: none;
 }
 .flexspace {
   padding: .2in;
@@ -301,10 +303,10 @@ pre {
   box-shadow: none;
 }
 .setting {
-  box-shadow: none;
-  margin-left: 1em;
-  padding: 1em;
   width: calc(100% - 2em);
+  padding: 1em;
+  margin-left: 1em;
+  box-shadow: none;
   box-sizing: border-box;
 }
 .settingsname {
@@ -339,14 +341,14 @@ pre {
   margin: 5px 0 5px 8px;
 }
 .discovery-guild {
-  box-shadow: none;
-  background: var(--profile-bg);
   padding: 0.5em 1em;
   position: relative;
+  background: var(--profile-bg);
+  box-shadow: none;
 }
 .discovery-guild p {
-  margin-top: 2px;
   max-width: calc(100% - 215px);
+  margin-top: 2px;
 }
 .discovery-guild .banner {
   position: absolute;
@@ -354,7 +356,7 @@ pre {
   right: 0;
 }
 .channeleffects .pfp {
-  width: 32px;
   height: 32px;
+  width: 32px;
   margin: 0 0.5em 0 1em;
 }
