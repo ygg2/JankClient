@@ -47,7 +47,11 @@
   --code-bg: #141718;
   --spoiler-hover: #000000;
   --spoiler-open-bg: #000000;
+
+  /* Upload, External */
   --embed: #141718;
+  --unknown-file-bg: #141718;
+  --unknown-file-border: transparent;
 
   /* Typing */
   --textarea-bg: #393d44;
@@ -63,14 +67,11 @@
   --discovery-bg: #2d3036;
   --button-bg: #545967;
   --button-hover: #393d44;
+  --login-border: #000000;
 
-  /* Unknown */
-  --typing-bg: red;
-  --quote-bg: red;
-  --filename: red;
-  --mention-bg: red;
-  --unknown-file-bg: red;
-  --unknown-file-border: red;
-  --login-border: red;
-  --markdown-timestamp: red;
+  /* Currently Unused */
+  --filename: #44cfbf;
+  --mention-bg: #3d5755;
+  --quote-bg: #44cfbf;
+  --markdown-timestamp: #e7e7e7;
 }
