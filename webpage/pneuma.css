@@ -141,6 +141,16 @@ textarea {
 }
 
 /* Messages Area */
+.channelnamediv {
+  display: inline-block;
+  padding-top: .125in;
+}
+#channelname {
+  display: inline-block;
+}
+#channelTopic {
+  color: var(--reply-text);
+}
 .messagediv {
   padding: .03in .16in 0 .16in;
 }
