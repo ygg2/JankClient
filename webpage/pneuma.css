@@ -375,11 +375,6 @@ pre {
   left: auto;
   right: 0;
 }
-.channeleffects .pfp {
-  height: 32px;
-  width: 32px;
-  margin: 0 0.5em 0 1em;
-}
 .invitediv {
   padding: 0 0.5em;
   border: none;
@@ -390,4 +385,13 @@ pre {
   border: none;
   border-radius: 0 .1in .1in 0;
   box-shadow: none;
+}
+
+/* DM */
+.channeleffects:has(.pfp) {
+  width: 94%;
+  margin: 0 3%;
+}
+.channeleffects:has(.pfp):hover {
+  background: var(--channel-hover);
 }
