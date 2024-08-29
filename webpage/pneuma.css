@@ -290,7 +290,7 @@ pre {
 .flexspace {
   padding: .2in;
 }
-.flexspace .flexspace, .flexspace:has(.Buttons) {
+.flexspace .flexspace {
   padding: 0;
 }
 .flexspace.flexltr {
@@ -326,10 +326,14 @@ pre {
 .contextbutton {
   font-size: 0.9rem;
   font-weight: normal;
-  padding: 0.5em 1em;
   height: auto;
+  padding: 0.5em 1em;
+  margin: 0;
+  background: var(--profile-info-bg);
   border: none;
-  margin: .01in 0;
+}
+.contextbutton:hover {
+  background: var(--channel-hover);
 }
 .guildy h2 {
   margin: 5px 0 5px 8px;
@@ -348,4 +352,9 @@ pre {
   position: absolute;
   left: auto;
   right: 0;
+}
+.channeleffects .pfp {
+  width: 32px;
+  height: 32px;
+  margin: 0 0.5em 0 1em;
 }

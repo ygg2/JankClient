@@ -37,7 +37,7 @@
   --settings-hover: #393d44;
 
   /* Messages Area */
-  --server-bg: #2d3036;
+  --channel-name-bg: #2d3036;
   --message-bg-hover: #232628;
   --message-jump: #545967;
   --timestamp-color: #bac4c5;
@@ -60,13 +60,13 @@
   /* Menu */
   --dialog-bg: #2d3036;
   --dialog-border: #2d3036;
-  --discovery-bg: #2d3036;;
+  --discovery-bg: #2d3036;
+  --button-bg: #545967;
+  --button-hover: #393d44;
 
   /* Unknown */
   --typing-bg: red;
   --quote-bg: red;
-  --button-bg: red;
-  --button-hover: red;
   --filename: red;
   --mention-bg: red;
   --unknown-file-bg: red;
