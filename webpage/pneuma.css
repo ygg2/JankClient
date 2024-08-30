@@ -21,13 +21,20 @@ input[type=color] {
   display: block;
   width: .4in;
 }
-hr {
-  border-width: 1px;
-}
 textarea {
   width: 100%;
   padding: 0.8em;
+  border: none;
   box-sizing: border-box;
+}
+input[type="text"]:focus-visible,
+input[type="password"]:focus-visible,
+textarea:focus-visible,
+#typebox:focus-visible {
+  outline-offset: -2px;
+}
+hr {
+  border-width: 1px;
 }
 .title {
   text-shadow: none;
@@ -92,7 +99,7 @@ textarea {
   box-shadow: none;
 }
 .channeleffects:hover {
-  background-color: inherit;
+  background: inherit;
   color: var(--primary-text);
 }
 #channels p2 {
@@ -189,7 +196,7 @@ span .quote:last-of-type .quoteline {
   border-bottom-right-radius: 0.15em;
 }*/
 .spoiler {
-  background-color: var(--spoiler-open-bg);
+  background: var(--spoiler-open-bg);
   color: var(--spoiler-open-bg);
 }
 pre {
@@ -290,10 +297,14 @@ pre {
 .profile, .hypoprofile {
   border-radius: .1in;
 }
+.profile {
+  box-shadow: 0 0 4px color-mix(in srgb, var(--shadow) 50%, transparent);
+}
 .infosection {
   border-radius: .1in;
 }
 .rolediv {
+  margin-right: .05in;
   border: none;
 }
 
@@ -332,6 +343,7 @@ pre {
   width: calc(100% - 2em);
   padding: 1em;
   margin-left: 1em;
+  background: var(--profile-info-bg);
   box-shadow: none;
   box-sizing: border-box;
 }
@@ -395,6 +407,22 @@ pre {
   border: none;
   border-radius: 0 .1in .1in 0;
   box-shadow: none;
+}
+.accountSwitcher {
+  border: none;
+  box-shadow: 0 0 4px color-mix(in srgb, var(--shadow) 50%, transparent);
+}
+.switchtable {
+  padding: 0.5em;
+  background: var(--primary-bg);
+  border: none;
+  box-shadow: none;
+}
+.switchtable:hover {
+  background: var(--message-bg-hover);
+}
+.serverURL {
+  color: var(--timestamp-color);
 }
 
 /* DM */
