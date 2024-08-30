@@ -188,6 +188,10 @@ span .quote:last-of-type .quoteline {
   border-bottom-left-radius: 0.15em;
   border-bottom-right-radius: 0.15em;
 }*/
+.spoiler {
+  background-color: var(--spoiler-open-bg);
+  color: var(--spoiler-open-bg);
+}
 pre {
   padding: 1em;
   border-radius: .05in;
@@ -221,6 +225,9 @@ pre {
 }
 .embed p {
   margin-bottom: 0.5em;
+}
+.embed .provider {
+  color: var(--pronouns);
 }
 .bot {
   font-size: .8rem;
@@ -304,6 +311,9 @@ pre {
   margin: 0;
   background: none;
   border: none;
+}
+.SettingsButton:hover {
+  background: var(--channel-hover);
 }
 .flexspace {
   padding: .2in;
