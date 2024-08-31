@@ -111,6 +111,7 @@ hr {
   vertical-align: -2px;
 }
 .cunread {
+  position: relative;
   box-shadow: none;
 }
 .cunread:after {
@@ -119,7 +120,7 @@ hr {
   width: .075in;
   position: absolute;
   left: -.115in;
-  top: .14in;
+  top: .13in;
   background: var(--primary-text);
   border-radius: 50%;
 }
@@ -153,6 +154,7 @@ hr {
   display: inline-block;
 }
 #channelTopic {
+  font-size: 0.9rem;
   color: var(--reply-text);
 }
 .messagediv {
@@ -167,6 +169,11 @@ hr {
 }
 .username {
   margin-bottom: 0.05in;
+}
+.membererror {
+  font-size: 0.7rem;
+  background: var(--red);
+  border-color: var(--primary-text);
 }
 .timestamp {
   padding-left: 0.5rem;
@@ -260,7 +267,7 @@ pre {
   border-color: var(--focus);
 }
 .reaction.meReacted {
-  border-color: color-mix(in srgb, var(--primary-bg) 60%, var(--focus));
+  border-color: color-mix(in srgb, var(--channels-bg) 60%, var(--accent-color));
 }
 .reaction p {
   font-size: 1em;
