@@ -172,8 +172,8 @@ hr {
 }
 .membererror {
   font-size: 0.7rem;
-  background: var(--red);
-  border-color: var(--primary-text);
+  background: transparent;
+  border-color: var(--red);
 }
 .timestamp {
   padding-left: 0.5rem;

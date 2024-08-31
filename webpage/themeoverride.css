@@ -28,17 +28,17 @@
 .Light-theme {
   color-scheme: light;
 
-  --color-bg-primary: #ffffff;
+  --color-bg-primary: #f4fbfc;
   --color-bg-primary-hover: #e5ecec;
-  --color-bg-secondary: #bbeedd;
+  --color-bg-secondary: #afe8d7;
   --color-bg-panel: #ecf5f6;
   --color-bg-dock: #d8e7eb;
-  --color-bg-textarea: #ecf5f6;
+  --color-bg-textarea: #e0edf0;
   --color-bg-message-highlight: #d8e7eb;
 
   --color-text-primary: #3d4454;
   --color-text-primary-soft: #869da7;
-  --color-text-secondary-soft: #319991;
+  --color-text-secondary-soft: #1e838a;
   --color-spoiler: #b8c2f8;
   --color-link: #487fba;
 
@@ -47,9 +47,9 @@
   --color-panel-button-bg-hover: #b5e0f1;
 
   --color-black: #0e2436;
-  --color-red: #ea7cc0;
+  --color-red: #d14d9f;
   --color-yellow: #fff599;
-  --color-green: #39ccaa;
+  --color-green: #049188;
 }
 
 .WHITE-theme {
