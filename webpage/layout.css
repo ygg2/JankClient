@@ -494,6 +494,7 @@ pre {
   --embed: var(--color-bg-secondary);
   --unknown-file-bg: var(--color-bg-secondary);
   --unknown-file-border: transparent;
+  --filename: var(--color-link);
 
   /* Typing */
   --textarea-bg: var(--color-bg-textarea);
@@ -512,7 +513,6 @@ pre {
   --login-border: var(--color-bg-secondary);
 
   /* Currently Unused */
-  --filename: var(--color-link);
   --mention-bg: color-mix(in srgb, var(--color-bg-primary) 80%, var(--accent-color));
   --quote-bg: var(--accent-color);
   --markdown-timestamp: var(--color-text-primary);
