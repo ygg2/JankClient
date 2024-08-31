@@ -369,6 +369,9 @@ pre {
   border: none;
   gap: 1em;
 }
+.savediv button {
+  background: color-mix(in srgb, var(--green) 40%, var(--primary-bg));
+}
 
 /* Other Menus */
 .contextmenu {
@@ -382,9 +385,6 @@ pre {
   margin: 0;
   background: var(--profile-info-bg);
   border: none;
-}
-.contextbutton:hover {
-  background: var(--channel-hover);
 }
 .guildy h2 {
   margin: 5px 0 5px 8px;
@@ -443,8 +443,6 @@ pre {
 
 /* Theme Simplification */
 .Dark-theme, .Light-theme, .WHITE-theme {
-  --accent-color: #16c3a9;
-
   /* General */
   --primary-bg: var(--color-bg-primary);
   --primary-text: var(--color-text-primary);
