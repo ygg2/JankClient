@@ -503,7 +503,7 @@ pre {
   /* Profile */
   --profile-bg: var(--color-bg-secondary);
   --profile-info-bg: var(--color-bg-secondary);
-  --pronouns: var(--color-text-secondary);
+  --pronouns: var(--color-text-secondary-soft);
 
   /* Menu */
   --dialog-bg: var(--color-bg-primary);

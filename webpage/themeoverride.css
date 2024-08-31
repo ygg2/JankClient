@@ -3,7 +3,7 @@
 
   --color-bg-primary: #2d3036;
   --color-bg-primary-hover: #232628;
-  --color-bg-secondary: #141718;
+  --color-bg-secondary-soft: #141718;
   --color-bg-panel: #232628;
   --color-bg-dock: #141718;
   --color-bg-textarea: #393d44;
@@ -38,7 +38,7 @@
 
   --color-text-primary: #3d4454;
   --color-text-primary-soft: #869da7;
-  --color-text-secondary: #319991;
+  --color-text-secondary-soft: #319991;
   --color-spoiler: #b8c2f8;
   --color-link: #487fba;
 
@@ -65,7 +65,7 @@
 
   --color-text-primary: #666666;
   --color-text-primary-soft: #777777;
-  --color-text-secondary: #777777;
+  --color-text-secondary-soft: #777777;
   --color-spoiler: #dddcdf;
   --color-link: #3377ff;
 
