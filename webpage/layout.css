@@ -87,11 +87,12 @@ hr {
   border-bottom-color: var(--server-border);
 }
 .channels {
-  padding: 0 0.5em;
+  padding: 0;
 }
 .channel {
   min-height: 2em;
   padding: 0;
+  margin: 0 0.5em;
 }
 .channeleffects {
   margin-top: 0.6em;
@@ -209,6 +210,11 @@ span .quote:last-of-type .quoteline {
 pre {
   padding: 1em;
   border-radius: .05in;
+  box-sizing: border-box;
+}
+span:has(pre) {
+  display: inline-block;
+  width: 90%;
 }
 .replytext pre {
   padding: 0;

@@ -9,7 +9,7 @@
   --color-bg-textarea: #393d44;
   --color-bg-message-highlight: #141718;
 
-  --color-text-primary: #e7e7e7;
+  --color-text-primary: #e0e0e0;
   --color-text-primary-soft: #bac4c5;
   --color-text-secondary-soft: #bac4c5;
   --color-spoiler: #000000;
@@ -28,19 +28,19 @@
 .Light-theme {
   color-scheme: light;
 
-  --color-bg-primary: #f4fbfc;
-  --color-bg-primary-hover: #e5ecec;
-  --color-bg-secondary: #afe8d7;
-  --color-bg-panel: #ecf5f6;
-  --color-bg-dock: #d8e7eb;
-  --color-bg-textarea: #e0edf0;
+  --color-bg-primary: #ecf5f6;
+  --color-bg-primary-hover: #e0edf0;
+  --color-bg-secondary: #b6e6d8;
+  --color-bg-panel: #f6fbfc;
+  --color-bg-dock: #e0edf0;
+  --color-bg-textarea: #d8e7eb;
   --color-bg-message-highlight: #d8e7eb;
 
   --color-text-primary: #3d4454;
-  --color-text-primary-soft: #869da7;
-  --color-text-secondary-soft: #1e838a;
+  --color-text-primary-soft: #748c9b;
+  --color-text-secondary-soft: #45646f;
   --color-spoiler: #b8c2f8;
-  --color-link: #487fba;
+  --color-link: #417ab6;
 
   --color-button-bg: #b8c2f8;
   --color-button-bg-hover: #d4b5ff;
