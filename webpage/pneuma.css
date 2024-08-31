@@ -442,9 +442,9 @@ pre {
 }
 
 /* Theme Simplification */
-.Dark-theme, .Light-theme {
+.Dark-theme, .Light-theme, .WHITE-theme {
   --accent-color: #16c3a9;
-  
+
   /* General */
   --primary-bg: var(--color-bg-primary);
   --primary-text: var(--color-text-primary);
