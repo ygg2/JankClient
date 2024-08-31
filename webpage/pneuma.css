@@ -440,3 +440,82 @@ pre {
 .channeleffects:has(.pfp):hover {
   background: var(--channel-hover);
 }
+
+/* Theme Simplification */
+.Dark-theme, .Light-theme {
+  --accent-color: #16c3a9;
+  
+  /* General */
+  --primary-bg: var(--color-bg-primary);
+  --primary-text: var(--color-text-primary);
+  --icon-color: var(--accent-color);
+
+  --black: var(--color-black);
+  --red: var(--color-red);
+  --yellow: var(--color-yellow);
+  --green: var(--color-green);
+  --focus: color-mix(in srgb, var(--accent-color) 50%, transparent);
+  --link: var(--color-link);
+  --shadow: var(--color-black);
+
+  --scrollbar-track: var(--color-bg-primary-hover);
+  --scrollbar-thumb: var(--color-bg-secondary);
+  --scrollbar-thumb-hover: var(--color-bg-secondary);
+
+  --loading-bg: var(--color-bg-panel);
+
+  /* Server List */
+  --server-list: var(--color-bg-secondary);
+  --light-border: var(--color-bg-primary);
+  --blank-bg: var(--color-bg-primary);
+
+  /* Channels Area */
+  --server-name-bg: var(--color-bg-panel);
+  --server-border: var(--color-bg-secondary);
+  --channels-bg: var(--color-bg-panel);
+  --channel-hover: var(--color-panel-button-bg-hover);
+
+  /* User */
+  --user-dock-bg: var(--color-bg-dock);
+  --user-info-bg: var(--color-panel-button-bg-hover);
+  --settings-hover: var(--color-panel-button-bg-hover);
+
+  /* Messages Area */
+  --channel-name-bg: var(--color-bg-primary);
+  --message-bg-hover: var(--color-bg-primary-hover);
+  --message-jump: var(--color-bg-message-highlight);
+  --timestamp-color: var(--color-text-primary-soft);
+  --reply-bg: var(--color-bg-message-highlight);
+  --reply-border: color-mix(in srgb, var(--color-text-primary-soft) 20%, transparent);
+  --reply-text: var(--color-text-primary-soft);
+  --code-bg: var(--color-bg-secondary);
+  --spoiler-hover: color-mix(in srgb, var(--color-spoiler) 90%, var(--color-text-primary));
+  --spoiler-open-bg: var(--color-spoiler);
+
+  /* Upload, External */
+  --embed: var(--color-bg-secondary);
+  --unknown-file-bg: var(--color-bg-secondary);
+  --unknown-file-border: transparent;
+
+  /* Typing */
+  --textarea-bg: var(--color-bg-textarea);
+
+  /* Profile */
+  --profile-bg: var(--color-bg-secondary);
+  --profile-info-bg: var(--color-bg-secondary);
+  --pronouns: var(--color-text-secondary);
+
+  /* Menu */
+  --dialog-bg: var(--color-bg-primary);
+  --dialog-border: var(--color-bg-primary);
+  --discovery-bg: var(--color-bg-primary);
+  --button-bg: var(--color-button-bg);
+  --button-hover: var(--color-button-bg-hover);
+  --login-border: var(--color-bg-secondary);
+
+  /* Currently Unused */
+  --filename: var(--color-link);
+  --mention-bg: color-mix(in srgb, var(--color-bg-primary) 80%, var(--accent-color));
+  --quote-bg: var(--accent-color);
+  --markdown-timestamp: var(--color-text-primary);
+}
