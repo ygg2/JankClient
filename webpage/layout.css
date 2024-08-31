@@ -84,7 +84,7 @@ hr {
   border: none;
   border-bottom-style: solid;
   border-bottom-width: 2px;
-  border-bottom-color: var(--server-border);
+  border-bottom-color: color-mix(in srgb, var(--black) 50%, transparent);
 }
 .channels {
   padding: 0;
@@ -106,6 +106,9 @@ hr {
 #channels p2 {
   font-weight: normal;
   margin-left: 0.3em;
+}
+#channels > div > div:first-child:is(.channel) {
+  margin-top: 0.5em;
 }
 .space {
   margin: 0.3em 0.2em 0 0.4em;
