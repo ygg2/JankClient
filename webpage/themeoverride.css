@@ -29,10 +29,10 @@
   color-scheme: light;
 
   --color-bg-primary: #ecf5f6;
-  --color-bg-primary-hover: #e0edf0;
-  --color-bg-secondary: #b6e6d8;
-  --color-bg-panel: #f6fbfc;
-  --color-bg-dock: #e0edf0;
+  --color-bg-primary-hover: #d8e7eb;
+  --color-bg-secondary: #9cddcc;
+  --color-bg-panel: #e4f1f4;
+  --color-bg-dock: #c7e1e8;
   --color-bg-textarea: #d8e7eb;
   --color-bg-message-highlight: #d8e7eb;
 
@@ -40,7 +40,7 @@
   --color-text-primary-soft: #748c9b;
   --color-text-secondary-soft: #45646f;
   --color-spoiler: #b8c2f8;
-  --color-link: #417ab6;
+  --color-link: #487fba;
 
   --color-button-bg: #b8c2f8;
   --color-button-bg-hover: #d4b5ff;
