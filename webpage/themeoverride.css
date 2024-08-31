@@ -4,8 +4,8 @@
   --color-bg-primary: #2d3036;
   --color-bg-primary-hover: #232628;
   --color-bg-secondary: #141718;
+  --color-bg-server-bar: #141718;
   --color-bg-panel: #232628;
-  --color-bg-dock: #141718;
   --color-bg-textarea: #393d44;
   --color-bg-message-highlight: #141718;
 
@@ -30,9 +30,9 @@
 
   --color-bg-primary: #ecf5f6;
   --color-bg-primary-hover: #d8e7eb;
-  --color-bg-secondary: #9cddcc;
+  --color-bg-secondary: #c7e1e8;
+  --color-bg-server-bar: #9cddcc;
   --color-bg-panel: #e4f1f4;
-  --color-bg-dock: #c7e1e8;
   --color-bg-textarea: #d8e7eb;
   --color-bg-message-highlight: #d8e7eb;
 
@@ -57,9 +57,9 @@
 
   --color-bg-primary: #ffffff;
   --color-bg-primary-hover: #f6f7f7;
-  --color-bg-secondary: #e7e7ee;
+  --color-bg-secondary: #edecef;
+  --color-bg-server-bar: #e7e7ee;
   --color-bg-panel: #f3f5f5;
-  --color-bg-dock: #edecef;
   --color-bg-textarea: #edecef;
   --color-bg-message-highlight: #d8e7eb;
 

@@ -469,7 +469,7 @@ span:has(pre) {
   --loading-bg: var(--color-bg-panel);
 
   /* Server List */
-  --server-list: var(--color-bg-secondary);
+  --server-list: var(--color-bg-server-bar);
   --light-border: var(--color-bg-primary);
   --blank-bg: var(--color-bg-primary);
 
@@ -480,7 +480,7 @@ span:has(pre) {
   --channel-hover: var(--color-panel-button-bg-hover);
 
   /* User */
-  --user-dock-bg: var(--color-bg-dock);
+  --user-dock-bg: var(--color-bg-secondary);
   --user-info-bg: var(--color-panel-button-bg-hover);
   --settings-hover: var(--color-panel-button-bg-hover);
 
