@@ -137,6 +137,7 @@ hr {
   min-width: 50%;
   margin-left: .05in;
   background: none;
+  color: var(--markdown-timestamp);
 }
 #userinfo:hover {
   background: var(--user-info-bg);
@@ -188,6 +189,7 @@ hr {
 }
 pre {
   padding: 1em;
+  color: var(--markdown-timestamp);
   border-radius: .05in;
   box-sizing: border-box;
 }
@@ -197,6 +199,7 @@ span:has(pre) {
 }
 .replytext pre {
   padding: 0;
+  color: var(--pronouns);
   border-radius: 0;
 }
 
@@ -215,6 +218,7 @@ span:has(pre) {
 .embed {
   font-size: 0.8rem;
   padding: 1em;
+  color: var(--markdown-timestamp);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -326,6 +330,7 @@ span:has(pre) {
 
 /* Profile */
 .profile, .hypoprofile {
+  color: var(--markdown-timestamp);
   border-radius: .1in;
 }
 .profile {
@@ -363,6 +368,9 @@ span:has(pre) {
 .flexspace .flexspace {
   padding: 0;
 }
+.flexspace .flexspace:has(.setting) {
+  padding: 1em 0 3em 0;
+}
 .flexspace.flexltr {
   gap: .2in;
 }
@@ -375,6 +383,7 @@ span:has(pre) {
   padding: 1em;
   margin-left: 1em;
   background: var(--profile-info-bg);
+  color: var(--markdown-timestamp);
   box-shadow: none;
   box-sizing: border-box;
 }
@@ -391,6 +400,7 @@ span:has(pre) {
 }
 .savediv {
   border: none;
+  box-shadow: 0 0 .05in color-mix(in srgb, var(--shadow) 50%, transparent);
   gap: 1em;
 }
 .savediv button {
@@ -400,6 +410,7 @@ span:has(pre) {
 /* Other Menus */
 .contextmenu {
   padding: 0.5em;
+  box-shadow: 0 0 .05in color-mix(in srgb, var(--shadow) 50%, transparent);
 }
 .contextbutton {
   font-size: 0.9rem;
@@ -408,7 +419,11 @@ span:has(pre) {
   padding: 0.5em 1em;
   margin: 0;
   background: var(--profile-info-bg);
+  color: var(--markdown-timestamp);
   border: none;
+}
+.contextbutton:hover {
+  background: color-mix(in srgb, var(--color-text-secondary-soft) 15%, transparent);
 }
 .guildy h2 {
   margin: .05in 0 .05in .08in;
@@ -499,8 +514,8 @@ span:has(pre) {
 
   /* User */
   --user-dock-bg: var(--color-bg-secondary);
-  --user-info-bg: var(--color-panel-button-bg-hover);
-  --settings-hover: var(--color-panel-button-bg-hover);
+  --user-info-bg: color-mix(in srgb, var(--color-text-secondary-soft) 15%, transparent);
+  --settings-hover: color-mix(in srgb, var(--color-text-secondary-soft) 15%, transparent);
 
   /* Messages Area */
   --channel-name-bg: var(--color-bg-primary);
@@ -536,8 +551,8 @@ span:has(pre) {
   --button-hover: var(--color-button-bg-hover);
   --login-border: var(--color-bg-secondary);
 
-  /* Currently Unused */
+  /* Currently Unused Officially */
   --mention-bg: color-mix(in srgb, var(--color-bg-primary) 80%, var(--accent-color));
   --quote-bg: var(--accent-color);
-  --markdown-timestamp: var(--color-text-primary);
+  --markdown-timestamp: var(--color-text-secondary);
 }
