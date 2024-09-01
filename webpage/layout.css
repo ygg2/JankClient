@@ -336,8 +336,18 @@ span:has(pre) {
 .profile {
   box-shadow: 0 0 .05in color-mix(in srgb, var(--shadow) 50%, transparent);
 }
+.hypoprofile {
+  box-shadow: none;
+}
 .infosection {
+  background: linear-gradient(to top, var(--accent_color), transparent);
   border-radius: .1in;
+}
+.tag {
+  margin-top: .02in;
+}
+.pronouns {
+  margin-top: .05in;
 }
 .rolediv {
   margin-right: .05in;
@@ -397,6 +407,9 @@ span:has(pre) {
   background: var(--button-bg);
   border: none;
   box-shadow: none;
+}
+.exitsettings:hover {
+  background: var(--button-hover);
 }
 .savediv {
   border: none;
