@@ -29,6 +29,7 @@ textarea {
 }
 input[type="text"]:focus-visible,
 input[type="password"]:focus-visible,
+input[type="date"],
 textarea:focus-visible,
 #typebox:focus-visible {
   outline-offset: -2px;
@@ -41,11 +42,20 @@ hr {
 }
 
 /* Login */
+#logindiv {
+  height: auto;
+  min-height: auto;
+  min-width: 40%;
+  padding: .2in 0;
+}
 #logindiv h1 {
   padding-bottom: 1rem;
 }
-#logindiv input {
+#logindiv input[type="text"],
+#logindiv input[type="password"],
+#logindiv input[type="date"] {
   height: 2.8em;
+  padding: 0 0.8em;
   margin-top: 0.2em;
   margin-bottom: 1em;
 }
