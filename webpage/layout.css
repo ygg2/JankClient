@@ -34,7 +34,7 @@ textarea:focus-visible,
   outline-offset: -2px;
 }
 hr {
-  border-width: .15in;
+  border-width: .015in;
 }
 .title {
   text-shadow: none;
@@ -261,6 +261,45 @@ span:has(pre) {
   max-height: 1em;
   max-width: 1em;
   align-self: center;
+}
+.emojiPicker {
+  height: 3.8in;
+  border: none;
+  box-shadow: 0 0 .05in color-mix(in srgb, var(--shadow) 50%, transparent);
+}
+.emojiTitle {
+  padding: .1in 0 0 .14in;
+  border: none;
+}
+.emojiBody {
+  padding: .05in;
+  background: var(--primary-bg);
+  border-radius: 0 0 .15in .15in;
+}
+.emojiSelect {
+  height: 32px;
+  width: 32px;
+  padding: .025in;
+  background: var(--primary-bg);
+  border: none;
+  border-radius: 30%;
+}
+.emojiSelect:hover {
+  background: var(--message-bg-hover);
+}
+.emojirow {
+  padding: .1in;
+  gap: .05in;
+}
+.emojirow .emojiSelect {
+  padding: 0;
+  background: var(--profile-info-bg);
+}
+.emojirow .emojiSelect:hover {
+  background: color-mix(in srgb, var(--pronouns) 25%, transparent);
+}
+.emoji-server {
+  margin: 0;
 }
 
 /* Typing */
