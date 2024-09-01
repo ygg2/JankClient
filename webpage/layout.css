@@ -12,9 +12,9 @@ input {
   background: var(--textarea-bg);
   box-shadow: none;
 }
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type="date"] {
   width: 100%;
-  padding-left: 0.8em;
+  padding: 0 0.8em;
   box-sizing: border-box;
 }
 input[type=color] {
@@ -44,23 +44,21 @@ hr {
 /* Login */
 #logindiv {
   height: auto;
+  width: 6in;
   min-height: auto;
-  min-width: 40%;
+  min-width: auto;
+  max-width: 90%;
   padding: .2in 0;
 }
-#logindiv h1 {
-  padding-bottom: 1rem;
-}
-#logindiv input[type="text"],
-#logindiv input[type="password"],
-#logindiv input[type="date"] {
-  height: 2.8em;
-  padding: 0 0.8em;
-  margin-top: 0.2em;
-  margin-bottom: 1em;
+#logindiv label, #TOSbox {
+  display: inline-block;
+  margin: .16in 0 .05in 0;
 }
 #logindiv br {
   line-height: 0;
+}
+#logindiv button {
+  margin-top: .2in;
 }
 
 /* Server List */
