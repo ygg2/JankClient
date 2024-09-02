@@ -22,13 +22,13 @@ function trimswitcher() {
     for (const thing in json.users) {
         const user = json.users[thing];
         let wellknown = user.serverurls.wellknown;
-        if (wellknown[wellknown.length - 1] !== "/") {
+        if (wellknown.at(-1) !== "/") {
             wellknown += "/";
         }
         wellknown += user.username;
         if (map.has(wellknown)) {
             const otheruser = map.get(wellknown);
-            if (otheruser[1].serverurls.wellknown[otheruser[1].serverurls.wellknown.length - 1] === "/") {
+            if (otheruser[1].serverurls.wellknown.at(-1) === "/") {
                 delete json.users[otheruser[0]];
                 map.set(wellknown, [thing, user]);
             }
@@ -41,7 +41,7 @@ function trimswitcher() {
         }
     }
     for (const thing in json.users) {
-        if (thing[thing.length - 1] === "/") {
+        if (thing.at(-1) === "/") {
             const user = json.users[thing];
             delete json.users[thing];
             json.users[thing.slice(0, -1)] = user;
@@ -73,7 +73,7 @@ function setDefaults() {
     if (userinfos.accent_color === undefined) {
         userinfos.accent_color = "#16c3a9";
     }
-    document.documentElement.style.setProperty('--accent-color', userinfos.accent_color);
+    document.documentElement.style.setProperty("--accent-color", userinfos.accent_color);
     if (userinfos.preferences === undefined) {
         userinfos.preferences = {
             theme: "Dark",
@@ -103,11 +103,8 @@ class Specialuser {
         this.serverurls.api = apistring;
         this.serverurls.cdn = new URL(json.serverurls.cdn).toString().replace(/\/$/, "");
         this.serverurls.gateway = new URL(json.serverurls.gateway).toString().replace(/\/$/, "");
-        ;
         this.serverurls.wellknown = new URL(json.serverurls.wellknown).toString().replace(/\/$/, "");
-        ;
         this.serverurls.login = new URL(json.serverurls.login).toString().replace(/\/$/, "");
-        ;
         this.email = json.email;
         this.token = json.token;
         this.loggedin = json.loggedin;
@@ -154,13 +151,36 @@ function adduser(user) {
 const instancein = document.getElementById("instancein");
 let timeout;
 let instanceinfo;
+const stringURLMap = new Map();
+const stringURLsMap = new Map();
 async function getapiurls(str) {
-    if (str[str.length - 1] !== "/") {
+    if (!URL.canParse(str)) {
+        const val = stringURLMap.get(str);
+        if (val) {
+            str = val;
+        }
+        else {
+            const val = stringURLsMap.get(str);
+            if (val) {
+                const responce = await fetch(val.api + val.api.endsWith("/") ? "" : "/" + "ping");
+                if (responce.ok) {
+                    if (val.login) {
+                        return val;
+                    }
+                    else {
+                        val.login = val.api;
+                        return val;
+                    }
+                }
+            }
+        }
+    }
+    if (str.at(-1) !== "/") {
         str += "/";
     }
     let api;
     try {
-        const info = await fetch(`${str}/.well-known/spacebar`).then((x) => x.json());
+        const info = await fetch(`${str}/.well-known/spacebar`).then(x => x.json());
         api = info.api;
     }
     catch {
@@ -168,7 +188,7 @@ async function getapiurls(str) {
     }
     const url = new URL(api);
     try {
-        const info = await fetch(`${api}${url.pathname.includes("api") ? "" : "api"}/policies/instance/domains`).then((x) => x.json());
+        const info = await fetch(`${api}${url.pathname.includes("api") ? "" : "api"}/policies/instance/domains`).then(x => x.json());
         return {
             api: info.apiEndpoint,
             gateway: info.gateway,
@@ -178,6 +198,19 @@ async function getapiurls(str) {
         };
     }
     catch {
+        const val = stringURLsMap.get(str);
+        if (val) {
+            const responce = await fetch(val.api + val.api.endsWith("/") ? "" : "/" + "ping");
+            if (responce.ok) {
+                if (val.login) {
+                    return val;
+                }
+                else {
+                    val.login = val.api;
+                    return val;
+                }
+            }
+        }
         return false;
     }
 }
@@ -185,18 +218,24 @@ async function checkInstance(e) {
     const verify = document.getElementById("verify");
     try {
         verify.textContent = "Checking Instance";
-        const instanceinfo = await setInstance(instancein.value);
-        localStorage.setItem("instanceinfo", JSON.stringify(instanceinfo));
-        verify.textContent = "Instance is all good";
-        if (checkInstance["alt"]) {
-            checkInstance["alt"]();
+        const instanceinfo = await getapiurls(instancein.value);
+        if (instanceinfo) {
+            instanceinfo.value = instancein.value;
+            localStorage.setItem("instanceinfo", JSON.stringify(instanceinfo));
+            verify.textContent = "Instance is all good";
+            if (checkInstance.alt) {
+                checkInstance.alt();
+            }
+            setTimeout(_ => {
+                console.log(verify.textContent);
+                verify.textContent = "";
+            }, 3000);
         }
-        setTimeout(_ => {
-            console.log(verify.textContent);
-            verify.textContent = "";
-        }, 3000);
+        else {
+            verify.textContent = "Invalid Instance, try again";
+        }
     }
-    catch (e) {
+    catch {
         console.log("catch");
         verify.textContent = "Invalid Instance, try again";
     }
@@ -210,7 +249,13 @@ if (instancein) {
         timeout = setTimeout(checkInstance, 1000);
     });
     if (localStorage.getItem("instanceinfo")) {
-        instancein.value = JSON.parse(localStorage.getItem("instanceinfo")).wellknown;
+        const json = JSON.parse(localStorage.getItem("instanceinfo"));
+        if (json.value) {
+            instancein.value = json.value;
+        }
+        else {
+            instancein.value = json.wellknown;
+        }
     }
     else {
         checkInstance("https://spacebar.chat/");
@@ -223,10 +268,10 @@ async function login(username, password, captcha) {
     const options = {
         method: "POST",
         body: JSON.stringify({
-            "login": username,
-            "password": password,
-            "undelete": false,
-            "captcha_key": captcha
+            login: username,
+            password,
+            undelete: false,
+            captcha_key: captcha
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -235,10 +280,10 @@ async function login(username, password, captcha) {
     try {
         const info = JSON.parse(localStorage.getItem("instanceinfo"));
         const api = info.login + (info.login.startsWith("/") ? "/" : "");
-        return await fetch(api + '/auth/login', options).then(response => response.json())
-            .then((response) => {
+        return await fetch(api + "/auth/login", options).then(response => response.json())
+            .then(response => {
             console.log(response, response.message);
-            if ("Invalid Form Body" === response.message) {
+            if (response.message === "Invalid Form Body") {
                 return response.errors.login._errors[0].message;
                 console.log("test");
             }
@@ -258,13 +303,14 @@ async function login(username, password, captcha) {
                 else {
                     eval("hcaptcha.reset()");
                 }
-                return;
             }
             else {
                 console.log(response);
                 if (response.ticket) {
                     let onetimecode = "";
-                    new Dialog(["vdiv", ["title", "2FA code:"], ["textbox", "", "", function () { onetimecode = this.value; }], ["button", "", "Submit", function () {
+                    new Dialog(["vdiv", ["title", "2FA code:"], ["textbox", "", "", function () {
+                                onetimecode = this.value;
+                            }], ["button", "", "Submit", function () {
                                 fetch(api + "/auth/mfa/totp", {
                                     method: "POST",
                                     headers: {
@@ -288,7 +334,7 @@ async function login(username, password, captcha) {
                                             window.location.href = redir;
                                         }
                                         else {
-                                            window.location.href = '/channels/@me';
+                                            window.location.href = "/channels/@me";
                                         }
                                     }
                                 });
@@ -304,7 +350,7 @@ async function login(username, password, captcha) {
                         window.location.href = redir;
                     }
                     else {
-                        window.location.href = '/channels/@me';
+                        window.location.href = "/channels/@me";
                     }
                     return "";
                 }
@@ -312,36 +358,12 @@ async function login(username, password, captcha) {
         });
     }
     catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
     }
-    ;
-}
-async function setInstance(url) {
-    url = new URL(url);
-    async function attempt(aurl) {
-        const info = await fetch(`${aurl.toString()}${aurl.pathname.includes("api") ? "" : "api"}/policies/instance/domains`)
-            .then((x) => x.json());
-        return {
-            api: info.apiEndpoint,
-            gateway: info.gateway,
-            cdn: info.cdn,
-            wellknown: url,
-            login: aurl.toString()
-        };
-    }
-    try {
-        return await attempt(url);
-    }
-    catch (e) {
-    }
-    const wellKnown = await fetch(`${url.origin}/.well-known/spacebar`)
-        .then((x) => x.json())
-        .then((x) => new URL(x.api));
-    return await attempt(wellKnown);
 }
 async function check(e) {
     e.preventDefault();
-    let h = await login(e.srcElement[1].value, e.srcElement[2].value, e.srcElement[3].value);
+    const h = await login(e.srcElement[1].value, e.srcElement[2].value, e.srcElement[3].value);
     document.getElementById("wrong").textContent = h;
     console.log(h);
 }
@@ -387,3 +409,41 @@ if (switchurl) {
 export { checkInstance };
 trimswitcher();
 export { mobile, getBulkUsers, getBulkInfo, setTheme, Specialuser, getapiurls, adduser };
+const datalist = document.getElementById("instances");
+console.warn(datalist);
+if (datalist) {
+    fetch("/instances.json").then(_ => _.json()).then((json) => {
+        console.warn(json);
+        if (instancein && instancein.value === "") {
+            instancein.value = json[0].name;
+        }
+        for (const instance of json) {
+            if (instance.display === false) {
+                continue;
+            }
+            const option = document.createElement("option");
+            option.disabled = !instance.online;
+            option.value = instance.name;
+            if (instance.url) {
+                stringURLMap.set(option.value, instance.url);
+                if (instance.urls) {
+                    stringURLsMap.set(instance.url, instance.urls);
+                }
+            }
+            else if (instance.urls) {
+                stringURLsMap.set(option.value, instance.urls);
+            }
+            else {
+                option.disabled = true;
+            }
+            if (instance.description) {
+                option.label = instance.description;
+            }
+            else {
+                option.label = instance.name;
+            }
+            datalist.append(option);
+        }
+        checkInstance("");
+    });
+}

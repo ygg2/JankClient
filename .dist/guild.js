@@ -149,7 +149,7 @@ class Guild {
                         method: "PATCH",
                         headers: this.headers,
                         body: JSON.stringify({
-                            "message_notifications": noti
+                            message_notifications: noti
                         })
                     });
                     this.message_notifications = noti;
@@ -202,9 +202,9 @@ class Guild {
     }
     calculateReorder() {
         let position = -1;
-        let build = [];
+        const build = [];
         for (const thing of this.headchannels) {
-            const thisthing = { id: thing.snowflake, position: undefined, parent_id: undefined };
+            const thisthing = { id: thing.id, position: undefined, parent_id: undefined };
             if (thing.position <= position) {
                 thing.position = (thisthing.position = position + 1);
             }
@@ -212,7 +212,7 @@ class Guild {
             console.log(position);
             if (thing.move_id && thing.move_id !== thing.parent_id) {
                 thing.parent_id = thing.move_id;
-                thisthing.parent_id = thing.parent_id;
+                thisthing.parent_id = thing.parent?.id;
                 thing.move_id = null;
             }
             if (thisthing.position || thisthing.parent_id) {
@@ -234,7 +234,7 @@ class Guild {
         if (serverbug) {
             for (const thing of build) {
                 console.log(build, thing);
-                fetch(this.info.api + "/guilds/" + this.snowflake + "/channels", {
+                fetch(this.info.api + "/guilds/" + this.id + "/channels", {
                     method: "PATCH",
                     headers: this.headers,
                     body: JSON.stringify([thing])
@@ -242,7 +242,7 @@ class Guild {
             }
         }
         else {
-            fetch(this.info.api + "/guilds/" + this.snowflake + "/channels", {
+            fetch(this.info.api + "/guilds/" + this.id + "/channels", {
                 method: "PATCH",
                 headers: this.headers,
                 body: JSON.stringify(build)
@@ -256,7 +256,9 @@ class Guild {
         return this.owner.info;
     }
     sortchannels() {
-        this.headchannels.sort((a, b) => { return a.position - b.position; });
+        this.headchannels.sort((a, b) => {
+            return a.position - b.position;
+        });
     }
     generateGuildIcon() {
         const divy = document.createElement("div");
@@ -279,7 +281,7 @@ class Guild {
         }
         else {
             const div = document.createElement("div");
-            let build = this.properties.name.replace(/'s /g, " ").replace(/\w+/g, word => word[0]).replace(/\s/g, "");
+            const build = this.properties.name.replace(/'s /g, " ").replace(/\w+/g, word => word[0]).replace(/\s/g, "");
             div.textContent = build;
             div.classList.add("blankserver", "servericon");
             divy.appendChild(div);
@@ -336,7 +338,7 @@ class Guild {
             headers: this.headers,
         });
     }
-    unreads(html = undefined) {
+    unreads(html) {
         if (html) {
             this.html = html;
         }
@@ -399,7 +401,7 @@ class Guild {
         }
         return this.member.hasRole(r);
     }
-    loadChannel(ID = undefined) {
+    loadChannel(ID) {
         if (ID && this.channelids[ID]) {
             this.channelids[ID].getHTML();
             return;
@@ -420,17 +422,22 @@ class Guild {
         this.localuser.loadGuild(this.id);
     }
     updateChannel(json) {
-        SnowFlake.getSnowFlakeFromID(json.id, Channel).getObject().updateChannel(json);
-        this.headchannels = [];
-        for (const thing of this.channels) {
-            thing.children = [];
-        }
-        for (const thing of this.channels) {
-            if (thing.resolveparent(this)) {
-                this.headchannels.push(thing);
+        const channel = this.channelids[json.id];
+        if (channel) {
+            channel.updateChannel(json);
+            this.headchannels = [];
+            for (const thing of this.channels) {
+                thing.children = [];
             }
+            this.headchannels = [];
+            for (const thing of this.channels) {
+                const parent = thing.resolveparent(this);
+                if (!parent) {
+                    this.headchannels.push(thing);
+                }
+            }
+            this.printServers();
         }
-        this.printServers();
     }
     createChannelpac(json) {
         const thischannel = new Channel(json, this);
@@ -451,7 +458,7 @@ class Guild {
                 ["voice", "text", "announcement"],
                 function (e) {
                     console.log(e);
-                    category = { "text": 0, "voice": 2, "announcement": 5, "category": 4 }[e];
+                    category = { text: 0, voice: 2, announcement: 5, category: 4 }[e];
                 },
                 1
             ],
@@ -463,12 +470,12 @@ class Guild {
                     console.log(name, category);
                     func(name, category);
                     channelselect.hide();
-                }.bind(this)]]);
+                }]]);
         channelselect.show();
     }
     createcategory() {
         let name = "";
-        let category = 4;
+        const category = 4;
         const channelselect = new Dialog(["vdiv",
             ["textbox", "Name of category", "", function () {
                     console.log(this);
@@ -507,10 +514,10 @@ class Guild {
         this.printServers();
     }
     createChannel(name, type) {
-        fetch(this.info.api + "/guilds/" + this.snowflake + "/channels", {
+        fetch(this.info.api + "/guilds/" + this.id + "/channels", {
             method: "POST",
             headers: this.headers,
-            body: JSON.stringify({ name: name, type: type })
+            body: JSON.stringify({ name, type })
         });
     }
     async createRole(name) {
@@ -518,7 +525,7 @@ class Guild {
             method: "POST",
             headers: this.headers,
             body: JSON.stringify({
-                name: name,
+                name,
                 color: 0,
                 permissions: "0"
             })
