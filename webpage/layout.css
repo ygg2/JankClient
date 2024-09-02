@@ -122,6 +122,9 @@ hr {
   margin: 0.3em 0.2em 0 0.4em;
   vertical-align: -.02in;
 }
+.addchannel {
+  margin-right: .08in;
+}
 .cunread {
   position: relative;
   box-shadow: none;
