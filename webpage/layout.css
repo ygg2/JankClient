@@ -277,6 +277,7 @@ span:has(pre) {
 .emojiPicker {
   height: 3.8in;
   border: none;
+  border-radius: .1in;
   box-shadow: 0 0 .05in color-mix(in srgb, var(--shadow) 50%, transparent);
 }
 .emojiTitle {
@@ -286,7 +287,7 @@ span:has(pre) {
 .emojiBody {
   padding: .05in;
   background: var(--primary-bg);
-  border-radius: 0 0 .15in .15in;
+  border-radius: 0 0 .1in .1in;
 }
 .emojiSelect {
   height: 32px;
