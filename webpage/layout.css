@@ -63,8 +63,11 @@ hr {
 
 /* Server List */
 #servers {
+  width: .67in;
+  max-width: .67in;
   padding: .085in .085in 0 .085in;
   margin: 0;
+  box-sizing: border-box;
 }
 .servericon {
   margin-bottom: .07in;
