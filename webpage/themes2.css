@@ -1,0 +1,29 @@
+:root {
+	--font: "acumin-pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --black: black;
+  --green: green;
+  --primary-bg: #666666;
+	--primary-text: #eeeeee;
+  --primary-text-soft: #cccccc;
+  --secondary-bg: #555555;
+  --icon: #ffffff;
+  --header-bg: #444444;
+  --servers-bg: #222222;
+  --blank-bg: #555555;
+  --channels-bg: #888888;
+  --channel-hover: #999999;
+  --channel-selected: #aaaaaa;
+  --dock-bg: #444444;
+  --user-info-bg: #333333;
+  --settings-hover: #333333;
+  --message-hover: #777777;
+  --typebox-bg: #777777;
+  --code: #222222;
+  --spoiler: #000000;
+  --spoiler-hover: #333333;
+  --reply-line: #bbbbbb;
+  --reply-text: #dddddd;
+  --reaction-bg: #555555;
+  --embed-bg: #888888;
+  --popup-bg: #777777;
+}

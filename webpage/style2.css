@@ -1,0 +1,371 @@
+/* Loading */
+.doneloading {
+  display: none;
+}
+#loadingdiv {
+  display: none;
+}
+
+/* General */
+body {
+  margin: 0;
+  background: var(--primary-bg);
+  font-family: var(--font);
+  color: var(--primary-text);
+}
+#page {
+  height: 100vh;
+}
+p, h1, h2, h3, pre {
+  margin: 0;
+}
+hr {
+  height: 0;
+  margin: 0;
+	border-style: solid;
+	border-width: .5px;
+	border-color: var(--primary-text);
+}
+pre, samp {
+  background: var(--code);
+}
+.flexltr {
+  display: flex;
+}
+.flexttb {
+  display: flex;
+  flex-direction: column;
+}
+.servertd {
+  flex: none;
+  height: 48px;
+  padding: 0 8px;
+  background: var(--header-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Icons */
+.pfp, .replypfp {
+  border-radius: 50%;
+}
+.svg-announce {
+	mask: url(/icons/announce.svg);
+}
+.svg-category {
+	mask: url(/icons/category.svg);
+}
+.svg-channel {
+	mask: url(/icons/channel.svg);
+}
+.svg-copy {
+	mask: url(/icons/copy.svg);
+}
+.svg-explore {
+	mask: url(/icons/explore.svg);
+}
+.svg-home {
+	mask: url(/icons/home.svg);
+}
+.svg-settings {
+	mask: url(/icons/settings.svg);
+}
+.svg-voice {
+	mask: url(/icons/voice.svg);
+}
+.svgtheme {
+  display: inline-block;
+	background: var(--icon);
+	mask-repeat: no-repeat;
+}
+
+/* Server List */
+#servers {
+  height: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+  background: var(--servers-bg);
+  overflow-y: scroll;
+}
+.servericon {
+  height: 48px;
+  width: 48px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.servericon:hover, .serveropen .servericon {
+  border-radius: 30%;
+}
+.svgicon {
+  height: 100%;
+  width: 100%;
+}
+.home.servericon {
+  background: var(--blank-bg);
+}
+.lightbr {
+  margin-bottom: 6px;
+}
+.blankserver {
+  background: var(--blank-bg);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	user-select: none;
+}
+
+/* Channel Panel */
+.channelflex {
+  flex: none;
+  width: 240px;
+  background: var(--channels-bg);
+}
+#serverName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#channels {
+  flex: 1;
+  padding: 0 6px;
+  overflow-y: scroll;
+}
+.channels {
+  overflow-y: hidden;
+}
+.channel {
+  flex: 1;
+  height: 2em;
+  padding: 0 8px;
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+}
+.channel:hover {
+  background: var(--channel-hover);
+}
+.viewChannel {
+  background: var(--channel-selected);
+  font-weight: bold;
+}
+.space, .collapse-icon {
+  height: 1em;
+  width: 1em;
+  margin-right: 4px;
+}
+.hiddencat {
+	rotate: -90deg;
+}
+.capsflex {
+  display: flex;
+}
+#userdock {
+  width: 100%;
+  padding: 2px;
+  box-sizing: border-box;
+  background: var(--dock-bg);
+  align-items: center;
+  justify-content: space-between;
+}
+#userinfo {
+  padding: 4px;
+  background: var(--user-info-bg);
+  border-radius: 8px;
+  gap: 6px;
+  cursor: pointer;
+}
+#userpfp {
+  height: 48px;
+  width: 48px;
+}
+.userflex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#status {
+  font-size: .8em;
+}
+#user-actions {
+  border-radius: 50%;
+  display: flex;
+  cursor: pointer;
+}
+#user-actions:hover {
+  background: var(--settings-hover);
+}
+#settings {
+  height: 22px;
+  width: 22px;
+  margin: 6px;
+}
+
+/* Message Area */
+.messageflex {
+  flex: 1;
+}
+#channelw {
+  flex: 1;
+  overflow-y: scroll;
+}
+#realbox {
+  padding: 0 8px 32px 8px;
+}
+#typebox {
+  padding: 8px;
+  background: var(--typebox-bg);
+  border-radius: 4px;
+}
+#typing {
+  position: absolute;
+  bottom: 0;
+}
+
+/* Message */
+.messagediv {
+  padding: 4px 8px;
+}
+.messagediv:hover {
+  background: var(--message-hover);
+}
+.topMessage {
+  margin-top: 8px;
+}
+.message img {
+  max-width: 100%;
+}
+.pfprow {
+  flex: none;
+  width: 40px;
+  margin-right: 8px;
+}
+.pfprow .pfp {
+  height: 40px;
+}
+.timestamp {
+  margin: auto 0 0 6px;
+  font-size: .75em;
+  color: var(--primary-text-soft);
+}
+.spoiler {
+  background: var(--spoiler);
+  color: var(--spoiler);
+}
+.spoiler:hover {
+  background: var(--spoiler-hover);
+  color: var(--spoiler-hover);
+}
+.unspoiled {
+  color: var(--primary-text);
+}
+.replyflex {
+  font-size: .9em;
+  color: var(--reply-text);
+  display: flex;
+  align-items: center;
+}
+.startreply {
+  width: 32px;
+  margin-left: 20px;
+  border-color: var(--reply-line);
+}
+.replypfp {
+  height: 24px;
+  width: 24px;
+  margin: 0 4px;
+}
+.replytext {
+  margin: 0 4px;
+}
+.reply {
+  flex: 1;
+  border-color: var(--reply-line);
+}
+.reactiondiv {
+  margin-left: 48px;
+  gap: 4px;
+}
+.reaction {
+  min-width: 36px;
+  padding: 2px 4px;
+  background: var(--reaction-bg);
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.smallemoji {
+  width:22px;
+	height:22px;
+}
+.embed-color {
+  max-width: 400px;
+  border-radius: 4px;
+}
+.embed {
+  padding: 8px;
+  margin-left: 4px;
+  background: var(--embed-bg);
+  border-radius: 0 4px 4px 0;
+}
+.embed img {
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Popup */
+.profile {
+  position: absolute;
+  height: 350px;
+	width: 300px;
+  padding: 8px;
+  background: var(--popup-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+.profile .pfp {
+  width: 48px;
+}
+.statusDiv {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  height: 7px;
+  width: 7px;
+  background: var(--black);
+  border: solid 2.5px var(--black);
+  border-radius: 50%;
+}
+.onlinestatus {
+  background: var(--green);
+}
+.banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100px;
+  width: 100%;
+	object-fit: cover;
+}
+.infosection {
+  flex: 1;
+  width: 100%;
+  padding: 8px;
+  margin-top: 48px;
+  background: var(--secondary-bg);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.rolesbox {
+  margin-top: auto;
+}
+
+/* !! DO NOT STYLE FAKE ICONS THEY WILL BE ADDED LATER !! */
+/* ALSO NEED TO ASK IF DESCRIPTION CAN GO NEXT TO CHANNEL NAME */
+/* MAY HAVE TO CHANGE WHICH CLASS SCROLLS BASED ON LOAD/NOTIF */
