@@ -4,11 +4,10 @@ import{Localuser}from"./localuser.js";
 import{Guild}from"./guild.js";
 import{ SnowFlake }from"./snowflake.js";
 import{ rolesjson }from"./jsontypes.js";
-class Role{
+class Role extends SnowFlake{
 	permissions:Permissions;
 	owner:Guild;
 	color:number;
-	readonly snowflake:SnowFlake<Role>;
 	name:string;
 	info:Guild["info"];
 	hoist:boolean;
@@ -16,15 +15,12 @@ class Role{
 	mentionable:boolean;
 	unicode_emoji:string;
 	headers:Guild["headers"];
-	get id(){
-		return this.snowflake.id;
-	}
 	constructor(json:rolesjson, owner:Guild){
+		super(json.id);
 		this.headers=owner.headers;
 		this.info=owner.info;
 		for(const thing of Object.keys(json)){
 			if(thing==="id"){
-				this.snowflake=new SnowFlake(json.id,this);
 				continue;
 			}
 			this[thing]=json[thing];
@@ -122,7 +118,7 @@ class PermissionToggle implements OptionsElement<number>{
 }
 import{ OptionsElement,Buttons }from"./settings.js";
 class RoleList extends Buttons{
-	readonly permissions:[SnowFlake<Role>,Permissions][];
+	readonly permissions:[Role,Permissions][];
 	permission:Permissions;
 	readonly guild:Guild;
 	readonly channel:boolean;
@@ -130,7 +126,7 @@ class RoleList extends Buttons{
 	readonly options:Options;
 	onchange:Function;
 	curid:string;
-	constructor(permissions:[SnowFlake<Role>,Permissions][],guild:Guild,onchange:Function,channel=false){
+	constructor(permissions:[Role,Permissions][],guild:Guild,onchange:Function,channel=false){
 		super("Roles");
 		this.guild=guild;
 		this.permissions=permissions;
@@ -147,7 +143,7 @@ class RoleList extends Buttons{
 		}
 		for(const i of permissions){
 			console.log(i);
-			this.buttons.push([i[0].getObject().name,i[0].id]);//
+			this.buttons.push([i[0].name,i[0].id]);
 		}
 		this.options=options;
 	}
@@ -158,8 +154,11 @@ class RoleList extends Buttons{
 			const perm=arr[1];
 			this.permission.deny=perm.deny;
 			this.permission.allow=perm.allow;
-			this.options.name=SnowFlake.getSnowFlakeFromID(str,Role).getObject().name;
-			this.options.haschanged=false;
+			const role=this.permissions.find(e=>e[0].id===str);
+			if(role){
+				this.options.name=role[0].name;
+				this.options.haschanged=false;
+			}
 		}
 		return this.options.generateHTML();
 	}

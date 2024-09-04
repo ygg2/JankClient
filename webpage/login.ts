@@ -111,12 +111,12 @@ class Specialuser{
 		this.token=json.token;
 		this.loggedin=json.loggedin;
 		this.json=json;
+		this.json.localuserStore??={};
 		if(!this.serverurls||!this.email||!this.token){
 			console.error("There are fundamentally missing pieces of info missing from this user");
 		}
 	}
 	set pfpsrc(e){
-		console.log("this ran fr");
 		this.json.pfpsrc=e;
 		this.updateLocal();
 	}
@@ -129,6 +129,13 @@ class Specialuser{
 	}
 	get username(){
 		return this.json.username;
+	}
+	set localuserStore(e){
+		this.json.localuserStore=e;
+		this.updateLocal();
+	}
+	get localuserStore(){
+		return this.json.localuserStore;
 	}
 	get uid(){
 		return this.email+this.serverurls.wellknown;

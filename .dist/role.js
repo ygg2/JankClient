@@ -1,10 +1,9 @@
 import { Permissions } from "./permissions.js";
 import { SnowFlake } from "./snowflake.js";
-class Role {
+class Role extends SnowFlake {
     permissions;
     owner;
     color;
-    snowflake;
     name;
     info;
     hoist;
@@ -12,15 +11,12 @@ class Role {
     mentionable;
     unicode_emoji;
     headers;
-    get id() {
-        return this.snowflake.id;
-    }
     constructor(json, owner) {
+        super(json.id);
         this.headers = owner.headers;
         this.info = owner.info;
         for (const thing of Object.keys(json)) {
             if (thing === "id") {
-                this.snowflake = new SnowFlake(json.id, this);
                 continue;
             }
             this[thing] = json[thing];
@@ -138,7 +134,7 @@ class RoleList extends Buttons {
         }
         for (const i of permissions) {
             console.log(i);
-            this.buttons.push([i[0].getObject().name, i[0].id]); //
+            this.buttons.push([i[0].name, i[0].id]);
         }
         this.options = options;
     }
@@ -149,8 +145,11 @@ class RoleList extends Buttons {
             const perm = arr[1];
             this.permission.deny = perm.deny;
             this.permission.allow = perm.allow;
-            this.options.name = SnowFlake.getSnowFlakeFromID(str, Role).getObject().name;
-            this.options.haschanged = false;
+            const role = this.permissions.find(e => e[0].id === str);
+            if (role) {
+                this.options.name = role[0].name;
+                this.options.haschanged = false;
+            }
         }
         return this.options.generateHTML();
     }

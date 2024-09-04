@@ -18,20 +18,18 @@ declare global {
         image?: string|null|undefined
     }
 }
-class Channel{
+class Channel extends SnowFlake{
 	editing:Message|null;
 	type:number;
 	owner:Guild;
 	headers:Localuser["headers"];
 	name:string;
-	snowflake:SnowFlake<Channel>;
-	parent_id:SnowFlake<Channel>|null;
+	parent_id?:string;
 	parent:Channel|null;
 	children:Channel[];
 	guild_id:string;
-	messageids:Map<SnowFlake<Message>,Message>;
 	permission_overwrites:Map<string,Permissions>;
-	permission_overwritesar:[SnowFlake<Role>,Permissions][];
+	permission_overwritesar:[Role,Permissions][];
 	topic:string;
 	nsfw:boolean;
 	position:number;
@@ -39,7 +37,7 @@ class Channel{
 	lastmessageid:string|undefined;
 	mentions:number;
 	lastpin:string;
-	move_id:SnowFlake<Channel>|null;
+	move_id?:string;
 	typing:number;
 	message_notifications:number;
 	allthewayup:boolean;
@@ -49,17 +47,12 @@ class Channel{
 	idToPrev:Map<string,string>=new Map();
 	idToNext:Map<string,string>=new Map();
 	messages:Map<string,Message>=new Map();
-	get id(){
-		return this.snowflake.id;
-	}
 	static setupcontextmenu(){
 		this.contextmenu.addbutton("Copy channel id",function(this:Channel){
-			console.log(this);
 			navigator.clipboard.writeText(this.id);
 		});
 
 		this.contextmenu.addbutton("Mark as read",function(this:Channel){
-			console.log(this);
 			this.readbottom();
 		});
 
@@ -68,7 +61,6 @@ class Channel{
 		});
 
 		this.contextmenu.addbutton("Delete channel",function(this:Channel){
-			console.log(this);
 			this.deleteChannel();
 		},null,function(){
 			return this.isAdmin();
@@ -167,27 +159,25 @@ class Channel{
 	}
 	sortPerms(){
 		this.permission_overwritesar.sort((a,b)=>{
-			return this.guild.roles.findIndex(_=>_.snowflake===a[0])-this.guild.roles.findIndex(_=>_.snowflake===b[0]);
+			return this.guild.roles.findIndex(_=>_===a[0])-this.guild.roles.findIndex(_=>_===b[0]);
 		});
 	}
 	setUpInfiniteScroller(){
 		this.infinite=new InfiniteScroller((async (id:string,offset:number):Promise<string|undefined>=>{
-			const snowflake=id;
 			if(offset===1){
-				if(this.idToPrev.has(snowflake)){
-					return this.idToPrev.get(snowflake);
+				if(this.idToPrev.has(id)){
+					return this.idToPrev.get(id);
 				}else{
 					await this.grabBefore(id);
-					return this.idToPrev.get(snowflake);
+					return this.idToPrev.get(id);
 				}
 			}else{
-				if(this.idToNext.has(snowflake)){
-					return this.idToNext.get(snowflake);
+				if(this.idToNext.has(id)){
+					return this.idToNext.get(id);
 				}else if(this.lastmessage?.id!==id){
 					await this.grabAfter(id);
-					return this.idToNext.get(snowflake);
+					return this.idToNext.get(id);
 				}else{
-					console.log("at bottom");
 				}
 			}
 		}),
@@ -220,7 +210,8 @@ class Channel{
 		this.readbottom.bind(this)
 		);
 	}
-	constructor(json:channeljson|-1,owner:Guild){
+	constructor(json:channeljson|-1,owner:Guild,id:string=json===-1?"":json.id){
+		super(id);
 		if(json===-1){
 			return;
 		}
@@ -229,14 +220,12 @@ class Channel{
 		this.owner=owner;
 		this.headers=this.owner.headers;
 		this.name=json.name;
-		this.snowflake=new SnowFlake(json.id,this);
 		if(json.parent_id){
-			this.parent_id=SnowFlake.getSnowFlakeFromID(json.parent_id,Channel);
+			this.parent_id=json.parent_id;
 		}
 		this.parent=null;
 		this.children=[];
 		this.guild_id=json.guild_id;
-		this.messageids=new Map();
 		this.permission_overwrites=new Map();
 		this.permission_overwritesar=[];
 		for(const thing of json.permission_overwrites){
@@ -246,7 +235,10 @@ class Channel{
 			this.permission_overwrites.set(thing.id,new Permissions(thing.allow,thing.deny));
 			const permission=this.permission_overwrites.get(thing.id);
 			if(permission){
-				this.permission_overwritesar.push([SnowFlake.getSnowFlakeFromID(thing.id,Role),permission]);
+				const role=this.guild.roleids.get(thing.id);
+				if(role){
+					this.permission_overwritesar.push([role,permission]);
+				}
 			}
 		}
 
@@ -260,6 +252,13 @@ class Channel{
 			this.lastmessageid=undefined;
 		}
 		this.setUpInfiniteScroller();
+		this.perminfo??={};
+	}
+	get perminfo(){
+		return this.guild.perminfo.channels[this.id];
+	}
+	set perminfo(e){
+		this.guild.perminfo.channels[this.id]=e;
 	}
 	isAdmin(){
 		return this.guild.isAdmin();
@@ -283,7 +282,12 @@ class Channel{
 		if(!this.hasPermission("VIEW_CHANNEL")){
 			return false;
 		}
-		return this.lastmessageid!==this.lastreadmessageid&&this.type!==4&&Boolean(this.lastmessageid);
+		return (!!this.lastmessageid)&&
+		(
+			(!this.lastreadmessageid)||
+			SnowFlake.stringToUnixTime(this.lastmessageid)>SnowFlake.stringToUnixTime(this.lastreadmessageid)
+		)
+		&&this.type!==4;
 	}
 	hasPermission(name:string,member=this.guild.member):boolean{
 		if(member.isAdmin()){
@@ -318,7 +322,7 @@ class Channel{
 		});
 	}
 	resolveparent(guild:Guild){
-		const parentid=this.parent_id?.id;
+		const parentid=this.parent_id;
 		if(!parentid)return false;
 		this.parent=guild.channelids[parentid];
 		this.parent??=null;
@@ -339,7 +343,7 @@ class Channel{
 			if(thing.move_id&&thing.move_id!==thing.parent_id){
 				thing.parent_id=thing.move_id;
 				thisthing.parent_id=thing.parent?.id;
-				thing.move_id=null;
+				thing.move_id=undefined;
 				//console.log(this.guild.channelids[thisthing.parent_id.id]);
 			}
 			if(thisthing.position||thisthing.parent_id){
@@ -408,20 +412,29 @@ class Channel{
 			}
 			childrendiv.classList.add("channels");
 			setTimeout(_=>{
-				childrendiv.style.height = childrendiv.scrollHeight + "px";
+				if(!this.perminfo.collapsed){
+					childrendiv.style.height = childrendiv.scrollHeight + "px";
+				}
 			},100);
-			decdiv.onclick=function(){
+			div.appendChild(childrendiv);
+			if(this.perminfo.collapsed){
+				decoration.classList.add("hiddencat");
+				childrendiv.style.height = "0px";
+			}
+			decdiv.onclick=()=>{
 				if(childrendiv.style.height!=="0px"){
 					decoration.classList.add("hiddencat");
-					//childrendiv.classList.add("colapsediv");
+					this.perminfo.collapsed=true;
+					this.localuser.userinfo.updateLocal();
 					childrendiv.style.height = "0px";
 				}else{
 					decoration.classList.remove("hiddencat");
-					//childrendiv.classList.remove("colapsediv")
+					this.perminfo.collapsed=false;
+					this.localuser.userinfo.updateLocal();
 					childrendiv.style.height = childrendiv.scrollHeight + "px";
 				}
 			};
-			div.appendChild(childrendiv);
+
 		}else{
 			div.classList.add("channel");
 			if(this.hasunreads){
@@ -483,7 +496,7 @@ class Channel{
 		if(!this.hasunreads){
 			return;
 		}
-		fetch(this.info.api+"/channels/"+this.snowflake+"/messages/"+this.lastmessageid+"/ack",{
+		fetch(this.info.api+"/channels/"+this.id+"/messages/"+this.lastmessageid+"/ack",{
 			method: "POST",
 			headers: this.headers,
 			body: JSON.stringify({})
@@ -509,7 +522,7 @@ class Channel{
 			if(!that)return;
 			event.preventDefault();
 			if(container){
-				that.move_id=this.snowflake;
+				that.move_id=this.id;
 				if(that.parent){
 					that.parent.children.splice(that.parent.children.indexOf(that),1);
 				}
@@ -569,7 +582,7 @@ class Channel{
 		let name=this.name;
 		let topic=this.topic;
 		let nsfw=this.nsfw;
-		const thisid=this.snowflake;
+		const thisid=this.id;
 		const thistype=this.type;
 		const full=new Dialog(
 			["hdiv",
@@ -608,7 +621,7 @@ class Channel{
 		console.log(full);
 	}
 	deleteChannel(){
-		fetch(this.info.api+"/channels/"+this.snowflake,{
+		fetch(this.info.api+"/channels/"+this.id,{
 			method: "DELETE",
 			headers: this.headers
 		});
@@ -652,7 +665,7 @@ class Channel{
 		if(message){
 			return message;
 		}else{
-			const gety=await fetch(this.info.api+"/channels/"+this.snowflake+"/messages?limit=1&around="+id,{headers: this.headers});
+			const gety=await fetch(this.info.api+"/channels/"+this.id+"/messages?limit=1&around="+id,{headers: this.headers});
 			const json=await gety.json();
 			return new Message(json[0],this);
 		}
@@ -675,7 +688,7 @@ class Channel{
 		this.guild.prevchannel=this;
 		this.localuser.channelfocus=this;
 		const prom=this.infinite.delete();
-		history.pushState(null, "","/channels/"+this.guild_id+"/"+this.snowflake);
+		history.pushState(null, "","/channels/"+this.guild_id+"/"+this.id);
 
 		this.localuser.pageTitle("#"+this.name);
 		const channelTopic=document.getElementById("channelTopic") as HTMLSpanElement;
@@ -696,7 +709,6 @@ class Channel{
 
 		await this.buildmessages();
 		//loading.classList.remove("loading");
-		console.log(this);
 		(document.getElementById("typebox") as HTMLDivElement).contentEditable=""+this.canMessage;
 	}
 	static regenLoadingMessages(){
@@ -729,7 +741,7 @@ class Channel{
 		if(this.lastreadmessageid&&this.messages.has(this.lastreadmessageid)){
 			return;
 		}
-		const j=await fetch(this.info.api+"/channels/"+this.snowflake+"/messages?limit=100",{
+		const j=await fetch(this.info.api+"/channels/"+this.id+"/messages?limit=100",{
 			headers: this.headers,
 		});
 
@@ -748,9 +760,6 @@ class Channel{
 				this.lastmessageid=message.id;
 			}
 			prev=message;
-			if(this.messageids.get(message.snowflake)===undefined){
-				this.messageids.set(message.snowflake,message);
-			}
 		}
 	}
 	delChannel(json:channeljson){
@@ -775,16 +784,15 @@ class Channel{
 			for(const i in response){
 				let messager:Message;
 				let willbreak=false;
-				if(!SnowFlake.hasSnowFlakeFromID(response[i].id,Message)){
-					messager=new Message(response[i],this);
-				}else{
-					messager=SnowFlake.getSnowFlakeFromID(response[i].id,Message).getObject();
+				if(this.messages.has(response[i].id)){
+					messager=this.messages.get(response[i].id) as Message;
 					willbreak=true;
+				}else{
+					messager=new Message(response[i],this);
 				}
 				this.idToPrev.set(messager.id,previd);
 				this.idToNext.set(previd,messager.id);
 				previd=messager.id;
-				this.messageids.set(messager.snowflake,messager);
 				if(willbreak){
 					break;
 				}
@@ -824,7 +832,6 @@ class Channel{
 				this.idToNext.set(messager.id,previd);
 				this.idToPrev.set(previd,messager.id);
 				previd=messager.id;
-				this.messageids.set(messager.snowflake,messager);
 
 				if(Number(i)===response.length-1&&response.length<100){
 					this.topid=previd;
@@ -844,11 +851,6 @@ class Channel{
 		throw new Error("please don't call this, no one has implemented it :P");
 	}
 	async buildmessages(){
-		/*
-        if(((!this.lastmessage)||(!this.lastmessage.snowflake)||(!this.goBackIds(this.lastmessage.snowflake,50,false)))&&this.lastreadmessageid){
-            await this.grabAfter(this.lastreadmessageid.id);
-        }
-        */
 		this.infinitefocus=false;
 		this.tryfocusinfinate();
 	}
@@ -913,15 +915,15 @@ class Channel{
 	private findClosest(id:string|undefined){
 		if(!this.lastmessageid||!id)return;
 		let flake:string|undefined=this.lastmessageid;
-		const time=Number((BigInt(id)>>22n)+1420070400000n);
-		let flaketime=Number((BigInt(flake)>>22n)+1420070400000n);
+		const time=SnowFlake.stringToUnixTime(id);
+		let flaketime=SnowFlake.stringToUnixTime(flake);
 		while(flake&&time<flaketime){
 			flake=this.idToPrev.get(flake);
 
 			if(!flake){
 				return;
 			}
-			flaketime=Number((BigInt(flake)>>22n)+1420070400000n);
+			flaketime=SnowFlake.stringToUnixTime(flake);
 		}
 		return flake;
 	}
@@ -931,15 +933,14 @@ class Channel{
 		const parent=this.guild.channelids[json.parent_id];
 		if(parent){
 			this.parent=parent;
-			this.parent_id=parent.snowflake;
+			this.parent_id=parent.id;
 		}else{
 			this.parent=null;
-			this.parent_id=null;
+			this.parent_id=undefined;
 		}
 
 		this.children=[];
 		this.guild_id=json.guild_id;
-		this.messageids=new Map();
 		this.permission_overwrites=new Map();
 		for(const thing of json.permission_overwrites){
 			if(thing.id==="1182819038095799904"||thing.id==="1182820803700625444"){
@@ -948,7 +949,10 @@ class Channel{
 			this.permission_overwrites.set(thing.id,new Permissions(thing.allow,thing.deny));
 			const permisions=this.permission_overwrites.get(thing.id);
 			if(permisions){
-				this.permission_overwritesar.push([SnowFlake.getSnowFlakeFromID(thing.id,Role),permisions]);
+				const role=this.guild.roleids.get(thing.id);
+				if(role){
+					this.permission_overwritesar.push([role,permisions]);
+				}
 			}
 		}
 		this.topic=json.topic;
@@ -959,7 +963,7 @@ class Channel{
 			return;
 		}
 		this.typing=Date.now()+6000;
-		fetch(this.info.api+"/channels/"+this.snowflake+"/typing",{
+		fetch(this.info.api+"/channels/"+this.id+"/typing",{
 			method: "POST",
 			headers: this.headers
 		});
@@ -1001,7 +1005,7 @@ class Channel{
 			if(replyjson){
 				body.message_reference=replyjson;
 			}
-			return await fetch(this.info.api+"/channels/"+this.snowflake+"/messages",{
+			return await fetch(this.info.api+"/channels/"+this.id+"/messages",{
 				method: "POST",
 				headers: this.headers,
 				body: JSON.stringify(body)
@@ -1020,7 +1024,7 @@ class Channel{
 			for(const i in attachments){
 				formData.append("files["+i+"]",attachments[i]);
 			}
-			return await fetch(this.info.api+"/channels/"+this.snowflake+"/messages", {
+			return await fetch(this.info.api+"/channels/"+this.id+"/messages", {
 				method: "POST",
 				body: formData,
 				headers: {Authorization: this.headers.Authorization}
@@ -1039,7 +1043,6 @@ class Channel{
 		}
 
 		this.lastmessageid=messagez.id;
-		this.messageids.set(messagez.snowflake,messagez);
 
 		if(messagez.author===this.localuser.user){
 			this.lastreadmessageid=messagez.id;
@@ -1112,7 +1115,7 @@ class Channel{
 		}
 	}
 	async addRoleToPerms(role:Role){
-		await fetch(this.info.api+"/channels/"+this.snowflake+"/permissions/"+role.snowflake,{
+		await fetch(this.info.api+"/channels/"+this.id+"/permissions/"+role.id,{
 			method: "PUT",
 			headers: this.headers,
 			body: JSON.stringify({
@@ -1124,14 +1127,14 @@ class Channel{
 		});
 		const perm=new Permissions("0","0");
 		this.permission_overwrites.set(role.id,perm);
-		this.permission_overwritesar.push([role.snowflake,perm]);
+		this.permission_overwritesar.push([role,perm]);
 	}
 	async updateRolePermissions(id:string,perms:Permissions){
 		const permission=this.permission_overwrites.get(id);
 		if(permission){
 			permission.allow=perms.allow;
 			permission.deny=perms.deny;
-			await fetch(this.info.api+"/channels/"+this.snowflake+"/permissions/"+id,{
+			await fetch(this.info.api+"/channels/"+this.id+"/permissions/"+id,{
 				method: "PUT",
 				headers: this.headers,
 				body: JSON.stringify({

@@ -1,15 +1,14 @@
 import { User } from "./user.js";
-import { Role } from "./role.js";
 import { SnowFlake } from "./snowflake.js";
 import { Dialog } from "./dialog.js";
-class Member {
+class Member extends SnowFlake {
     static already = {};
     owner;
     user;
     roles = [];
-    id;
     nick;
     constructor(memberjson, owner) {
+        super(memberjson.id);
         this.owner = owner;
         if (this.localuser.userMap.has(memberjson.id)) {
             this.user = this.localuser.userMap.get(memberjson.id);
@@ -29,7 +28,9 @@ class Member {
             }
             if (thing === "roles") {
                 for (const strrole of memberjson.roles) {
-                    const role = SnowFlake.getSnowFlakeFromID(strrole, Role).getObject();
+                    const role = this.guild.roleids.get(strrole);
+                    if (!role)
+                        continue;
                     this.roles.push(role);
                 }
                 continue;

@@ -1,15 +1,15 @@
 class Contextmenu<x,y>{
-	static currentmenu;
+	static currentmenu:HTMLElement|"";
 	name:string;
 	buttons:[string,(this:x,arg:y,e:MouseEvent)=>void,string|null,(this:x,arg:y)=>boolean,(this:x,arg:y)=>boolean,string][];
 	div:HTMLDivElement;
 	static setup(){
 		Contextmenu.currentmenu="";
 		document.addEventListener("click", event=>{
-			if(Contextmenu.currentmenu==""){
+			if(Contextmenu.currentmenu===""){
 				return;
 			}
-			if(!Contextmenu.currentmenu.contains(event.target)){
+			if(!Contextmenu.currentmenu.contains(event.target as Node)){
 				Contextmenu.currentmenu.remove();
 				Contextmenu.currentmenu="";
 			}
@@ -27,7 +27,7 @@ class Contextmenu<x,y>{
 		this.buttons.push([text,onclick,img,shown,enabled,"submenu"]);
 		return{};
 	}
-	makemenu(x:number,y:number,addinfo:any,other:y){
+	private makemenu(x:number,y:number,addinfo:x,other:y){
 		const div=document.createElement("div");
 		div.classList.add("contextmenu","flexttb");
 

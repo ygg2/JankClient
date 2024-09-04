@@ -3,10 +3,9 @@ import{ Channel }from"./channel.js";
 import{ Message }from"./message.js";
 import{ Localuser }from"./localuser.js";
 import{User}from"./user.js";
-import{ Member }from"./member.js";
-import{ SnowFlake }from"./snowflake.js";
-import{ dirrectjson, memberjson }from"./jsontypes.js";
+import{ dirrectjson, memberjson, messagejson }from"./jsontypes.js";
 import{ Permissions }from"./permissions.js";
+import { SnowFlake } from "./snowflake.js";
 
 class Direct extends Guild{
 	constructor(json:dirrectjson[],owner:Localuser){
@@ -19,7 +18,6 @@ class Direct extends Guild{
 		this.headers=this.localuser.headers;
 		this.channels=[];
 		this.channelids={};
-		this.snowflake=new SnowFlake("@me",this);
 		this.properties={};
 		this.roles=[];
 		this.roleids=new Map();
@@ -84,7 +82,7 @@ dmPermissions.setPermission("USE_VAD",1);
 class Group extends Channel{
 	user:User;
 	constructor(json:dirrectjson,owner:Direct){
-		super(-1,owner);
+		super(-1,owner,json.id);
 		this.owner=owner;
 		this.headers=this.guild.headers;
 		this.name=json.recipients[0]?.username;
@@ -94,20 +92,19 @@ class Group extends Channel{
 			this.user=this.localuser.user;
 		}
 		this.name??=this.localuser.user.username;
-		this.snowflake=new SnowFlake(json.id,this);
-		this.parent_id=null;
+		this.parent_id=undefined;
 		this.parent=null;
 		this.children=[];
 		this.guild_id="@me";
-		this.messageids=new Map();
 		this.permission_overwrites=new Map();
 		this.lastmessageid=json.last_message_id;
 		this.mentions=0;
 		this.setUpInfiniteScroller();
 		if(this.lastmessageid){
-			this.position=Number((BigInt(this.lastmessageid)>>22n)+1420070400000n);
+			this.position=SnowFlake.stringToUnixTime(this.lastmessageid);
 		}
-		this.position=-Math.max(this.position,this.snowflake.getUnixTime());
+
+		this.position=-Math.max(this.position,this.getUnixTime());
 	}
 	createguildHTML(){
 		const div=document.createElement("div");
@@ -141,14 +138,13 @@ class Group extends Channel{
 		(document.getElementById("channelTopic") as HTMLElement).setAttribute("hidden","");
 		(document.getElementById("typebox") as HTMLDivElement).contentEditable=""+true;
 	}
-	messageCreate(messagep){
+	messageCreate(messagep:{d:messagejson}){
 		const messagez=new Message(messagep.d,this);
 		if(this.lastmessageid){
 			this.idToNext.set(this.lastmessageid,messagez.id);
 			this.idToPrev.set(messagez.id,this.lastmessageid);
 		}
 		this.lastmessageid=messagez.id;
-		this.messageids.set(messagez.snowflake,messagez);
 		if(messagez.author===this.localuser.user){
 			this.lastreadmessageid=messagez.id;
 			if(this.myhtml){

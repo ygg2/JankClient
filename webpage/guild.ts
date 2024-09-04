@@ -10,15 +10,14 @@ import{ SnowFlake }from"./snowflake.js";
 import{ channeljson, guildjson, emojijson, memberjson }from"./jsontypes.js";
 import{ User }from"./user.js";
 import{ Message }from"./message.js";
-class Guild{
+class Guild extends SnowFlake{
 	owner:Localuser;
 	headers:Localuser["headers"];
 	channels:Channel[];
 	channelids:{[key:string]:Channel};
-	snowflake:SnowFlake<Guild>;
 	properties;
 	roles:Role[];
-	roleids:Map<SnowFlake<Role>,Role>;
+	roleids:Map<string,Role>;
 	prevchannel:Channel|undefined;
 	message_notifications:number;
 	headchannels:Channel[];
@@ -27,23 +26,17 @@ class Guild{
 	member:Member;
 	html:HTMLElement;
 	emojis:emojijson[];
-	get id(){
-		return this.snowflake.id;
-	}
 	static contextmenu=new Contextmenu<Guild,undefined>("guild menu");
 	static setupcontextmenu(){
 		Guild.contextmenu.addbutton("Copy Guild id",function(this:Guild){
-			console.log(this);
 			navigator.clipboard.writeText(this.id);
 		});
 
 		Guild.contextmenu.addbutton("Mark as read",function(this:Guild){
-			console.log(this);
 			this.markAsRead();
 		});
 
 		Guild.contextmenu.addbutton("Notifications",function(this:Guild){
-			console.log(this);
 			this.setnotifcation();
 		});
 
@@ -60,7 +53,6 @@ class Guild{
 		});
 
 		Guild.contextmenu.addbutton("Create invite",function(this:Guild){
-			console.log(this);
 		},null,_=>true,_=>false);
 		Guild.contextmenu.addbutton("Settings[temp]",function(this:Guild){
 			this.generateSettings();
@@ -80,26 +72,27 @@ class Guild{
 		const settings=new Settings("Settings for "+this.properties.name);
 
 		const s1=settings.addButton("roles");
-		const permlist:[SnowFlake<Role>,Permissions][]=[];
+		const permlist:[Role,Permissions][]=[];
 		for(const thing of this.roles){
-			permlist.push([thing.snowflake,thing.permissions]);
+			permlist.push([thing,thing.permissions]);
 		}
 		s1.options.push(new RoleList(permlist,this,this.updateRolePermissions.bind(this)));
 		settings.show();
 	}
 	constructor(json:guildjson|-1,owner:Localuser,member:memberjson|User|null){
 		if(json===-1||member===null){
+			super("@me");
 			return;
 		}
 		if(json.stickers.length){
 			console.log(json.stickers,":3");
 		}
+		super(json.id);
 		this.emojis = json.emojis;
 		this.owner=owner;
 		this.headers=this.owner.headers;
 		this.channels=[];
 		this.channelids={};
-		this.snowflake=new SnowFlake(json.id,this);
 		this.properties=json.properties;
 		this.roles=[];
 		this.roleids=new Map();
@@ -108,7 +101,7 @@ class Guild{
 		for(const roley of json.roles){
 			const roleh=new Role(roley,this);
 			this.roles.push(roleh);
-			this.roleids.set(roleh.snowflake,roleh);
+			this.roleids.set(roleh.id,roleh);
 		}
 		if(member instanceof User){
 			Member.resolveMember(member,this).then(_=>{
@@ -125,7 +118,7 @@ class Guild{
 				}
 			});
 		}
-
+		this.perminfo??={channels:{}};
 		for(const thing of json.channels){
 			const temp=new Channel(thing,this);
 			this.channels.push(temp);
@@ -138,6 +131,12 @@ class Guild{
 				this.headchannels.push(thing);
 			}
 		}
+	}
+	get perminfo(){
+		return this.localuser.perminfo.guilds[this.id];
+	}
+	set perminfo(e){
+		this.localuser.perminfo.guilds[this.id]=e;
 	}
 	notisetting(settings){
 		this.message_notifications=settings.message_notifications;
@@ -196,7 +195,7 @@ class Guild{
 		full.show();
 	}
 	async leave(){
-		return fetch(this.info.api+"/users/@me/guilds/"+this.snowflake,{
+		return fetch(this.info.api+"/users/@me/guilds/"+this.id,{
 			method: "DELETE",
 			headers: this.headers
 		});
@@ -224,7 +223,7 @@ class Guild{
 			if(thing.move_id&&thing.move_id!==thing.parent_id){
 				thing.parent_id=thing.move_id;
 				thisthing.parent_id=thing.parent?.id;
-				thing.move_id=null;
+				thing.move_id=undefined;
 			}
 			if(thisthing.position||thisthing.parent_id){
 				build.push(thisthing);
@@ -344,7 +343,7 @@ class Guild{
 		full.show();
 	}
 	async delete(){
-		return fetch(this.info.api+"/guilds/"+this.snowflake+"/delete",{
+		return fetch(this.info.api+"/guilds/"+this.id+"/delete",{
 			method: "POST",
 			headers: this.headers,
 		});
@@ -387,10 +386,10 @@ class Guild{
 		return this.member.isAdmin();
 	}
 	async markAsRead(){
-		const build:{read_states:{channel_id:SnowFlake<Channel>,message_id:string|null|undefined,read_state_type:number}[]}={read_states: []};
+		const build:{read_states:{channel_id:string,message_id:string|null|undefined,read_state_type:number}[]}={read_states: []};
 		for(const thing of this.channels){
 			if(thing.hasunreads){
-				build.read_states.push({channel_id: thing.snowflake,message_id: thing.lastmessageid,read_state_type: 0});
+				build.read_states.push({channel_id: thing.id,message_id: thing.lastmessageid,read_state_type: 0});
 				thing.lastreadmessageid=thing.lastmessageid;
 				if(!thing.myhtml)continue;
 				thing.myhtml.classList.remove("cunread");
@@ -473,7 +472,6 @@ class Guild{
 					1
 				],
 				["textbox","Name of channel","",function(this:HTMLInputElement){
-					console.log(this);
 					name=this.value;
 				}],
 				["button","","submit",function(){
@@ -490,7 +488,6 @@ class Guild{
 		const channelselect=new Dialog(
 			["vdiv",
 				["textbox","Name of category","",function(this:HTMLInputElement){
-					console.log(this);
 					name=this.value;
 				}],
 				["button","","submit",()=>{
@@ -536,7 +533,7 @@ class Guild{
 		});
 	}
 	async createRole(name:string){
-		const fetched=await fetch(this.info.api+"/guilds/"+this.snowflake+"roles",{
+		const fetched=await fetch(this.info.api+"/guilds/"+this.id+"roles",{
 			method: "POST",
 			headers: this.headers,
 			body: JSON.stringify({
@@ -547,7 +544,7 @@ class Guild{
 		});
 		const json=await fetched.json();
 		const role=new Role(json,this);
-		this.roleids.set(role.snowflake,role);
+		this.roleids.set(role.id,role);
 		this.roles.push(role);
 		return role;
 	}
@@ -556,7 +553,7 @@ class Guild{
 		role.permissions.allow=perms.allow;
 		role.permissions.deny=perms.deny;
 
-		await fetch(this.info.api+"/guilds/"+this.snowflake+"/roles/"+this.snowflake,{
+		await fetch(this.info.api+"/guilds/"+this.id+"/roles/"+role.id,{
 			method: "PATCH",
 			headers: this.headers,
 			body: JSON.stringify({
