@@ -560,7 +560,7 @@ span .quote:last-of-type .quoteline {
   --loading-bg: var(--color-bg-panel);
 
   /* Server List */
-  --server-list: var(--color-bg-server-bar);
+  --server-list: var(--color-bg-server-list);
   --light-border: var(--color-bg-primary);
   --blank-bg: var(--color-bg-primary);
 
