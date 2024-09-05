@@ -1,5 +1,19 @@
 /* Loading */
-.doneloading {
+#loading {
+	z-index: 100;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background: var(--loading-bg);
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+#centerdiv {
+	flex: none;
+}
+#loading.doneloading {
 	display: none;
 }
 #loadingdiv {
@@ -16,6 +30,13 @@ body {
 #page {
 	height: 100vh;
 }
+.flexltr {
+	display: flex;
+}
+.flexttb {
+	display: flex;
+	flex-direction: column;
+}
 p, h1, h2, h3, pre {
 	margin: 0;
 }
@@ -29,12 +50,43 @@ hr {
 pre, samp {
 	background: var(--code);
 }
-.flexltr {
-	display: flex;
+button, input[type="file"], input[type="color"] {
+	cursor: pointer;
 }
-.flexttb {
-	display: flex;
-	flex-direction: column;
+button, input::file-selector-button {
+	padding: 4px 8px;
+	background: var(--button-bg);
+	font-size: 1rem;
+	font-family: var(--font);
+	color: var(--button-text);
+	border: none;
+	border-radius: 4px;
+}
+button:hover, input::file-selector-button:hover {
+	background: var(--button-hover);
+}
+textarea {
+	resize: none;
+}
+textarea, input[type="text"] {
+	display: block;
+	width: 100%;
+	padding: 8px;
+	background: var(--text-input-bg);
+	font-family: var(--font);
+	font-size: 1rem;
+	color: var(--primary-text);
+	border: none;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+input[type="color"] {
+	display: block;
+	padding: 2px;
+	width: 40px;
+	height: 40px;
+  background: var(--primary-text);
+	border: none;
 }
 .servertd {
 	flex: none;
@@ -45,6 +97,9 @@ pre, samp {
 	flex-direction: column;
 	justify-content: center;
 	user-select: none;
+}
+.servertd h2 {
+	font-size: 1.15rem;
 }
 
 /* Icons */
@@ -240,7 +295,7 @@ pre, samp {
 	padding: 4px 8px;
 }
 .messagediv:hover {
-	background: var(--message-hover);
+	background: var(--primary-hover);
 }
 .topMessage {
 	margin-top: 8px;
@@ -327,8 +382,13 @@ pre, samp {
 	cursor: pointer;
 }
 
+/* Context Menu */
+.contextmenu {
+	position: absolute;
+}
+
 /* Popup */
-.profile {
+.profile, .hypoprofile {
 	position: absolute;
 	height: 350px;
 	width: 300px;
@@ -339,7 +399,7 @@ pre, samp {
 	align-items: flex-start;
 	box-sizing: border-box;
 }
-.profile .pfp {
+.profile .pfp, .hypoprofile .pfp {
 	width: 48px;
 }
 .statusDiv {
@@ -378,6 +438,29 @@ pre, samp {
 	margin-top: auto;
 }
 
+/* Fullscreen */
+.background {
+	position: fixed;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background: var(--primary-bg);
+}
+.exitsettings {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	height: 32px;
+	width: 32px;
+	background: var(--button-bg);
+  border-radius: 50%;
+	cursor: pointer;
+}
+.exitsettings:hover {
+	background: var(--button-hover);
+}
+
 /* !! DO NOT STYLE FAKE ICONS THEY WILL BE ADDED LATER !! */
-/* ALSO NEED TO ASK IF DESCRIPTION CAN GO NEXT TO CHANNEL NAME */
+/* ALSO NEED TO ASK TOMATO IF DESCRIPTION CAN GO NEXT TO CHANNEL NAME */
 /* MAY HAVE TO CHANGE WHICH CLASS SCROLLS BASED ON LOAD/NOTIF */
+/* SEARCH ANIMATION AND TRANSITION LATER */
