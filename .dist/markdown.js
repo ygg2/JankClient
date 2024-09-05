@@ -162,9 +162,7 @@ class MarkDown {
                     }
                 }
                 if (stdsize) {
-                    console.log(build);
                     build = build.replaceAll("\n", "");
-                    console.log(build, JSON.stringify(build));
                 }
                 if (find === count) {
                     appendcurrent();
@@ -407,14 +405,14 @@ class MarkDown {
                     }
                     build += char;
                 }
-                console.log("checking:" + build);
                 if (URL.canParse(build)) {
+                    appendcurrent();
                     const a = document.createElement("a");
                     //a.href=build;
                     MarkDown.safeLink(a, build);
                     a.textContent = build;
                     a.target = "_blank";
-                    i = j;
+                    i = j - 1;
                     span.appendChild(a);
                     continue;
                 }
