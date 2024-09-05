@@ -121,6 +121,9 @@ hr {
 #channels > div > div:first-child:is(.channel) {
   margin-top: .08in;
 }
+#channels > div > div:first-child .capsflex .channeleffects {
+  margin-top: .08in;
+}
 .space {
   margin: 0.3em 0.2em 0 0.4em;
   vertical-align: -.02in;
