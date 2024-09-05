@@ -9,7 +9,6 @@ fieldset input[type="radio"] {
   margin-right: 0.5em;
 }
 input {
-  background: var(--textarea-bg);
   box-shadow: none;
 }
 input[type=text], input[type=password], input[type="date"] {
@@ -318,6 +317,11 @@ span:has(pre) {
   padding: .1in;
   gap: .05in;
 }
+.emojirow::-webkit-scrollbar-thumb:hover {
+  border-radius: .08in;
+  border: .03in solid transparent;
+  background-clip: padding-box;
+}
 .emojirow .emojiSelect {
   padding: 0;
   background: var(--profile-info-bg);
@@ -410,6 +414,9 @@ span:has(pre) {
 .optionElement {
   width: 100%;
   box-shadow: none;
+}
+.optionElement input[type="text"], .optionElement textarea {
+  background: var(--profile-info-bg);
 }
 .setting {
   width: calc(100% - 2em);
@@ -532,8 +539,8 @@ span:has(pre) {
   --shadow: var(--color-black);
 
   --scrollbar-track: var(--color-bg-primary-hover);
-  --scrollbar-thumb: var(--color-bg-secondary);
-  --scrollbar-thumb-hover: var(--color-bg-secondary);
+  --scrollbar-thumb: var(--color-text-primary-soft);
+  --scrollbar-thumb-hover: var(--color-text-primary-soft);
 
   --loading-bg: var(--color-bg-panel);
 
