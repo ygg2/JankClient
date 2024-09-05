@@ -129,7 +129,12 @@ hr {
   vertical-align: -.02in;
 }
 .addchannel {
-  margin-right: .08in;
+  height: .17in;
+  margin: 0.6em .08in 0 0;
+  line-height: 0.9em;
+}
+.addchannel:hover {
+  background: var(--channel-hover);
 }
 .cunread {
   position: relative;
