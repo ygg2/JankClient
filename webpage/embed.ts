@@ -23,6 +23,7 @@ class Embed{
 			return this.generateImage();
 		case"link":
 			return this.generateLink();
+		case "video":
 		case"article":
 			return this.generateArticle();
 		default:
@@ -64,7 +65,7 @@ class Embed{
 			const a=document.createElement("a");
 			a.textContent=this.json.author.name as string;
 			if(this.json.author.url){
-				a.href=this.json.author.url;
+				MarkDown.safeLink(a,this.json.author.url);
 			}
 			a.classList.add("username");
 			authorline.append(a);
@@ -74,7 +75,7 @@ class Embed{
 			const title=document.createElement("a");
 			title.append(new MarkDown(this.json.title,this.channel).makeHTML());
 			if(this.json.url){
-				title.href=this.json.url;
+				MarkDown.safeLink(title,this.json.url);
 			}
 			title.classList.add("embedtitle");
 			embed.append(title);
@@ -161,7 +162,7 @@ class Embed{
 		if(this.json.url&&this.json.title){
 			const td=document.createElement("td");
 			const a=document.createElement("a");
-			a.href=this.json.url;
+			MarkDown.safeLink(a,this.json.url);
 			a.textContent=this.json.title;
 			td.append(a);
 			trtop.append(td);
@@ -206,7 +207,7 @@ class Embed{
 		}
 		const a=document.createElement("a");
 		if(this.json.url&&this.json.url){
-			a.href=this.json.url;
+			MarkDown.safeLink(a,this.json.url);
 			a.textContent=this.json.url;
 			div.append(a);
 		}
@@ -217,11 +218,34 @@ class Embed{
 		}
 		if(this.json.thumbnail){
 			const img=document.createElement("img");
+			if(this.json.thumbnail.width&&this.json.thumbnail.width){
+				let scale=1;
+				const inch=96;
+				scale=Math.max(scale,this.json.thumbnail.width/inch/4);
+				scale=Math.max(scale,this.json.thumbnail.height/inch/3);
+				this.json.thumbnail.width/=scale;
+				this.json.thumbnail.height/=scale;
+				img.style.width=this.json.thumbnail.width+"px";
+				img.style.height=this.json.thumbnail.height+"px";
+			}
 			img.classList.add("bigembedimg");
-			img.onclick=function(){
-				const full=new Dialog(["img",img.src,["fit"]]);
-				full.show();
-			};
+			if(this.json.video){
+				img.onclick=async ()=>{
+					img.remove();
+					const iframe=document.createElement("iframe");
+					iframe.src=this.json.video.url+"?autoplay=1";
+					if(this.json.thumbnail.width&&this.json.thumbnail.width){
+						iframe.style.width=this.json.thumbnail.width+"px";
+						iframe.style.height=this.json.thumbnail.height+"px";
+					}
+					div.append(iframe);
+				};
+			}else{
+				img.onclick=async ()=>{
+					const full=new Dialog(["img",img.src,["fit"]]);
+					full.show();
+				};
+			}
 			img.src=this.json.thumbnail.proxy_url||this.json.thumbnail.url;
 			div.append(img);
 		}
