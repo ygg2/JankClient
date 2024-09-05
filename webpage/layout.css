@@ -223,6 +223,20 @@ span:has(pre) {
   color: var(--pronouns);
   border-radius: 0;
 }
+.quoteline {
+  width: .04in;
+}
+.quote > span {
+  margin-left: .16in;
+}
+span .quote:first-of-type .quoteline {
+  border-top-left-radius: 0.15em;
+  border-top-right-radius: 0.15em;
+}
+span .quote:last-of-type .quoteline {
+  border-bottom-left-radius: 0.15em;
+  border-bottom-right-radius: 0.15em;
+}
 
 /* Upload, External */
 .messageimgdiv, .unknownfile, .linkembed {
@@ -535,13 +549,13 @@ span:has(pre) {
   --red: var(--color-red);
   --yellow: var(--color-yellow);
   --green: var(--color-green);
-  --focus: color-mix(in srgb, var(--accent-color) 50%, transparent);
+  --focus: color-mix(in srgb, var(--accent-color), transparent);
   --link: var(--color-link);
   --shadow: var(--color-black);
 
   --scrollbar-track: var(--color-bg-primary-hover);
-  --scrollbar-thumb: var(--color-text-primary-soft);
-  --scrollbar-thumb-hover: var(--color-text-primary-soft);
+  --scrollbar-thumb: color-mix(in srgb, var(--color-text-primary-soft), var(--color-bg-primary));
+  --scrollbar-thumb-hover: color-mix(in srgb, var(--color-text-primary-soft), var(--color-bg-primary));
 
   --loading-bg: var(--color-bg-panel);
 
@@ -569,6 +583,7 @@ span:has(pre) {
   --reply-bg: var(--color-bg-message-highlight);
   --reply-border: color-mix(in srgb, var(--color-text-primary-soft) 20%, transparent);
   --reply-text: var(--color-text-primary-soft);
+  --quote-bg: color-mix(in srgb, var(--timestamp-color), transparent);
   --code-bg: var(--color-bg-secondary);
   --spoiler-hover: color-mix(in srgb, var(--color-spoiler) 90%, var(--color-text-primary));
   --spoiler-open-bg: var(--color-spoiler);
@@ -597,6 +612,5 @@ span:has(pre) {
 
   /* Currently Unused Officially */
   --mention-bg: color-mix(in srgb, var(--color-bg-primary) 80%, var(--accent-color));
-  --quote-bg: var(--accent-color);
   --markdown-timestamp: var(--color-text-secondary);
 }
