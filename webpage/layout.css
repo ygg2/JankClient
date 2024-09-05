@@ -361,6 +361,7 @@ span:has(pre) {
   border-radius: .1in;
 }
 .profile {
+  border: none;
   box-shadow: 0 0 .05in color-mix(in srgb, var(--shadow) 50%, transparent);
 }
 .hypoprofile {
