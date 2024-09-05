@@ -135,19 +135,8 @@ hr {
 .addchannel:hover {
   background: var(--channel-hover);
 }
-.cunread {
-  position: relative;
-  box-shadow: none;
-}
 .cunread:after {
-  content: '';
-  height: .075in;
-  width: .075in;
-  position: absolute;
-  left: -.115in;
-  top: .13in;
-  background: var(--primary-text);
-  border-radius: 50%;
+  left: -.11in;
 }
 
 /* User */
@@ -203,6 +192,9 @@ hr {
 }
 .timestamp {
   padding-left: 0.5rem;
+}
+.messageButtons {
+  height: auto;
 }
 .spoiler {
   background: var(--spoiler-open-bg);
@@ -572,8 +564,8 @@ span .quote:last-of-type .quoteline {
 
   /* User */
   --user-dock-bg: var(--color-bg-secondary);
-  --user-info-bg: color-mix(in srgb, var(--color-text-secondary-soft) 15%, transparent);
-  --settings-hover: color-mix(in srgb, var(--color-text-secondary-soft) 15%, transparent);
+  --user-info-bg: color-mix(in srgb, var(--color-text-secondary-soft) 15%, var(--color-bg-secondary));
+  --settings-hover: color-mix(in srgb, var(--color-text-secondary-soft) 15%, var(--color-bg-secondary));
 
   /* Messages Area */
   --channel-name-bg: var(--color-bg-primary);
