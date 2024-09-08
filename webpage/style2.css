@@ -161,6 +161,16 @@ input[type="color"] {
 	mask-repeat: no-repeat;
 }
 
+/* Animations */
+@keyframes fade {
+	0%, 100% {
+		opacity: .2;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
 /* Server List */
 #servers {
 	height: 100%;
@@ -362,7 +372,31 @@ input[type="color"] {
 }
 #typing {
 	position: absolute;
-	bottom: 0;
+	bottom: 8px;
+	margin-left: 24px;
+	display: flex;
+	flex-direction: row-reverse;
+}
+#typing.hidden {
+	display: none;
+}
+.loading-indicator {
+	display: flex;
+	align-items: center;
+}
+.dot {
+	animation: fade 1s infinite;
+	width: 6px;
+	height: 6px;
+	background: var(--primary-text);
+	border-radius: 50%;
+	margin-right: 3px;
+}
+.dot:nth-child(2) {
+	animation-delay: .33s;
+}
+.dot:nth-child(3) {
+	animation-delay: .66s;
 }
 
 /* Message */
@@ -383,7 +417,7 @@ input[type="color"] {
 	gap: 4px;
 }
 .messageButtons div {
-	padding: 6px;
+	padding: 4px;
 	border-radius: 4px;
 }
 .messageButtons div:hover {
