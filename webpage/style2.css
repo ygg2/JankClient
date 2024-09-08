@@ -196,6 +196,28 @@ input[type="color"] {
 	justify-content: center;
 	align-items: center;
 }
+.servernoti, .home {
+	position: relative;
+}
+.unread {
+	position: absolute;
+	transform: translate(-18px, 20px);
+	height: 8px;
+	width: 8px;
+	background: var(--primary-text);
+	border-radius: 4px;
+}
+.servernoti:hover .unread {
+ 	transform: translate(-12px, 12px);
+	height: 24px;
+}
+.serveropen .unread {
+	transform: translate(-12px, 8px) !important;
+	height: 32px !important;
+}
+.notiunread {
+	transform: translate(-12px, 20px);
+}
 
 /* Channel Panel */
 .channelflex {
@@ -225,6 +247,7 @@ input[type="color"] {
 	flex: 1;
 	height: 2em;
 	padding: 0 8px;
+	margin: 0 8px;
 	display: flex;
 	border-radius: 4px;
 	align-items: center;
@@ -236,6 +259,19 @@ input[type="color"] {
 .viewChannel, .viewChannel:hover {
 	background: var(--channel-selected);
 	font-weight: bold;
+}
+.cunread {
+	position: relative;
+}
+.cunread:after {
+	content: '';
+	position: absolute;
+	top: calc(50% - 4px);
+	left: -12px;
+	height: 8px;
+	width: 8px;
+	background: var(--primary-text);
+	border-radius: 50%;
 }
 .space, .collapse-icon {
 	height: 1em;
@@ -302,7 +338,7 @@ input[type="color"] {
 }
 #channelw {
 	flex: 1;
-	padding-bottom: 28px;
+	padding-bottom: 24px;
 	overflow-y: scroll;
 }
 #realbox {
