@@ -10,13 +10,13 @@
   --primary-text-soft: #bac4c5;
 
   --secondary-bg: #141718;
-  --secondary-hover: #232628;
+  --secondary-hover: #2d3036;
 
   --servers-bg: #141718;
   --channels-bg: #232628;
   --channel-selected: #393d44;
   --typebox-bg: #393d44;
-/*  --color-bg-message-highlight: #141718;*/
+  --message-highlight-bg: #141718;
 
   --button-bg: #545967;
   --button-hover: #393d44;
@@ -38,16 +38,17 @@ body {
   --secondary-text: var(--primary-text);
   --secondary-text-soft: var(--primary-text-soft);
   --button-text: var(--primary-text);
+  --button-border: var(--primary-text-soft);
 
   --blank-bg: var(--primary-bg);
   --divider: color-mix(in srgb, var(--primary-text), transparent);
-  --channels-header-bg: transparent;
+  --channels-header-bg: var(--channels-bg);
   --channel-hover: color-mix(in srgb, var(--channel-selected), transparent);
   --dock-bg: var(--secondary-bg);
   --dock-hover: var(--secondary-hover);
   --user-info-bg: var(--secondary-bg);
 
-  --main-header-bg: transparent;
+  --main-header-bg: var(--primary-bg);
   --code-bg: var(--secondary-bg);
   --spoiler-hover: color-mix(in srgb, var(--spoiler), var(--primary-text-soft) 10%);
   --quote-line: color-mix(in srgb, var(--primary-text-soft), transparent);

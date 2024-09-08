@@ -69,12 +69,17 @@ button, input::file-selector-button {
 	text-align: left;
 	color: var(--button-text);
 	border: none;
+	border-bottom: 2.5px solid var(--button-border);
 	border-radius: 4px;
 }
 button:hover, input::file-selector-button:hover {
 	background: var(--button-hover);
 }
+input::file-selector-button, select {
+	margin-left: 4px;
+}
 textarea {
+	height: 144px;
 	resize: none;
 }
 textarea, input[type="text"] {
@@ -98,8 +103,8 @@ input[type="color"] {
 	border: none;
 }
 .servertd {
-	flex: none;
-	height: 48px;
+	flex: 0 0 48px;
+	background: var(--channels-header-bg);
 	border-bottom: solid 2px color-mix(in srgb, var(--shadow), transparent);
 	display: flex;
 	flex-direction: column;
@@ -119,6 +124,15 @@ input[type="color"] {
 }
 .svg-announce {
 	mask: url(/icons/announce.svg);
+}
+.svg-edit{
+	mask: url(/icons/edit.svg);
+}
+.svg-reply{
+	mask: url(/icons/reply.svg);
+}
+.svg-delete{
+	mask: url(/icons/delete.svg);
 }
 .svg-category {
 	mask: url(/icons/category.svg);
@@ -189,9 +203,6 @@ input[type="color"] {
 	width: 240px;
 	background: var(--channels-bg);
 	user-select: none;
-}
-.servertd {
-	background: var(--channels-header-bg)
 }
 #serverName {
 	padding: 0 12px;
@@ -291,7 +302,7 @@ input[type="color"] {
 }
 #channelw {
 	flex: 1;
-	padding-bottom: 16px;
+	padding-bottom: 28px;
 	overflow-y: scroll;
 }
 #realbox {
@@ -316,21 +327,47 @@ input[type="color"] {
 
 /* Message */
 .messagediv, .titlespace {
+	position: relative;
 	padding: 4px 16px;
 }
 .messagediv:hover {
 	background: var(--primary-hover);
 }
-.topMessage {
-	margin-top: 8px;
+.messageButtons {
+	position: absolute;
+	top: -16px;
+	right: 16px;
+	padding: 4px;
+	background: var(--secondary-bg);
+	border-radius: 4px;
+	gap: 4px;
 }
-.message pre {
-	padding: 8px;
-	margin-top: 4px;
+.messageButtons div {
+	padding: 6px;
 	border-radius: 4px;
 }
-.message img {
-	max-width: 100%;
+.messageButtons div:hover {
+	background: var(--secondary-hover);
+}
+.messageButtons div span {
+	display: block;
+	height: 16px;
+	width: 16px;
+}
+#replybox {
+	padding: 0 16px;
+	background: var(--secondary-bg);
+	font-size: .9rem;
+	border-radius: 8px 8px 0 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.replying {
+	background: var(--message-highlight-bg);
+}
+.topMessage {
+	margin-top: 8px;
 }
 .pfprow {
 	flex: none;
@@ -339,6 +376,16 @@ input[type="color"] {
 }
 .pfprow .pfp {
 	height: 40px;
+}
+
+/* Message Content */
+.message pre {
+	padding: 8px;
+	margin-top: 4px;
+	border-radius: 4px;
+}
+.message img {
+	max-width: 100%;
 }
 .timestamp {
 	margin: auto 0 0 6px;
@@ -466,6 +513,7 @@ span .quote:last-of-type .quoteline {
 	background: var(--secondary-bg);
 	font-size: .9rem;
 	font-weight: normal;
+	border: none;
 }
 .contextmenu button:hover {
 	background: var(--secondary-hover);
@@ -483,6 +531,9 @@ span .quote:last-of-type .quoteline {
 	overflow: hidden;
 	align-items: flex-start;
 	box-sizing: border-box;
+}
+.hypoprofile {
+	position: relative;
 }
 .profile .pfp, .hypoprofile .pfp {
 	width: 48px;
@@ -535,6 +586,8 @@ span .quote:last-of-type .quoteline {
 	height: 100%;
 	width: 100%;
 	background: color-mix(in srgb, var(--black) 75%, transparent);
+	display: flex;
+	flex-direction: column;
 }
 .imgfit {
 	max-height: 100%;
@@ -551,8 +604,54 @@ span .quote:last-of-type .quoteline {
 
 /* Settings */
 .settingstitle {
+	flex: 0 0 48px;
+	padding-left: 16px;
 	background: var(--settings-header-bg);
-  }
+	border-bottom: solid 2px color-mix(in srgb, var(--shadow), transparent);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	user-select: none;
+}
+.Buttons {
+	flex: 1;
+	min-height: 0;
+	background: var(--primary-bg);
+}
+.settingbuttons {
+	width: 180px;
+	padding: 8px;
+	background: var(--settings-panel-bg);
+	border-right: solid 2px color-mix(in srgb, var(--shadow), transparent);
+	overflow-y: scroll;
+}
+.SettingsButton {
+	flex: 0 0 2em;
+	background: transparent;
+	border: none;
+}
+.SettingsButtons:hover {
+	background: var(--settings-panel-hover);
+}
+.flexgrow {
+	flex-grow: 1;
+}
+.titlediv {
+	max-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.optionElement {
+	margin: 16px 0 0 16px;
+}
+.flexspace {
+	overflow-y: scroll;
+}
+.optionElement:has(.Buttons) {
+	margin: 0;
+	min-height: 0;
+	display: flex;
+}
 .exitsettings {
 	position: absolute;
 	top: 8px;
@@ -568,6 +667,8 @@ span .quote:last-of-type .quoteline {
 }
 
 /* !! DO NOT STYLE FAKE ICONS THEY WILL BE ADDED LATER !! */
+/* WISHLIST: +, x */
 /* ALSO NEED TO ASK TOMATO IF DESCRIPTION CAN GO NEXT TO CHANNEL NAME */
-/* MAY HAVE TO CHANGE WHICH CLASS SCROLLS BASED ON LOAD/NOTIF */
+/* CHANGE WHICH CLASS SCROLLS BASED ON WHAT TRIGGERS NOTIF */
+/* REDO COLOR BLOCK STYLE LIKE ORIGINAL ONE */
 /* SEARCH ANIMATION AND TRANSITION LATER */
