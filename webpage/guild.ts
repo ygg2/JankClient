@@ -7,15 +7,16 @@ import{Member}from"./member.js";
 import{Settings}from"./settings.js";
 import{Permissions}from"./permissions.js";
 import{ SnowFlake }from"./snowflake.js";
-import{ channeljson, guildjson, emojijson, memberjson }from"./jsontypes.js";
+import{ channeljson, guildjson, emojijson, memberjson, invitejson }from"./jsontypes.js";
 import{ User }from"./user.js";
-import{ Message }from"./message.js";
+
 class Guild extends SnowFlake{
 	owner:Localuser;
 	headers:Localuser["headers"];
 	channels:Channel[];
 	channelids:{[key:string]:Channel};
 	properties;
+	member_count:number;
 	roles:Role[];
 	roleids:Map<string,Role>;
 	prevchannel:Channel|undefined;
@@ -26,6 +27,7 @@ class Guild extends SnowFlake{
 	member:Member;
 	html:HTMLElement;
 	emojis:emojijson[];
+	large:boolean;
 	static contextmenu=new Contextmenu<Guild,undefined>("guild menu");
 	static setupcontextmenu(){
 		Guild.contextmenu.addbutton("Copy Guild id",function(this:Guild){
@@ -88,6 +90,8 @@ class Guild extends SnowFlake{
 			console.log(json.stickers,":3");
 		}
 		super(json.id);
+		this.large=json.large;
+		this.member_count=json.member_count;
 		this.emojis = json.emojis;
 		this.owner=owner;
 		this.headers=this.owner.headers;
@@ -96,7 +100,7 @@ class Guild extends SnowFlake{
 		this.properties=json.properties;
 		this.roles=[];
 		this.roleids=new Map();
-		this.prevchannel=undefined;
+
 		this.message_notifications=0;
 		for(const roley of json.roles){
 			const roleh=new Role(roley,this);
@@ -131,6 +135,7 @@ class Guild extends SnowFlake{
 				this.headchannels.push(thing);
 			}
 		}
+		this.prevchannel=this.channelids[this.perminfo.prevchannel];
 	}
 	get perminfo(){
 		return this.localuser.perminfo.guilds[this.id];
@@ -269,38 +274,59 @@ class Guild extends SnowFlake{
 			return a.position-b.position;
 		});
 	}
-	generateGuildIcon(){
+	static generateGuildIcon(guild:Guild|(invitejson["guild"] & {info:{cdn:string}})){
 		const divy=document.createElement("div");
 		divy.classList.add("servernoti");
 
 		const noti=document.createElement("div");
 		noti.classList.add("unread");
 		divy.append(noti);
-		this.localuser.guildhtml.set(this.id,divy);
-		if(this.properties.icon!=null){
+		if(guild instanceof Guild){
+			guild.localuser.guildhtml.set(guild.id,divy);
+		}
+		let icon:string|null
+		if(guild instanceof Guild){
+			icon=guild.properties.icon;
+		}else{
+			icon=guild.icon;
+		}
+		if(icon!==null){
 			const img=document.createElement("img");
 			img.classList.add("pfp","servericon");
-			img.src=this.info.cdn+"/icons/"+this.properties.id+"/"+this.properties.icon+".png";
+			img.src=guild.info.cdn+"/icons/"+guild.id+"/"+icon+".png";
 			divy.appendChild(img);
-			img.onclick=()=>{
-				console.log(this.loadGuild);
-				this.loadGuild();
-				this.loadChannel();
-			};
-			Guild.contextmenu.bindContextmenu(img,this,undefined);
+			if(guild instanceof Guild){
+				img.onclick=()=>{
+					console.log(guild.loadGuild);
+					guild.loadGuild();
+					guild.loadChannel();
+				};
+				Guild.contextmenu.bindContextmenu(img,guild,undefined);
+			}
 		}else{
 			const div=document.createElement("div");
-			const build=this.properties.name.replace(/'s /g, " ").replace(/\w+/g, word=>word[0]).replace(/\s/g, "");
+			let name:string
+			if(guild instanceof Guild){
+				name=guild.properties.name;
+			}else{
+				name=guild.name;
+			}
+			const build=name.replace(/'s /g, " ").replace(/\w+/g, word=>word[0]).replace(/\s/g, "");
 			div.textContent=build;
 			div.classList.add("blankserver","servericon");
 			divy.appendChild(div);
-			div.onclick=()=>{
-				this.loadGuild();
-				this.loadChannel();
-			};
-			Guild.contextmenu.bindContextmenu(div,this,undefined);
+			if(guild instanceof Guild){
+				div.onclick=()=>{
+					guild.loadGuild();
+					guild.loadChannel();
+				};
+				Guild.contextmenu.bindContextmenu(div,guild,undefined);
+			}
 		}
 		return divy;
+	}
+	generateGuildIcon(){
+		return Guild.generateGuildIcon(this);
 	}
 	confirmDelete(){
 		let confirmname="";
@@ -457,6 +483,7 @@ class Guild extends SnowFlake{
 		}
 		this.calculateReorder();
 		this.printServers();
+		return thischannel;
 	}
 	createchannels(func=this.createChannel){
 		let name="";

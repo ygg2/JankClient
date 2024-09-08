@@ -1,5 +1,7 @@
 import { Dialog } from "./dialog.js";
 import { MarkDown } from "./markdown.js";
+import { getapiurls, getInstances } from "./login.js";
+import { Guild } from "./guild.js";
 class Embed {
     type;
     owner;
@@ -8,8 +10,40 @@ class Embed {
         this.type = this.getType(json);
         this.owner = owner;
         this.json = json;
+        console.log(this);
     }
     getType(json) {
+        const instances = getInstances();
+        if (instances && json.type === "link" && json.url && URL.canParse(json.url)) {
+            const Url = new URL(json.url);
+            for (const instance of instances) {
+                if (instance.url && URL.canParse(instance.url)) {
+                    const IUrl = new URL(instance.url);
+                    const params = new URLSearchParams(Url.search);
+                    let host;
+                    if (params.has("instance")) {
+                        const url = params.get("instance");
+                        if (URL.canParse(url)) {
+                            host = new URL(url).host;
+                        }
+                        else {
+                            host = Url.host;
+                        }
+                    }
+                    else {
+                        host = Url.host;
+                    }
+                    if (IUrl.host === host) {
+                        const code = Url.pathname.split("/")[Url.pathname.split("/").length - 1];
+                        json.invite = {
+                            url: instance.url,
+                            code
+                        };
+                        return "invite";
+                    }
+                }
+            }
+        }
         return json.type || "rich";
     }
     generateHTML() {
@@ -18,8 +52,11 @@ class Embed {
                 return this.generateRich();
             case "image":
                 return this.generateImage();
+            case "invite":
+                return this.generateInvite();
             case "link":
                 return this.generateLink();
+            case "video":
             case "article":
                 return this.generateArticle();
             default:
@@ -59,7 +96,7 @@ class Embed {
             const a = document.createElement("a");
             a.textContent = this.json.author.name;
             if (this.json.author.url) {
-                a.href = this.json.author.url;
+                MarkDown.safeLink(a, this.json.author.url);
             }
             a.classList.add("username");
             authorline.append(a);
@@ -69,7 +106,7 @@ class Embed {
             const title = document.createElement("a");
             title.append(new MarkDown(this.json.title, this.channel).makeHTML());
             if (this.json.url) {
-                title.href = this.json.url;
+                MarkDown.safeLink(title, this.json.url);
             }
             title.classList.add("embedtitle");
             embed.append(title);
@@ -154,7 +191,7 @@ class Embed {
         if (this.json.url && this.json.title) {
             const td = document.createElement("td");
             const a = document.createElement("a");
-            a.href = this.json.url;
+            MarkDown.safeLink(a, this.json.url);
             a.textContent = this.json.title;
             td.append(a);
             trtop.append(td);
@@ -184,6 +221,105 @@ class Embed {
         table.append(bottomtr);
         return table;
     }
+    invcache;
+    generateInvite() {
+        if (this.invcache && (!this.json.invite || !this.localuser)) {
+            return this.generateLink();
+        }
+        const div = document.createElement("div");
+        div.classList.add("embed", "inviteEmbed", "flexttb");
+        const json1 = this.json.invite;
+        (async () => {
+            let json;
+            let info;
+            if (!this.invcache) {
+                if (!json1) {
+                    div.append(this.generateLink());
+                    return;
+                }
+                const tempinfo = await getapiurls(json1.url);
+                ;
+                if (!tempinfo) {
+                    div.append(this.generateLink());
+                    return;
+                }
+                info = tempinfo;
+                const res = await fetch(info.api + "/invites/" + json1.code);
+                if (!res.ok) {
+                    div.append(this.generateLink());
+                }
+                json = await res.json();
+                this.invcache = [json, info];
+            }
+            else {
+                [json, info] = this.invcache;
+            }
+            if (!json) {
+                div.append(this.generateLink());
+                return;
+            }
+            if (json.guild.banner) {
+                const banner = document.createElement("img");
+                banner.src = this.localuser.info.cdn + "/icons/" + json.guild.id + "/" + json.guild.banner + ".png?size=256";
+                banner.classList.add("banner");
+                div.append(banner);
+            }
+            const guild = json.guild;
+            guild.info = info;
+            const icon = Guild.generateGuildIcon(guild);
+            const iconrow = document.createElement("div");
+            iconrow.classList.add("flexltr", "flexstart");
+            iconrow.append(icon);
+            {
+                const guildinfo = document.createElement("div");
+                guildinfo.classList.add("flexttb", "invguildinfo");
+                const name = document.createElement("b");
+                name.textContent = guild.name;
+                guildinfo.append(name);
+                const members = document.createElement("span");
+                members.innerText = "#" + json.channel.name + " • Members: " + guild.member_count;
+                guildinfo.append(members);
+                members.classList.add("subtext");
+                iconrow.append(guildinfo);
+            }
+            div.append(iconrow);
+            const h2 = document.createElement("h2");
+            h2.textContent = `You've been invited by ${json.inviter.username}`;
+            div.append(h2);
+            const button = document.createElement("button");
+            button.textContent = "Accept";
+            if (this.localuser.info.api.startsWith(info.api)) {
+                if (this.localuser.guildids.has(guild.id)) {
+                    button.textContent = "Already joined";
+                    button.disabled = true;
+                }
+            }
+            button.classList.add("acceptinvbutton");
+            div.append(button);
+            button.onclick = _ => {
+                if (this.localuser.info.api.startsWith(info.api)) {
+                    fetch(this.localuser.info.api + "/invites/" + json.code, {
+                        method: "POST",
+                        headers: this.localuser.headers,
+                    }).then(r => r.json()).then(_ => {
+                        if (_.message) {
+                            alert(_.message);
+                        }
+                    });
+                }
+                else {
+                    if (this.json.invite) {
+                        const params = new URLSearchParams("");
+                        params.set("instance", this.json.invite.url);
+                        const encoded = params.toString();
+                        const url = `${location.origin}/invite/${this.json.invite.code}?${encoded}`;
+                        window.open(url, "_blank");
+                    }
+                }
+            };
+        })();
+        return div;
+    }
     generateArticle() {
         const colordiv = document.createElement("div");
         colordiv.style.backgroundColor = "#000000";
@@ -198,7 +334,7 @@ class Embed {
         }
         const a = document.createElement("a");
         if (this.json.url && this.json.url) {
-            a.href = this.json.url;
+            MarkDown.safeLink(a, this.json.url);
             a.textContent = this.json.url;
             div.append(a);
         }
@@ -209,11 +345,37 @@ class Embed {
         }
         if (this.json.thumbnail) {
             const img = document.createElement("img");
+            if (this.json.thumbnail.width && this.json.thumbnail.width) {
+                let scale = 1;
+                const inch = 96;
+                scale = Math.max(scale, this.json.thumbnail.width / inch / 4);
+                scale = Math.max(scale, this.json.thumbnail.height / inch / 3);
+                this.json.thumbnail.width /= scale;
+                this.json.thumbnail.height /= scale;
+                img.style.width = this.json.thumbnail.width + "px";
+                img.style.height = this.json.thumbnail.height + "px";
+            }
             img.classList.add("bigembedimg");
-            img.onclick = function () {
-                const full = new Dialog(["img", img.src, ["fit"]]);
-                full.show();
-            };
+            if (this.json.video) {
+                img.onclick = async () => {
+                    if (this.json.video) {
+                        img.remove();
+                        const iframe = document.createElement("iframe");
+                        iframe.src = this.json.video.url + "?autoplay=1";
+                        if (this.json.thumbnail.width && this.json.thumbnail.width) {
+                            iframe.style.width = this.json.thumbnail.width + "px";
+                            iframe.style.height = this.json.thumbnail.height + "px";
+                        }
+                        div.append(iframe);
+                    }
+                };
+            }
+            else {
+                img.onclick = async () => {
+                    const full = new Dialog(["img", img.src, ["fit"]]);
+                    full.show();
+                };
+            }
             img.src = this.json.thumbnail.proxy_url || this.json.thumbnail.url;
             div.append(img);
         }

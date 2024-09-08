@@ -28,7 +28,6 @@ class Localuser {
     lookingguild;
     guildhtml;
     ws;
-    typing = new Map();
     connectionSucceed = 0;
     errorBackoff = 0;
     userMap = new Map();
@@ -495,9 +494,30 @@ class Localuser {
         const guild = this.guildids.get(json.guild_id);
         if (!guild)
             return;
-        guild.createChannelpac(json);
+        const channel = guild.createChannelpac(json);
         if (json.guild_id === this.lookingguild?.id) {
             this.loadGuild(json.guild_id);
+        }
+        if (channel.id === this.gotoid) {
+            guild.loadGuild();
+            guild.loadChannel(channel.id);
+            this.gotoid = undefined;
+        }
+    }
+    gotoid;
+    async goToChannel(id) {
+        let guild;
+        for (const thing of this.guilds) {
+            if (thing.channelids[id]) {
+                guild = thing;
+            }
+        }
+        if (guild) {
+            guild.loadGuild();
+            guild.loadChannel(id);
+        }
+        else {
+            this.gotoid = id;
         }
     }
     delChannel(json) {
@@ -766,22 +786,15 @@ class Localuser {
         }
     }
     async typingStart(typing) {
-        if (this.channelfocus?.id === typing.d.channel_id) {
-            const guild = this.guildids.get(typing.d.guild_id);
-            if (!guild)
-                return;
-            const memb = await Member.new(typing.d.member, guild);
-            if (!memb)
-                return;
-            if (memb.id === this.user.id) {
-                console.log("you is typing");
-                return;
-            }
-            console.log("user is typing and you should see it");
-            this.typing.set(memb, Date.now());
-            setTimeout(this.rendertyping.bind(this), 10000);
-            this.rendertyping();
-        }
+        //
+        const guild = this.guildids.get(typing.d.guild_id);
+        if (!guild)
+            return;
+        const channel = guild.channelids[typing.d.channel_id];
+        if (!channel)
+            return;
+        channel.typingStart(typing);
+        //this.typing.set(memb,Date.now());
     }
     updatepfp(file) {
         const reader = new FileReader();
@@ -826,45 +839,6 @@ class Localuser {
             headers: this.headers,
             body: JSON.stringify(json)
         });
-    }
-    rendertyping() {
-        const typingtext = document.getElementById("typing");
-        let build = "";
-        let showing = false;
-        let i = 0;
-        const curtime = Date.now() - 5000;
-        for (const thing of this.typing.keys()) {
-            if (this.typing.get(thing) > curtime) {
-                if (i !== 0) {
-                    build += ", ";
-                }
-                i++;
-                if (thing.nick) {
-                    build += thing.nick;
-                }
-                else {
-                    build += thing.user.username;
-                }
-                showing = true;
-            }
-            else {
-                this.typing.delete(thing);
-            }
-        }
-        if (i > 1) {
-            build += " are typing";
-        }
-        else {
-            build += " is typing";
-        }
-        if (showing) {
-            typingtext.classList.remove("hidden");
-            const typingtext2 = document.getElementById("typingtext");
-            typingtext2.textContent = build;
-        }
-        else {
-            typingtext.classList.add("hidden");
-        }
     }
     async showusersettings() {
         const settings = new Settings("Settings");
@@ -1355,6 +1329,22 @@ class Localuser {
     async resolvemember(id, guildid) {
         if (guildid === "@me") {
             return undefined;
+        }
+        const guild = this.guildids.get(guildid);
+        const borked = true;
+        if (borked && guild && guild.member_count > 250) { //sorry puyo, I need to fix member resolving while it's broken on large guilds
+            try {
+                const req = await fetch(this.info.api + "/guilds/" + guild.id + "/members/" + id, {
+                    headers: this.headers
+                });
+                if (req.status !== 200) {
+                    return undefined;
+                }
+                return await req.json();
+            }
+            catch {
+                return undefined;
+            }
         }
         let guildmap = this.waitingmembers.get(guildid);
         if (!guildmap) {

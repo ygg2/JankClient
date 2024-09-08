@@ -3,11 +3,16 @@ import{ Channel }from"./channel.js";
 import{ Message }from"./message.js";
 import{ Localuser }from"./localuser.js";
 import{User}from"./user.js";
-import{ dirrectjson, memberjson, messagejson }from"./jsontypes.js";
+import{ channeljson, dirrectjson, memberjson, messagejson }from"./jsontypes.js";
 import{ Permissions }from"./permissions.js";
 import { SnowFlake } from "./snowflake.js";
+import { Contextmenu } from "./contextmenu.js";
 
 class Direct extends Guild{
+	channelids:{[key:string]:Group};
+	getUnixTime(): number {
+		throw new Error("Do not call this for Direct, it does not make sense");
+	}
 	constructor(json:dirrectjson[],owner:Localuser){
 		super(-1,owner,null);
 		this.message_notifications=0;
@@ -32,10 +37,18 @@ class Direct extends Guild{
 	}
 	createChannelpac(json){
 		const thischannel=new Group(json,this);
-		this.channelids[json.id]=thischannel;
+		this.channelids[thischannel.id]=thischannel;
 		this.channels.push(thischannel);
-		this.calculateReorder();
+		this.sortchannels();
 		this.printServers();
+		return thischannel;
+	}
+	delChannel(json:channeljson){
+		const channel=this.channelids[json.id];
+		super.delChannel(json);
+		if(channel){
+			channel.del();
+		}
 	}
 	giveMember(_member:memberjson){
 		console.error("not a real guild, can't give member object");
@@ -81,6 +94,24 @@ dmPermissions.setPermission("USE_VAD",1);
 
 class Group extends Channel{
 	user:User;
+	static contextmenu=new Contextmenu<Group,undefined>("channel menu");
+	static setupcontextmenu(){
+		this.contextmenu.addbutton("Copy DM id",function(this:Group){
+			navigator.clipboard.writeText(this.id);
+		});
+
+		this.contextmenu.addbutton("Mark as read",function(this:Group){
+			this.readbottom();
+		});
+
+		this.contextmenu.addbutton("Close DM",function(this:Group){
+			this.deleteChannel();
+		});
+
+		this.contextmenu.addbutton("Copy user ID",function(){
+			navigator.clipboard.writeText(this.user.id);
+		})
+	}
 	constructor(json:dirrectjson,owner:Direct){
 		super(-1,owner,json.id);
 		this.owner=owner;
@@ -100,14 +131,20 @@ class Group extends Channel{
 		this.lastmessageid=json.last_message_id;
 		this.mentions=0;
 		this.setUpInfiniteScroller();
+		this.updatePosition();
+	}
+	updatePosition(){
 		if(this.lastmessageid){
 			this.position=SnowFlake.stringToUnixTime(this.lastmessageid);
+		}else{
+			this.position=0;
 		}
-
 		this.position=-Math.max(this.position,this.getUnixTime());
 	}
 	createguildHTML(){
 		const div=document.createElement("div");
+		Group.contextmenu.bindContextmenu(div,this,undefined);
+		this.html=new WeakRef(div);
 		div.classList.add("channeleffects");
 		const myhtml=document.createElement("span");
 		myhtml.textContent=this.name;
@@ -117,25 +154,34 @@ class Group extends Channel{
 		div.onclick=_=>{
 			this.getHTML();
 		};
+
 		return div;
 	}
 	async getHTML(){
 		const id=++Channel.genid;
+		if(this.localuser.channelfocus){
+			this.localuser.channelfocus.infinite.delete();
+		}
 		if(this.guild!==this.localuser.lookingguild){
 			this.guild.loadGuild();
 		}
 		this.guild.prevchannel=this;
 		this.localuser.channelfocus=this;
 		const prom=this.infinite.delete();
+		history.pushState(null, "","/channels/"+this.guild_id+"/"+this.id);
+		this.localuser.pageTitle("@"+this.name);
+		(document.getElementById("channelTopic") as HTMLElement).setAttribute("hidden","");
+
+		const loading=document.getElementById("loadingdiv") as HTMLDivElement;
+		Channel.regenLoadingMessages();
+		loading.classList.add("loading");
+		this.rendertyping();
 		await this.putmessages();
 		await prom;
 		if(id!==Channel.genid){
 			return;
 		}
 		this.buildmessages();
-		history.pushState(null, "","/channels/"+this.guild_id+"/"+this.id);
-		this.localuser.pageTitle("@"+this.name);
-		(document.getElementById("channelTopic") as HTMLElement).setAttribute("hidden","");
 		(document.getElementById("typebox") as HTMLDivElement).contentEditable=""+true;
 	}
 	messageCreate(messagep:{d:messagejson}){
@@ -156,7 +202,20 @@ class Group extends Channel{
 			}
 		}
 		this.unreads();
+		this.updatePosition();
 		this.infinite.addedBottom();
+		this.guild.sortchannels();
+		if(this.myhtml){
+			const parrent=this.myhtml.parentElement as HTMLElement;
+			parrent.prepend(this.myhtml);
+		}
+		if(this===this.localuser.channelfocus){
+			if(!this.infinitefocus){
+				this.tryfocusinfinate();
+			}
+			this.infinite.addedBottom();
+		}
+		this.unreads();
 		if(messagez.author===this.localuser.user){
 			return;
 		}
@@ -172,27 +231,41 @@ class Group extends Channel{
 	notititle(message){
 		return message.author.username;
 	}
+	readbottom(){
+		super.readbottom();
+		this.unreads();
+	}
+	all:WeakRef<HTMLElement>=new WeakRef(document.createElement("div"));
+	noti:WeakRef<HTMLElement>=new WeakRef(document.createElement("div"));
+	del(){
+		const all=this.all.deref();
+		if(all){
+			all.remove();
+		}
+		if(this.myhtml){
+			this.myhtml.remove();
+		}
+	}
 	unreads(){
 		const sentdms=document.getElementById("sentdms") as HTMLDivElement;//Need to change sometime
-		let current:HTMLElement|null=null;
-		for(const thing of sentdms.children){
-			if(thing["all"]===this){
-				current=thing as HTMLElement;
-			}
-		}
+		const current=this.all.deref();
 		if(this.hasunreads){
-			if(current){
-				current["noti"].textContent=this.mentions;return;
+			{
+				const noti=this.noti.deref();
+				if(noti){
+					noti.textContent=this.mentions+"";
+					return;
+				}
 			}
 			const div=document.createElement("div");
 			div.classList.add("servernoti");
 			const noti=document.createElement("div");
 			noti.classList.add("unread","notiunread","pinged");
 			noti.textContent=""+this.mentions;
-			div["noti"]=noti;
+			this.noti=new WeakRef(noti);
 			div.append(noti);
 			const buildpfp=this.user.buildpfp();
-			div["all"]=this;
+			this.all=new WeakRef(div);
 			buildpfp.classList.add("mentioned");
 			div.append(buildpfp);
 			sentdms.append(div);
@@ -214,3 +287,4 @@ class Group extends Channel{
 	}
 }
 export{Direct, Group};
+Group.setupcontextmenu();

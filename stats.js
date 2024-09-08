@@ -31,7 +31,7 @@ async function observe(instances){
 		}
 		if(!api||api===""){
 			setStatus(instance,false);
-			console.warn(instance.name+" does not resolve api URL");
+			console.warn(instance.name+" does not resolve api URL",instance);
 			setTimeout(_=>{
 				resolveinstance(instance);
 			},1000*60*30,);
@@ -39,10 +39,25 @@ async function observe(instances){
 		}
 		active.add(instance.name);
 		api+=api.endsWith("/")?"":"/";
-		function check(){
-			fetch(api+"ping",{method: "HEAD"}).then(_=>{
-				setStatus(instance,_.ok);
-			});
+		async function check(tries=0){
+			try{
+				const req=await fetch(api+"ping",{method: "HEAD"})
+				if(tries>3||req.ok){
+					setStatus(instance,req.ok);
+				}else{
+					setTimeout(()=>{
+						check(tries+1);
+					},30000)
+				}
+			}catch{
+				if(tries>3){
+					setStatus(instance,false);
+				}else{
+					setTimeout(()=>{
+						check(tries+1);
+					},30000)
+				}
+			}
 		}
 		setTimeout(
 			_=>{

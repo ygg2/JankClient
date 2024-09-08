@@ -1,4 +1,5 @@
 import{ Channel }from"./channel.js";
+import { Dialog } from "./dialog.js";
 import{ Emoji }from"./emoji.js";
 import{ Localuser }from"./localuser.js";
 
@@ -101,6 +102,7 @@ class MarkDown{
 						}
 						if(keep){
 							element.append(keepys);
+							//span.appendChild(document.createElement("br"));
 						}
 						element.appendChild(this.markdown(build,{keep,stdsize}));
 						span.append(element);
@@ -157,9 +159,7 @@ class MarkDown{
 					}
 				}
 				if(stdsize){
-					console.log(build);
 					build=build.replaceAll("\n","");
-					console.log(build,JSON.stringify(build));
 				}
 				if(find===count){
 					appendcurrent();
@@ -386,7 +386,30 @@ class MarkDown{
 					continue;
 				}
 			}
+			if((!keep)&&txt[i]==="h" && txt[i + 1]==="t" && txt[i + 2]==="t" && txt[i + 3]==="p"){
+				let build="http";
+				let j = i+4;
+				const endchars=new Set(["\\", "<", ">", "|", "]"," "]);
+				for(; txt[j] !== undefined; j++){
+					const char=txt[j];
+					if(endchars.has(char)){
+						break;
+					}
+					build+=char;
+				}
+				if(URL.canParse(build)){
+					appendcurrent();
+					const a=document.createElement("a");
+					//a.href=build;
+					MarkDown.safeLink(a,build);
+					a.textContent=build;
+					a.target="_blank";
+					i=j-1;
+					span.appendChild(a);
+					continue;
+				}
 
+			}
 			if(txt[i]==="<" && txt[i + 1]==="t" && txt[i + 2]===":"){
 				let found=false;
 				const build=["<","t",":"];
@@ -479,19 +502,22 @@ class MarkDown{
 
 				if(partsFound === 2){
 					appendcurrent();
-					i=j;
+
 
 					const parts=build.join("").match(/^\[(.+)\]\((https?:.+?)( ('|").+('|"))?\)$/);
 					if(parts){
 						const linkElem=document.createElement("a");
-						linkElem.href=parts[2];
-						linkElem.textContent=parts[1];
-						linkElem.target="_blank";
-						linkElem.rel="noopener noreferrer";
-						linkElem.title=(parts[3] ? parts[3].substring(2, parts[3].length - 1)+"\n\n" : "") + parts[2];
-						span.appendChild(linkElem);
+						if(URL.canParse(parts[2])){
+							i=j;
+							MarkDown.safeLink(linkElem,parts[2])
+							linkElem.textContent=parts[1];
+							linkElem.target="_blank";
+							linkElem.rel="noopener noreferrer";
+							linkElem.title=(parts[3] ? parts[3].substring(2, parts[3].length - 1)+"\n\n" : "") + parts[2];
+							span.appendChild(linkElem);
 
-						continue;
+							continue;
+						}
 					}
 				}
 			}
@@ -558,6 +584,50 @@ class MarkDown{
 			}
 		}
 		return build;
+	}
+	static readonly trustedDomains=new Set([location.host])
+	static safeLink(elm:HTMLElement,url:string){
+		if(URL.canParse(url)){
+			const Url=new URL(url);
+			if(elm instanceof HTMLAnchorElement&&this.trustedDomains.has(Url.host)){
+				elm.href=url;
+				elm.target="_blank";
+				return;
+			}
+			elm.onmouseup=_=>{
+				if(_.button===2) return;
+				console.log(":3")
+				function open(){
+					const proxy=window.open(url, '_blank')
+					if(proxy&&_.button===1){
+						proxy.focus();
+					}else if(proxy){
+						window.focus();
+					}
+				}
+				if(this.trustedDomains.has(Url.host)){
+					open();
+				}else{
+					const full=new Dialog([
+						"vdiv",
+						["title","You're leaving spacebar"],
+						["text","You're going to "+Url.host+" are you sure you want to go there?"],
+						["hdiv",
+							["button","","Nevermind",_=>full.hide()],
+							["button","","Go there",_=>{open();full.hide()}],
+							["button","","Go there and trust in the future",_=>{
+								open();
+								full.hide();
+								this.trustedDomains.add(Url.host);
+							}]
+						]
+					]);
+					full.show();
+				}
+			}
+		}else{
+			throw Error(url+" is not a valid URL")
+		}
 	}
 }
 
