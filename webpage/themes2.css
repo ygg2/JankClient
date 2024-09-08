@@ -3,6 +3,7 @@
 }
 
 .Dark-theme {
+  color-scheme: dark;
   --primary-bg: #2d3036;
   --primary-hover: #262a2f;
   --primary-text: #e0e0e0;
@@ -10,8 +11,6 @@
 
   --secondary-bg: #141718;
   --secondary-hover: #232628;
-  --secondary-text: #e0e0e0;
-  --secondary-text-soft: #bac4c5;
 
   --servers-bg: #141718;
   --channels-bg: #232628;
@@ -30,13 +29,16 @@
 /*  --color-yellow: #f4e770;*/
   --green: #22a696;
 
-  --icon: #19c2a6;
+/*  --icon: #19c2a6;*/
 }
 
 /* Optional Vars */
 body {
-  --shadow: var(--black);
+  --icon: var(--accent-color);
+  --secondary-text: var(--primary-text);
+  --secondary-text-soft: var(--primary-text-soft);
   --button-text: var(--primary-text);
+
   --blank-bg: var(--primary-bg);
   --divider: color-mix(in srgb, var(--primary-text), transparent);
   --channels-header-bg: transparent;
@@ -44,6 +46,7 @@ body {
   --dock-bg: var(--secondary-bg);
   --dock-hover: var(--secondary-hover);
   --user-info-bg: var(--secondary-bg);
+
   --main-header-bg: transparent;
   --code-bg: var(--secondary-bg);
   --spoiler-hover: color-mix(in srgb, var(--spoiler), var(--primary-text-soft) 10%);
@@ -52,7 +55,14 @@ body {
   --reply-text: var(--primary-text-soft);
   --reaction-bg: var(--secondary-bg);
   --embed-bg: var(--secondary-bg);
+  --filename: var(--link);
+
   --popup-bg: var(--primary-bg);
+  --settings-header-bg: var(--channels-header-bg);
+  --settings-panel-bg: var(--channels-bg);
+  --settings-panel-selected: var(--channel-selected);
+  --settings-panel-hover: color-mix(in srgb, var(--settings-panel-selected), transparent);
   --text-input-bg: var(--secondary-bg);
   --loading-bg: var(--secondary-bg);
+  --shadow: var(--black);
 }
