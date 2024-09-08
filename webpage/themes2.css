@@ -1,41 +1,58 @@
 :root {
 	--font: "acumin-pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --black: black;
-  --green: green;
+}
 
-  --primary-bg: #666666;
-  --primary-hover: #707070;
-	--primary-text: #eeeeee;
-  --primary-text-soft: #cccccc;
+.Dark-theme {
+  --primary-bg: #2d3036;
+  --primary-hover: #262a2f;
+  --primary-text: #e0e0e0;
+  --primary-text-soft: #bac4c5;
 
-  --secondary-bg: #555555;
+  --secondary-bg: #141718;
+  --secondary-hover: #232628;
+  --secondary-text: #e0e0e0;
+  --secondary-text-soft: #bac4c5;
 
-  --button-bg: #444444;
-  --button-hover: #555555;
-  --button-text: #cccccc;
-  
-  --icon: #ffffff;
-  --typebox-bg: #777777;
+  --servers-bg: #141718;
+  --channels-bg: #232628;
+  --channel-selected: #393d44;
+  --typebox-bg: #393d44;
+/*  --color-bg-message-highlight: #141718;*/
 
-  --servers-bg: #222222;
-  --blank-bg: #555555;
-  --header-bg: #444444;
-  --channels-bg: #888888;
-  --channel-hover: #999999;
-  --channel-selected: #aaaaaa;
-  --dock-bg: #444444;
-  --user-info-bg: #333333;
-  --settings-hover: #333333;
+  --button-bg: #545967;
+  --button-hover: #393d44;
 
-  --code: #222222;
   --spoiler: #000000;
-  --spoiler-hover: #333333;
-  --reply-line: #bbbbbb;
-  --reply-text: #dddddd;
-  --reaction-bg: #555555;
-  --embed-bg: #888888;
+  --link: #44cfbf;
 
-  --popup-bg: #777777;
-  --text-input-bg: #333333;
-  --loading-bg: #222222;
+  --black: #000000;
+/*  --color-red: #ff5555;*/
+/*  --color-yellow: #f4e770;*/
+  --green: #22a696;
+
+  --icon: #19c2a6;
+}
+
+/* Optional Vars */
+body {
+  --shadow: var(--black);
+  --button-text: var(--primary-text);
+  --blank-bg: var(--primary-bg);
+  --divider: color-mix(in srgb, var(--primary-text), transparent);
+  --channels-header-bg: transparent;
+  --channel-hover: color-mix(in srgb, var(--channel-selected), transparent);
+  --dock-bg: var(--secondary-bg);
+  --dock-hover: var(--secondary-hover);
+  --user-info-bg: var(--secondary-bg);
+  --main-header-bg: transparent;
+  --code-bg: var(--secondary-bg);
+  --spoiler-hover: color-mix(in srgb, var(--spoiler), var(--primary-text-soft) 10%);
+  --quote-line: color-mix(in srgb, var(--primary-text-soft), transparent);
+  --reply-line: color-mix(in srgb, var(--primary-text-soft) 20%, transparent);
+  --reply-text: var(--primary-text-soft);
+  --reaction-bg: var(--secondary-bg);
+  --embed-bg: var(--secondary-bg);
+  --popup-bg: var(--primary-bg);
+  --text-input-bg: var(--secondary-bg);
+  --loading-bg: var(--secondary-bg);
 }

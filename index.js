@@ -11,7 +11,7 @@ for(const instance of instances){
 	instancenames.set(instance.name,instance);
 }
 app.use(compression());
-fetch("https://raw.githubusercontent.com/spacebarchat/spacebarchat/master/instances/instances.json").then(_=>_.json()).then(json=>{
+/*fetch("https://raw.githubusercontent.com/spacebarchat/spacebarchat/master/instances/instances.json").then(_=>_.json()).then(json=>{
 	for(const instance of json){
 		if(!instancenames.has(instance.name)){
 			instances.push(instance);
@@ -25,7 +25,7 @@ fetch("https://raw.githubusercontent.com/spacebarchat/spacebarchat/master/instan
 		}
 	}
 	stats.observe(instances);
-});
+});*/
 
 app.use("/getupdates",(req, res)=>{
 	const out=fs.statSync(`${__dirname}/webpage`);
@@ -162,7 +162,7 @@ app.use("/", async (req, res)=>{
 		console.log(req);
 	}
 	if(req.path==="/"){
-		res.sendFile("./webpage/home.html", {root: __dirname});
+		res.sendFile("./webpage/login.html", {root: __dirname});
 		return;
 	}
 	if(debugging&&req.path.startsWith("/service.js")){

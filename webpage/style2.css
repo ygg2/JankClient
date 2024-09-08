@@ -40,15 +40,22 @@ body {
 p, h1, h2, h3, pre {
 	margin: 0;
 }
+a {
+	color: var(--link);
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
 hr {
 	height: 0;
 	margin: 0;
 	border-style: solid;
-	border-width: .5px;
-	border-color: var(--primary-text);
+	border-width: 1px;
+	border-color: var(--divider);
 }
 pre, samp {
-	background: var(--code);
+	background: var(--code-bg);
 }
 button, input[type="file"], input[type="color"] {
 	cursor: pointer;
@@ -85,14 +92,13 @@ input[type="color"] {
 	padding: 2px;
 	width: 40px;
 	height: 40px;
-  background: var(--primary-text);
+	background: var(--primary-text);
 	border: none;
 }
 .servertd {
 	flex: none;
 	height: 48px;
-	padding: 0 8px;
-	background: var(--header-bg);
+	border-bottom: solid 2px color-mix(in srgb, var(--shadow), transparent);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -104,6 +110,7 @@ input[type="color"] {
 
 /* Icons */
 .pfp, .replypfp {
+	display: block;
 	border-radius: 50%;
 	cursor: pointer;
 	user-select: none;
@@ -141,13 +148,13 @@ input[type="color"] {
 /* Server List */
 #servers {
 	height: 100%;
-	padding: 6px;
+	padding: 8px;
 	box-sizing: border-box;
 	background: var(--servers-bg);
 	overflow-y: scroll;
 	user-select: none;
 }
-.servericon {
+.servericon, #servers .pfp {
 	height: 48px;
 	width: 48px;
 	margin-bottom: 6px;
@@ -165,7 +172,7 @@ input[type="color"] {
 	background: var(--blank-bg);
 }
 .lightbr {
-	margin-bottom: 6px;
+	margin: 8px 4px;
 }
 .blankserver {
 	background: var(--blank-bg);
@@ -181,18 +188,25 @@ input[type="color"] {
 	background: var(--channels-bg);
 	user-select: none;
 }
+.servertd {
+	background: var(--channels-header-bg)
+}
 #serverName {
+	padding: 0 12px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 #channels {
 	flex: 1;
-	padding: 0 6px;
+	padding: 0 8px;
 	overflow-y: scroll;
 }
 .channels {
 	overflow-y: hidden;
+}
+#channels > div > div:first-child {
+	margin-top: 8px;
 }
 .channel {
 	flex: 1;
@@ -206,7 +220,7 @@ input[type="color"] {
 .channel:hover {
 	background: var(--channel-hover);
 }
-.viewChannel {
+.viewChannel, .viewChannel:hover {
 	background: var(--channel-selected);
 	font-weight: bold;
 }
@@ -230,15 +244,18 @@ input[type="color"] {
 	justify-content: space-between;
 }
 #userinfo {
-	padding: 4px;
+	min-width: 50%;
 	background: var(--user-info-bg);
 	border-radius: 8px;
-	gap: 6px;
 	cursor: pointer;
+}
+#userinfo:hover {
+	background: var(--dock-hover);
 }
 #userpfp {
 	height: 48px;
 	width: 48px;
+	margin: 2px 6px;
 }
 .userflex {
 	display: flex;
@@ -254,7 +271,7 @@ input[type="color"] {
 	cursor: pointer;
 }
 #user-actions:hover {
-	background: var(--settings-hover);
+	background: var(--dock-hover);
 }
 #settings {
 	height: 22px;
@@ -266,12 +283,17 @@ input[type="color"] {
 .messageflex {
 	flex: 1;
 }
+.channelnamediv {
+	padding: 0 16px;
+	background: var(--main-header-bg);
+}
 #channelw {
 	flex: 1;
+	padding-bottom: 16px;
 	overflow-y: scroll;
 }
 #realbox {
-	padding: 0 8px 32px 8px;
+	padding: 0 16px 32px 16px;
 }
 #typebox {
 	padding: 8px;
@@ -291,8 +313,8 @@ input[type="color"] {
 }
 
 /* Message */
-.messagediv {
-	padding: 4px 8px;
+.messagediv, .titlespace {
+	padding: 4px 16px;
 }
 .messagediv:hover {
 	background: var(--primary-hover);
@@ -300,13 +322,18 @@ input[type="color"] {
 .topMessage {
 	margin-top: 8px;
 }
+.message pre {
+	padding: 8px;
+	margin-top: 4px;
+	border-radius: 4px;
+}
 .message img {
 	max-width: 100%;
 }
 .pfprow {
 	flex: none;
 	width: 40px;
-	margin-right: 8px;
+	margin-right: 12px;
 }
 .pfprow .pfp {
 	height: 40px;
@@ -326,6 +353,28 @@ input[type="color"] {
 }
 .unspoiled {
 	color: var(--primary-text);
+}
+.quote {
+	display: inline-block;
+	position: relative;
+}
+.quoteline {
+	position: absolute;
+	height: 100%;
+	width: 4px;
+	background: var(--quote-line);
+}
+span .quote:first-of-type .quoteline {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+}
+span .quote:last-of-type .quoteline {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
+.quote span {
+	display: inline-block;
+	margin-left: 8px;
 }
 .replyflex {
 	font-size: .9em;
@@ -351,7 +400,7 @@ input[type="color"] {
 	border-color: var(--reply-line);
 }
 .reactiondiv {
-	margin-left: 48px;
+	margin: 2px 0 0 52px;
 	gap: 4px;
 }
 .reaction {
@@ -369,15 +418,29 @@ input[type="color"] {
 }
 .embed-color {
 	max-width: 400px;
-	border-radius: 4px;
+	margin-top: 4px;
+	border-radius: 8px;
 }
 .embed {
-	padding: 8px;
+	padding: 12px;
 	margin-left: 4px;
 	background: var(--embed-bg);
-	border-radius: 0 4px 4px 0;
+	font-size: .88rem;
+	color: var(--secondary-text);
+	border-radius: 0 8px 8px 0;
+}
+.embed a {
+	display: inline-block;
+	padding-bottom: 4px;
+	font-size: 1rem;
+	font-weight: bold;
+}
+.embed .provider {
+	padding-bottom: 4px;
+	color: var(--secondary-text-soft);
 }
 .embed img {
+	margin-top: 8px;
 	border-radius: 4px;
 	cursor: pointer;
 }
@@ -385,6 +448,20 @@ input[type="color"] {
 /* Context Menu */
 .contextmenu {
 	position: absolute;
+	padding: 8px;
+	background: var(--secondary-bg);
+	border-radius: 4px;
+	box-shadow: 0 0 8px color-mix(in srgb, var(--shadow) 20%, transparent);
+}
+.contextbutton {
+	width: 180px;
+	padding: 6px 16px;
+	background: var(--secondary-bg);
+	font-size: .9rem;
+	text-align: left;
+}
+.contextmenu button:hover {
+	background: var(--secondary-hover);
 }
 
 /* Popup */
@@ -394,7 +471,8 @@ input[type="color"] {
 	width: 300px;
 	padding: 8px;
 	background: var(--popup-bg);
-	border-radius: 4px;
+	box-shadow: 0 0 8px color-mix(in srgb, var(--shadow) 20%, transparent), inset 0 132px 64px var(--accent_color);
+	border-radius: 8px;
 	overflow: hidden;
 	align-items: flex-start;
 	box-sizing: border-box;
@@ -404,8 +482,8 @@ input[type="color"] {
 }
 .statusDiv {
 	position: absolute;
-	right: 4px;
-	bottom: 4px;
+	right: 2px;
+	bottom: 2px;
 	height: 7px;
 	width: 7px;
 	background: var(--black);
@@ -427,12 +505,17 @@ input[type="color"] {
 	flex: 1;
 	width: 100%;
 	padding: 8px;
-	margin-top: 48px;
+	margin-top: 52px;
 	background: var(--secondary-bg);
-	border-radius: 4px;
+	color: var(--secondary-text);
+	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
+}
+.pronouns {
+	font-size: .9rem;
+	color: var(--secondary-text-soft);
 }
 .rolesbox {
 	margin-top: auto;
@@ -453,7 +536,7 @@ input[type="color"] {
 	height: 32px;
 	width: 32px;
 	background: var(--button-bg);
-  border-radius: 50%;
+	border-radius: 50%;
 	cursor: pointer;
 }
 .exitsettings:hover {
