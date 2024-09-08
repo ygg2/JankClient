@@ -337,6 +337,11 @@ input[type="color"] {
 }
 #channelw {
 	flex: 1;
+	display: flex;
+	min-height: 0;
+}
+.scroller {
+	flex: 1;
 	padding-bottom: 24px;
 	overflow-y: scroll;
 }
