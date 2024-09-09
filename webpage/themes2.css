@@ -64,4 +64,5 @@ body {
   --text-input-bg: var(--secondary-bg);
   --loading-bg: var(--secondary-bg);
   --shadow: var(--black);
+  --focus: var(--accent-color);
 }

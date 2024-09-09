@@ -407,7 +407,7 @@ input[type="color"] {
 }
 .scroller {
 	flex: 1;
-	padding-bottom: 24px;
+	padding: 24px 0;
 	overflow-y: scroll;
 }
 #realbox {
@@ -431,7 +431,6 @@ input[type="color"] {
 	margin-left: 24px;
 	font-size: .9rem;
 	display: flex;
-	flex-direction: row-reverse;
 }
 #typing.hidden {
 	display: none;
@@ -458,7 +457,7 @@ input[type="color"] {
 /* Message */
 .messagediv, .titlespace {
 	position: relative;
-	padding: 4px 16px 0 16px;
+	padding: 4px 16px;
 }
 .messagediv:hover {
 	background: var(--primary-hover);
@@ -485,6 +484,7 @@ input[type="color"] {
 	width: 16px;
 }
 #replybox {
+	height: 32px;
 	padding: 0 16px;
 	background: var(--secondary-bg);
 	font-size: .9rem;
@@ -492,23 +492,31 @@ input[type="color"] {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	transition: height .2s;
+}
+#replybox.hideReplyBox {
+	height: 0;
+	overflow: hidden;
 }
 .replying {
 	background: var(--message-highlight-bg);
 }
 .topMessage {
-	margin-top: 8px;
+	margin-top: 16px;
 }
 .pfprow {
 	flex: none;
 	width: 40px;
-	margin-right: 12px;
+	margin: 2px 12px 0 0;
 }
 .pfprow .pfp {
 	height: 40px;
 }
 .commentrow {
-	gap: 2px;
+	gap: 4px;
+}
+.commentrow .flexltr {
+	display: block;
 }
 .username {
 	font-weight: bold;
@@ -517,7 +525,7 @@ input[type="color"] {
 .username:hover {
 	text-decoration: underline;
 }
-.jumped{
+.jumped {
 	animation-duration: 1.3s;
 	animation-name: jumped;
 }
@@ -540,7 +548,7 @@ input[type="color"] {
 	max-width: 100%;
 }
 .timestamp {
-	margin: auto 0 0 6px;
+	margin-left: 6px;
 	font-size: .75em;
 	color: var(--primary-text-soft);
 }
@@ -578,11 +586,12 @@ span .quote:last-of-type .quoteline {
 	margin-left: 8px;
 }
 .replyflex {
-	margin-bottom: 4px;
+	margin: 4px 0;
 	font-size: .9em;
 	color: var(--reply-text);
 	display: flex;
 	align-items: center;
+	gap: 4px;
 }
 .startreply {
 	flex: 0 0 28px;
@@ -592,10 +601,8 @@ span .quote:last-of-type .quoteline {
 .replypfp {
 	height: 20px;
 	width: 20px;
-	margin: 0 4px;
 }
 .replytext {
-	margin: 0 4px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -606,21 +613,30 @@ span .quote:last-of-type .quoteline {
 	background: var(--reply-line);
 }
 .reactiondiv {
-	margin: 2px 0 0 52px;
+	margin-left: 52px;
 	gap: 4px;
 }
 .reaction {
 	min-width: 36px;
-	padding: 2px 4px;
+	padding: 1px;
+	margin-top: 1.5px;
 	background: var(--reaction-bg);
+	border: 1.5px solid transparent;
 	border-radius: 4px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
+	align-items: center;
 	cursor: pointer;
 }
+.reaction:hover {
+	border-color: var(--focus);
+}
+.reaction.meReacted {
+	border-color: color-mix(in srgb, var(--accent-color), transparent);
+}
 .smallemoji {
-	width:22px;
-	height:22px;
+	width: 16px;
+	height: 16px;
 }
 
 /* Message External */
