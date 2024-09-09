@@ -43,6 +43,7 @@ p, h1, h2, h3, pre {
 a {
 	color: var(--link);
 	text-decoration: none;
+	word-break: break-all;
 }
 a:hover {
 	text-decoration: underline;
@@ -282,20 +283,52 @@ input[type="color"] {
 	background: var(--primary-text);
 	border-radius: 50%;
 }
-.space, .collapse-icon {
+.space {
 	height: 1em;
 	width: 1em;
-	margin-right: 4px;
+	margin-right: 8px;
+}
+.capsflex {
+	margin-top: 8px;
+	display: flex;
+}
+.channeleffects {
+	padding: 0;
+	color: var(--primary-text-soft);
+}
+.channeleffects:hover {
+	background: inherit;
+	color: var(--primary-text);
+}
+.collapse-icon {
+	height: 12px;
+	width: 12px;
+	margin-right: 6px;
+	transition: rotate .2s;
 }
 .hiddencat {
 	rotate: -90deg;
 }
-.capsflex {
+
+/* DM Channels */
+.channeleffects:has(.pfp) {
+	padding: 4px 8px;
 	display: flex;
+	align-items: center;
+	gap: 8px;
 }
+.channeleffects:has(.pfp):hover {
+	background: var(--channel-hover);
+}
+.channeleffects .pfp {
+	height: 32px;
+	width: 32px;
+}
+
+/* Dock */
 #userdock {
 	width: 100%;
-	padding: 2px;
+	padding: 4px 6px;
 	box-sizing: border-box;
 	background: var(--dock-bg);
 	align-items: center;
@@ -311,9 +344,9 @@ input[type="color"] {
 	background: var(--dock-hover);
 }
 #userpfp {
-	height: 48px;
-	width: 48px;
-	margin: 2px 6px;
+	height: 32px;
+	width: 32px;
+	margin: 6px;
 }
 .userflex {
 	display: flex;
@@ -340,6 +373,7 @@ input[type="color"] {
 /* Message Area */
 .messageflex {
 	flex: 1;
+	min-width: 0;
 }
 .channelnamediv {
 	padding: 0 16px;
@@ -451,6 +485,13 @@ input[type="color"] {
 .pfprow .pfp {
 	height: 40px;
 }
+.username {
+	font-weight: bold;
+	cursor: pointer;
+}
+.username:hover {
+	text-decoration: underline;
+}
 
 /* Message Content */
 .message pre {
@@ -506,7 +547,7 @@ span .quote:last-of-type .quoteline {
 	align-items: center;
 }
 .startreply {
-	width: 32px;
+	flex: 0 0 32px;
 	margin-left: 20px;
 	border-color: var(--reply-line);
 }
@@ -517,6 +558,9 @@ span .quote:last-of-type .quoteline {
 }
 .replytext {
 	margin: 0 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .reply {
 	flex: 1;
@@ -625,6 +669,9 @@ span .quote:last-of-type .quoteline {
 .onlinestatus {
 	background: var(--green);
 }
+.offlinestatus {
+	background:var(--primary-bg);
+}
 .banner {
 	position: absolute;
 	top: 0;
@@ -693,15 +740,18 @@ span .quote:last-of-type .quoteline {
 	background: var(--primary-bg);
 }
 .settingbuttons {
+	flex: none;
 	width: 180px;
 	padding: 8px;
 	background: var(--settings-panel-bg);
 	border-right: solid 2px color-mix(in srgb, var(--shadow), transparent);
+	gap: 2px;
 	overflow-y: scroll;
 }
 .SettingsButton {
 	flex: 0 0 2em;
 	background: transparent;
+	font-weight: normal;
 	border: none;
 }
 .SettingsButtons:hover {
@@ -716,7 +766,7 @@ span .quote:last-of-type .quoteline {
 	flex-direction: column;
 }
 .optionElement {
-	margin: 16px 0 0 16px;
+	margin: 16px 16px 0 16px;
 }
 .flexspace {
 	overflow-y: scroll;
@@ -725,6 +775,51 @@ span .quote:last-of-type .quoteline {
 	margin: 0;
 	min-height: 0;
 	display: flex;
+}
+.setting {
+	padding: 16px;
+	background: var(--secondary-bg);
+	color: var(--secondary-text);
+	border-radius: 4px;
+}
+.settingsname {
+	font-size: 1.2rem;
+}
+.setting p {
+	font-size: .9rem;
+	color: var(--secondary-text-soft)
+}
+.tritoggle {
+	display: inline;
+	margin-left: 4px;
+}
+.tritoggle input {
+	margin: 0 2px;
+}
+.tritoggle input:first-child {
+	accent-color: var(--green);
+}
+.tritoggle input:last-child {
+	accent-color: var(--red);
+}
+.flexspace .flexspace:has(.setting) {
+	padding-bottom: 64px;
+}
+.savediv {
+	position: fixed;
+	bottom: 24px;
+	right: 50%;
+	transform: translateX(50%);
+	padding: 16px;
+	background: var(--primary-bg);
+	font-size: 1.2rem;
+	font-weight: bold;
+	border-radius: 8px;
+	box-shadow: 0 0 12px color-mix(in srgb, var(--shadow) 40%, transparent)
+}
+.savediv button {
+	margin-left: 16px;
+	background: color-mix(in srgb, var(--green) 70%, var(--secondary-bg));
 }
 .exitsettings {
 	position: absolute;
@@ -743,6 +838,7 @@ span .quote:last-of-type .quoteline {
 /* !! DO NOT STYLE FAKE ICONS THEY WILL BE ADDED LATER !! */
 /* WISHLIST: +, x */
 /* ALSO NEED TO ASK TOMATO IF DESCRIPTION CAN GO NEXT TO CHANNEL NAME */
-/* CHANGE WHICH CLASS SCROLLS BASED ON WHAT TRIGGERS NOTIF */
+/* TEST READ NOTIF ON VIVALDI */
 /* REDO COLOR BLOCK STYLE LIKE ORIGINAL ONE */
+/* EMBEDS SOMETIMES ARE TOO LARGE? */
 /* SEARCH ANIMATION AND TRANSITION LATER */

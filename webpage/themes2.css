@@ -6,8 +6,8 @@
   color-scheme: dark;
   --primary-bg: #2d3036;
   --primary-hover: #262a2f;
-  --primary-text: #e0e0e0;
-  --primary-text-soft: #bac4c5;
+  --primary-text: #dddddd;
+  --primary-text-soft: #adb8b9;
 
   --secondary-bg: #141718;
   --secondary-hover: #2d3036;
@@ -25,11 +25,9 @@
   --link: #44cfbf;
 
   --black: #000000;
-/*  --color-red: #ff5555;*/
-/*  --color-yellow: #f4e770;*/
+  --red: #ff5555;
+  --yellow: #f4e770;
   --green: #22a696;
-
-/*  --icon: #19c2a6;*/
 }
 
 /* Optional Vars */
@@ -59,7 +57,7 @@ body {
   --filename: var(--link);
 
   --popup-bg: var(--primary-bg);
-  --settings-header-bg: var(--channels-header-bg);
+  --settings-header-bg: var(--main-header-bg);
   --settings-panel-bg: var(--channels-bg);
   --settings-panel-selected: var(--channel-selected);
   --settings-panel-hover: color-mix(in srgb, var(--settings-panel-selected), transparent);
