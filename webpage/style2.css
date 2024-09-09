@@ -18,6 +18,29 @@
 }
 #loadingdiv {
 	display: none;
+	flex: 1;
+	overflow: scroll;
+	flex-direction: column-reverse;
+}
+#loadingdiv.loading {
+	display: flex;
+}
+.loadingmessage {
+	position: relative;
+}
+.loadingpfp {
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	margin-left: 16px;
+	background: var(--typebox-bg);
+	border-radius: 50%;
+}
+.loadingcontent {
+	height: 16px;
+	margin: 0 0 12px 68px;
+	background: var(--typebox-bg);
+	border-radius: 8px;
 }
 
 /* General */
@@ -49,16 +72,14 @@ a:hover {
 	text-decoration: underline;
 }
 hr {
-	height: 0;
-	margin: 0;
-	border-style: solid;
-	border-width: 1px;
-	border-color: var(--divider);
+	height: 2px;
+	background: var(--divider);
+	border: none;
 }
 pre, samp {
 	background: var(--code-bg);
 }
-button, input[type="file"], input[type="color"] {
+button, input {
 	cursor: pointer;
 }
 button, input::file-selector-button {
@@ -97,11 +118,11 @@ textarea, input[type="text"] {
 }
 input[type="color"] {
 	display: block;
-	padding: 2px;
-	width: 40px;
 	height: 40px;
-	background: var(--primary-text);
+	width: 40px;
+	background: var(--secondary-bg);
 	border: none;
+	border-radius: 4px;
 }
 .servertd {
 	flex: 0 0 48px;
@@ -297,7 +318,7 @@ input[type="color"] {
 	color: var(--primary-text-soft);
 }
 .channeleffects:hover {
-	background: inherit;
+	background: unset;
 	color: var(--primary-text);
 }
 .collapse-icon {
@@ -408,6 +429,7 @@ input[type="color"] {
 	position: absolute;
 	bottom: 8px;
 	margin-left: 24px;
+	font-size: .9rem;
 	display: flex;
 	flex-direction: row-reverse;
 }
@@ -436,7 +458,7 @@ input[type="color"] {
 /* Message */
 .messagediv, .titlespace {
 	position: relative;
-	padding: 4px 16px;
+	padding: 4px 16px 0 16px;
 }
 .messagediv:hover {
 	background: var(--primary-hover);
@@ -485,12 +507,27 @@ input[type="color"] {
 .pfprow .pfp {
 	height: 40px;
 }
+.commentrow {
+	gap: 2px;
+}
 .username {
 	font-weight: bold;
 	cursor: pointer;
 }
 .username:hover {
 	text-decoration: underline;
+}
+.jumped{
+	animation-duration: 1.3s;
+	animation-name: jumped;
+}
+@keyframes jumped {
+	0%, 100% {
+		background: unset;
+	}
+	50% {
+		background: var(--message-highlight-bg);
+	}
 }
 
 /* Message Content */
@@ -541,19 +578,20 @@ span .quote:last-of-type .quoteline {
 	margin-left: 8px;
 }
 .replyflex {
+	margin-bottom: 4px;
 	font-size: .9em;
 	color: var(--reply-text);
 	display: flex;
 	align-items: center;
 }
 .startreply {
-	flex: 0 0 32px;
+	flex: 0 0 28px;
 	margin-left: 20px;
-	border-color: var(--reply-line);
+	background: var(--reply-line);
 }
 .replypfp {
-	height: 24px;
-	width: 24px;
+	height: 20px;
+	width: 20px;
 	margin: 0 4px;
 }
 .replytext {
@@ -561,10 +599,11 @@ span .quote:last-of-type .quoteline {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	cursor: pointer;
 }
 .reply {
 	flex: 1;
-	border-color: var(--reply-line);
+	background: var(--reply-line);
 }
 .reactiondiv {
 	margin: 2px 0 0 52px;
@@ -839,6 +878,7 @@ span .quote:last-of-type .quoteline {
 /* WISHLIST: +, x */
 /* ALSO NEED TO ASK TOMATO IF DESCRIPTION CAN GO NEXT TO CHANNEL NAME */
 /* TEST READ NOTIF ON VIVALDI */
-/* REDO COLOR BLOCK STYLE LIKE ORIGINAL ONE */
-/* EMBEDS SOMETIMES ARE TOO LARGE? */
+/* DO OTHER EMBED TYPES */
+/* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
+/* LOGIN DIV AND POPUP MENUS */
 /* SEARCH ANIMATION AND TRANSITION LATER */
