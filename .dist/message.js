@@ -129,7 +129,6 @@ class Message extends SnowFlake {
             else if (thing === "embeds") {
                 this.embeds = [];
                 for (const thing in messagejson.embeds) {
-                    console.log(thing, messagejson.embeds);
                     this.embeds[thing] = new Embed(messagejson.embeds[thing], this);
                 }
                 continue;
@@ -365,9 +364,9 @@ class Message extends SnowFlake {
                 const author = message.author;
                 reply.appendChild(message.content.makeHTML({ stdsize: true }));
                 minipfp.src = author.getpfpsrc();
-                author.bind(minipfp);
+                author.bind(minipfp, this.guild);
                 username.textContent = author.username;
-                author.bind(username);
+                author.bind(username, this.guild);
             });
             reply.onclick = _ => {
                 this.channel.infinite.focus(this.message_reference.message_id);
@@ -444,7 +443,6 @@ class Message extends SnowFlake {
                 messagedwrap.appendChild(attach);
             }
             if (this.embeds.length) {
-                console.log(this.embeds);
                 const embeds = document.createElement("div");
                 embeds.classList.add("flexltr");
                 for (const thing of this.embeds) {
@@ -648,11 +646,10 @@ class Message extends SnowFlake {
         return this.div;
     }
 }
-const now = new Date().toLocaleDateString();
-const yesterday = new Date(now);
-yesterday.setDate(new Date().getDate() - 1);
-const yesterdayStr = yesterday.toLocaleDateString();
+let now;
+let yesterdayStr;
 function formatTime(date) {
+    updateTimes();
     const datestring = date.toLocaleDateString();
     const formatTime = (date) => date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     if (datestring === now) {
@@ -663,6 +660,18 @@ function formatTime(date) {
     }
     else {
         return `${date.toLocaleDateString()} at ${formatTime(date)}`;
+    }
+}
+let tomorrow = 0;
+updateTimes();
+function updateTimes() {
+    if (tomorrow < Date.now()) {
+        const d = new Date();
+        tomorrow = d.setHours(24, 0, 0, 0);
+        now = new Date().toLocaleDateString();
+        const yesterday = new Date(now);
+        yesterday.setDate(new Date().getDate() - 1);
+        yesterdayStr = yesterday.toLocaleDateString();
     }
 }
 Message.setup();

@@ -89,9 +89,8 @@ class InfiniteScroller {
         this.div.appendChild(html);
         this.HTMLElements.push([html, id]);
     }
-    currrunning = false;
     async addedBottom() {
-        this.updatestuff();
+        await this.updatestuff();
         const func = this.snapBottom();
         await this.watchForChange();
         func();
@@ -99,8 +98,8 @@ class InfiniteScroller {
     snapBottom() {
         const scrollBottom = this.scrollBottom;
         return () => {
-            if (this.div && scrollBottom < 10) {
-                this.div.scrollTop = this.div.scrollHeight + 20;
+            if (this.div && scrollBottom < 4) {
+                this.div.scrollTop = this.div.scrollHeight;
             }
         };
     }
@@ -154,6 +153,9 @@ class InfiniteScroller {
         }
     }
     async watchForBottom(already = false, fragement = new DocumentFragment()) {
+        let func;
+        if (!already)
+            func = this.snapBottom();
         if (!this.div)
             return false;
         try {
@@ -192,8 +194,8 @@ class InfiniteScroller {
         finally {
             if (!already) {
                 this.div.append(fragement);
-                if (this.scrollBottom < 30) {
-                    this.div.scrollTop = this.div.scrollHeight;
+                if (func) {
+                    func();
                 }
             }
         }
@@ -201,18 +203,12 @@ class InfiniteScroller {
     watchtime = false;
     changePromise;
     async watchForChange() {
-        if (this.currrunning) {
+        if (this.changePromise) {
             this.watchtime = true;
-            if (this.changePromise) {
-                return await this.changePromise;
-            }
-            else {
-                return false;
-            }
+            return await this.changePromise;
         }
         else {
             this.watchtime = false;
-            this.currrunning = true;
         }
         this.changePromise = new Promise(async (res) => {
             try {
@@ -226,7 +222,7 @@ class InfiniteScroller {
                     if (this.timeout === null && changed) {
                         this.timeout = setTimeout(this.updatestuff.bind(this), 300);
                     }
-                    if (!this.currrunning) {
+                    if (!this.changePromise) {
                         console.error("something really bad happened");
                     }
                     res(Boolean(changed));
@@ -244,7 +240,6 @@ class InfiniteScroller {
             finally {
                 setTimeout(_ => {
                     this.changePromise = undefined;
-                    this.currrunning = false;
                     if (this.watchtime) {
                         this.watchForChange();
                     }
