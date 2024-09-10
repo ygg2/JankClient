@@ -78,7 +78,7 @@ function setDefaults(){
 		userinfos.users={};
 	}
 	if(userinfos.accent_color===undefined){
-		userinfos.accent_color="#242443";
+		userinfos.accent_color="#5a8edd";
 	}
 	document.documentElement.style.setProperty("--accent-color", userinfos.accent_color);
 	if(userinfos.preferences===undefined){
