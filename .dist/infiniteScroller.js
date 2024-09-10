@@ -17,6 +17,9 @@ class InfiniteScroller {
     timeout;
     async getDiv(initialId, bottom = true) {
         //div.classList.add("flexttb")
+        if (this.div) {
+            throw new Error("Div already exists, exiting.");
+        }
         const scroll = document.createElement("div");
         scroll.classList.add("flexttb", "scroller");
         this.beenloaded = false;
@@ -63,6 +66,7 @@ class InfiniteScroller {
     averageheight = 60;
     checkscroll() {
         if (this.beenloaded && this.div && !document.body.contains(this.div)) {
+            console.warn("not in document");
             this.div = null;
         }
     }
@@ -286,17 +290,22 @@ class InfiniteScroller {
         }
     }
     async delete() {
-        for (const thing of this.HTMLElements) {
-            await this.destroyFromID(thing[1]);
+        if (this.div) {
+            this.div.remove();
+            this.div = null;
+        }
+        try {
+            for (const thing of this.HTMLElements) {
+                await this.destroyFromID(thing[1]);
+            }
+        }
+        catch (e) {
+            console.error(e);
         }
         this.HTMLElements = [];
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
-        if (this.div) {
-            this.div.remove();
-        }
-        this.div = null;
     }
 }
 export { InfiniteScroller };
