@@ -369,6 +369,7 @@ textarea:focus-visible,
 #userinfo {
 	min-width: 50%;
 	background: var(--user-info-bg);
+	color: var(--user-info-text);
 	border-radius: 8px;
 	cursor: pointer;
 }
@@ -571,7 +572,7 @@ textarea:focus-visible,
 	color: var(--spoiler-hover);
 }
 .unspoiled {
-	color: var(--primary-text);
+	color: var(--spoiler-text);
 }
 .quote {
 	display: inline-block;
@@ -825,6 +826,8 @@ span .quote:last-of-type .quoteline {
 	background: var(--card-bg);
 	border-radius: 8px;
 	box-shadow: 0 0 8px var(--shadow);
+	display: flex;
+	flex-direction: column;
 	gap: 4px;
 	box-sizing: border-box;
 }
@@ -914,7 +917,7 @@ span .quote:last-of-type .quoteline {
 	font-weight: normal;
 	border: none;
 }
-.SettingsButtons:hover {
+.SettingsButton:hover {
 	background: var(--settings-panel-hover);
 }
 .flexgrow {
@@ -1001,7 +1004,7 @@ span .quote:last-of-type .quoteline {
 /* TEST READ NOTIF ON VIVALDI */
 /* DO OTHER EMBED TYPES */
 /* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
+/* ALSO FIX EMOJI PICKER TTB TYPO */
 /* LOGIN DIV AND POPUP CARDS ESPECIALLY DECIDE ON EMOJI STYLE */
 /* FINAL SHOULD USE PRIMARY TEXT FOR ICON INSTEAD? */
-/* IF BUG PERSISTS, HIDE ANY EMPTY SCROLLERS */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
