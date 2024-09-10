@@ -5,6 +5,7 @@
 	height: 100%;
 	width: 100%;
 	background: var(--loading-bg);
+	color: var(--loading-text);
 	text-align: center;
 	display: flex;
 	flex-direction: column;
@@ -115,7 +116,7 @@ textarea, input[type="text"] {
 	background: var(--text-input-bg);
 	font-family: var(--font);
 	font-size: 1rem;
-	color: var(--primary-text);
+	color: var(--secondary-text);
 	border: none;
 	border-radius: 4px;
 	box-sizing: border-box;
@@ -502,6 +503,7 @@ textarea:focus-visible,
 	padding: 0 16px;
 	background: var(--secondary-bg);
 	font-size: .9rem;
+	color: var(--secondary-text);
 	border-radius: 8px 8px 0 0;
 	display: flex;
 	justify-content: space-between;
@@ -788,7 +790,7 @@ span .quote:last-of-type .quoteline {
 .tag {
 	margin: 4px 0;
 	font-size: .9em;
-	color: var(--primary-text);
+	color: var(--secondary-text);
 }
 .pronouns {
 	font-size: .9rem;
@@ -914,6 +916,7 @@ span .quote:last-of-type .quoteline {
 .SettingsButton {
 	flex: 0 0 2em;
 	background: transparent;
+	color: var(--primary-text);
 	font-weight: normal;
 	border: none;
 }
@@ -1007,4 +1010,5 @@ span .quote:last-of-type .quoteline {
 /* ALSO FIX EMOJI PICKER TTB TYPO */
 /* LOGIN DIV AND POPUP CARDS ESPECIALLY DECIDE ON EMOJI STYLE */
 /* FINAL SHOULD USE PRIMARY TEXT FOR ICON INSTEAD? */
+/* STYLE REACTION BGS, DECIDE WHERE TO TRADE SECONDARY FOR CARD */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */

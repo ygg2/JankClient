@@ -12,7 +12,6 @@
 
 	--secondary-bg: #141718;
 	--secondary-hover: #252b2c;
-	--card-bg: #000000;
 
 	--servers-bg: #141718;
 	--channels-bg: #232628;
@@ -30,6 +29,7 @@
 	--yellow: #e7af50;
 	--green: #22a696;
 
+	--card-bg: #000000;
 	--icon: var(--accent-color);
 }
 
@@ -45,10 +45,9 @@
 	--secondary-hover: #a9aece;
 	--secondary-text: #060415;
 	--secondary-text-soft: #211f2e;
-	--card-bg: #7a7aaa;
 	
-	--servers-bg: #7272b4;
-	--channels-bg: #c2c2d1;
+	--servers-bg: #7a7aaa;
+	--channels-bg: #c4c4d9;
 	--channel-selected: #9c9fbd;
 	--typebox-bg: #bac0df;
 
@@ -59,9 +58,9 @@
 	--link: #5566cc;
 
 	--black: #5757b5;
-	--red: #ff5555;
-	--yellow: #e7af50;
-	--green: #22a696;
+	--red: #dc5e5e;
+	--yellow: #ffdb9d;
+	--green: #1c907b;
 
 	--shadow: #43439299;
 	--spoiler-text: #e4e6ed;
@@ -73,6 +72,7 @@ body {
 	--shadow: color-mix(in srgb, var(--black) 25%, transparent);
 	--focus: var(--accent-color);
 	--loading-bg: var(--secondary-bg);
+	--loading-text: var(--secondary-text);
 	--card-bg: var(--primary-bg);
 
 	--secondary-text: var(--primary-text);
