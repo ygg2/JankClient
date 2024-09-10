@@ -262,7 +262,7 @@ textarea:focus-visible,
 .servertd {
 	flex: 0 0 48px;
 	background: var(--channels-header-bg);
-	border-bottom: solid 2px color-mix(in srgb, var(--shadow), transparent);
+	border-bottom: solid 2px color-mix(in srgb, var(--black), transparent);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -712,7 +712,7 @@ span .quote:last-of-type .quoteline {
 	padding: 8px;
 	background: var(--secondary-bg);
 	border-radius: 4px;
-	box-shadow: 0 0 8px color-mix(in srgb, var(--shadow) 25%, transparent);
+	box-shadow: 0 0 8px var(--shadow);
 }
 .contextbutton {
 	width: 180px;
@@ -733,10 +733,10 @@ span .quote:last-of-type .quoteline {
 	width: 300px;
 	padding: 8px;
 	background: var(--card-bg);
-	box-shadow: 0 0 8px color-mix(in srgb, var(--shadow) 25%, transparent), inset 0 132px 64px var(--accent_color);
+	box-shadow: 0 0 8px var(--shadow), inset 0 132px 64px var(--accent_color);
 	border-radius: 8px;
 	overflow: hidden;
-	align-items: flex-start;
+	align-items: start;
 	box-sizing: border-box;
 }
 .hypoprofile {
@@ -817,7 +817,48 @@ span .quote:last-of-type .quoteline {
 }
 
 /* Emoji Picker */
-
+.emojiPicker {
+	position: absolute;
+	height: 350px;
+	width: 300px;
+	padding: 8px;
+	background: var(--card-bg);
+	border-radius: 8px;
+	box-shadow: 0 0 8px var(--shadow);
+	gap: 4px;
+	box-sizing: border-box;
+}
+.emojiTitle {
+	font-size: 1.2rem;
+}
+.emojirow {
+	flex: none;
+	align-items: center;
+	overflow-x: scroll;
+}
+.emojiSelect {
+	padding: 6px;
+	font-size: 22px;
+	line-height: 22px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.emojiSelect:hover {
+	background: var(--secondary-hover);
+}
+.emoji-server, .emojiBody .smallemoji {
+	height: 22px;
+	width: 22px;
+	margin: 0;
+}
+.emojiBody {
+	padding: 6px;
+	background: var(--secondary-bg);
+	border-radius: 8px;
+	display: flex;
+	flex-wrap: wrap;
+	overflow-y: scroll;
+}
 
 /* Fullscreen */
 .background {
@@ -847,7 +888,7 @@ span .quote:last-of-type .quoteline {
 	flex: 0 0 48px;
 	padding-left: 16px;
 	background: var(--settings-header-bg);
-	border-bottom: solid 2px color-mix(in srgb, var(--shadow), transparent);
+	border-bottom: solid 2px color-mix(in srgb, var(--black), transparent);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -863,7 +904,7 @@ span .quote:last-of-type .quoteline {
 	width: 180px;
 	padding: 8px;
 	background: var(--settings-panel-bg);
-	border-right: solid 2px color-mix(in srgb, var(--shadow), transparent);
+	border-right: solid 2px color-mix(in srgb, var(--black), transparent);
 	gap: 2px;
 	overflow-y: scroll;
 }
@@ -934,7 +975,7 @@ span .quote:last-of-type .quoteline {
 	font-size: 1.2rem;
 	font-weight: bold;
 	border-radius: 8px;
-	box-shadow: 0 0 12px color-mix(in srgb, var(--shadow) 40%, transparent)
+	box-shadow: 0 0 12px var(--shadow);
 }
 .savediv button {
 	margin-left: 16px;
@@ -962,4 +1003,5 @@ span .quote:last-of-type .quoteline {
 /* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
 /* LOGIN DIV AND POPUP CARDS ESPECIALLY DECIDE ON EMOJI STYLE */
 /* FINAL SHOULD USE PRIMARY TEXT FOR ICON INSTEAD? */
+/* IF BUG PERSISTS, HIDE ANY EMPTY SCROLLERS */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */

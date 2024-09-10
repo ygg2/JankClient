@@ -11,6 +11,7 @@
 
   --secondary-bg: #141718;
   --secondary-hover: #2d3036;
+  --card-bg: #000000;
 
   --servers-bg: #141718;
   --channels-bg: #232628;
@@ -32,7 +33,7 @@
 /* Optional Vars */
 body {
   --icon: var(--accent-color);
-  --shadow: var(--black);
+  --shadow: color-mix(in srgb, var(--black) 25%, transparent);
   --focus: var(--accent-color);
   --loading-bg: var(--secondary-bg);
   --card-bg: var(--primary-bg);
