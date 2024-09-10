@@ -221,6 +221,9 @@ textarea:focus-visible,
 .home.servericon {
 	background: var(--blank-bg);
 }
+.home .svgicon {
+	background: var(--accent-color);
+}
 .lightbr {
 	margin: 8px 4px;
 }

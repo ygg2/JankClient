@@ -30,7 +30,6 @@
 	--green: #22a696;
 
 	--card-bg: #000000;
-	--icon: var(--accent-color);
 }
 
 .Light-theme {
@@ -55,7 +54,7 @@
 	--button-hover: #9c9fbd;
 
 	--spoiler: #34333a;
-	--link: #5566cc;
+	--link: #3f5197;
 
 	--black: #5757b5;
 	--red: #dc5e5e;
