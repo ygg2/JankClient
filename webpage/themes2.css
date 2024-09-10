@@ -21,6 +21,7 @@
   --button-bg: #545967;
   --button-hover: #393d44;
 
+  --mention-highlight: #e7af50;
   --spoiler: #000000;
   --link: #44cfbf;
 
@@ -52,6 +53,8 @@ body {
   --quote-line: color-mix(in srgb, var(--primary-text-soft), transparent);
   --reply-line: color-mix(in srgb, var(--primary-text-soft) 20%, transparent);
   --reply-text: var(--primary-text-soft);
+  --reply-highlight: var(--accent-color);
+  --mention: var(--accent-color);
   --reaction-bg: var(--secondary-bg);
   --embed-bg: var(--secondary-bg);
   --filename: var(--link);

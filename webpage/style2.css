@@ -79,10 +79,14 @@ hr {
 pre, samp {
 	background: var(--code-bg);
 }
-button, input {
+button, input, select {
 	cursor: pointer;
 }
-button, input::file-selector-button {
+select {
+	appearance: none;
+	-webkit-appearance: none;
+}
+button, input::file-selector-button, select {
 	padding: 2px 8px;
 	background: var(--button-bg);
 	font-size: 1rem;
@@ -124,17 +128,14 @@ input[type="color"] {
 	border: none;
 	border-radius: 4px;
 }
-.servertd {
-	flex: 0 0 48px;
-	background: var(--channels-header-bg);
-	border-bottom: solid 2px color-mix(in srgb, var(--shadow), transparent);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	user-select: none;
+:focus-visible {
+	outline: 2px solid var(--focus);
 }
-.servertd h2 {
-	font-size: 1.15rem;
+input[type="text"],
+input[type="password"],
+textarea:focus-visible,
+#typebox:focus-visible {
+	outline: none;
 }
 
 /* Icons */
@@ -258,8 +259,18 @@ input[type="color"] {
 	background: var(--channels-bg);
 	user-select: none;
 }
+.servertd {
+	flex: 0 0 48px;
+	background: var(--channels-header-bg);
+	border-bottom: solid 2px color-mix(in srgb, var(--shadow), transparent);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	user-select: none;
+}
 #serverName {
 	padding: 0 12px;
+	font-size: 1.15rem;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -407,7 +418,7 @@ input[type="color"] {
 }
 .scroller {
 	flex: 1;
-	padding: 24px 0;
+	padding-bottom: 24px;
 	overflow-y: scroll;
 }
 #realbox {
@@ -431,6 +442,7 @@ input[type="color"] {
 	margin-left: 24px;
 	font-size: .9rem;
 	display: flex;
+	gap: 4px;
 }
 #typing.hidden {
 	display: none;
@@ -457,7 +469,8 @@ input[type="color"] {
 /* Message */
 .messagediv, .titlespace {
 	position: relative;
-	padding: 4px 16px;
+	padding: 4px 14px 4px 16px;
+	border-left: 2px solid transparent;
 }
 .messagediv:hover {
 	background: var(--primary-hover);
@@ -497,9 +510,6 @@ input[type="color"] {
 #replybox.hideReplyBox {
 	height: 0;
 	overflow: hidden;
-}
-.replying {
-	background: var(--message-highlight-bg);
 }
 .topMessage {
 	margin-top: 16px;
@@ -586,7 +596,7 @@ span .quote:last-of-type .quoteline {
 	margin-left: 8px;
 }
 .replyflex {
-	margin: 4px 0;
+	margin-bottom: 4px;
 	font-size: .9em;
 	color: var(--reply-text);
 	display: flex;
@@ -612,9 +622,33 @@ span .quote:last-of-type .quoteline {
 	flex: 1;
 	background: var(--reply-line);
 }
+.replying {
+	background: color-mix(in srgb, var(--reply-highlight) 20%, transparent);
+	border-color: var(--reply-highlight);
+}
+.replying:hover {
+	background: color-mix(in srgb, var(--reply-highlight) 20%, var(--primary-hover));
+}
+.mentioned {
+	background: color-mix(in srgb, var(--mention-highlight) 20%, transparent);
+	border-color: var(--mention-highlight);
+}
+.mentioned:hover {
+	background: color-mix(in srgb, var(--mention-highlight) 20%, var(--primary-hover));
+}
+.mentionMD {
+	background: color-mix(in srgb, var(--mention) 25%, transparent);
+	padding: 2px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.mentionMD:hover {
+	background: color-mix(in srgb, var(--mention) 75%, transparent);
+}
 .reactiondiv {
 	margin-left: 52px;
 	gap: 4px;
+	flex-wrap: wrap;
 }
 .reaction {
 	min-width: 36px;
@@ -747,12 +781,39 @@ span .quote:last-of-type .quoteline {
 	flex-direction: column;
 	box-sizing: border-box;
 }
+.infosection hr {
+	width: 100%;
+}
+.tag {
+	margin: 4px 0;
+	font-size: .9em;
+	color: var(--primary-text);
+}
 .pronouns {
 	font-size: .9rem;
 	color: var(--secondary-text-soft);
 }
 .rolesbox {
 	margin-top: auto;
+	display: flex;
+	gap: 2px;
+	flex-wrap: wrap;
+}
+.rolediv {
+	padding: 4px 6px;
+	background: var(--blank-bg);
+	font-size: .9em;
+	border: solid 1px var(--black);
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+.colorrolediv {
+	height: 12px;
+	width: 12px;
+	background: var(--role-color);
+	border-radius: 50%;
 }
 
 /* Fullscreen */
@@ -897,4 +958,5 @@ span .quote:last-of-type .quoteline {
 /* DO OTHER EMBED TYPES */
 /* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
 /* LOGIN DIV AND POPUP MENUS */
-/* SEARCH ANIMATION AND TRANSITION LATER */
+/* FINAL SHOULD USE PRIMARY TEXT FOR ICON INSTEAD? */
+/* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
