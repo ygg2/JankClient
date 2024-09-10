@@ -544,7 +544,7 @@ textarea:focus-visible,
 		background: unset;
 	}
 	50% {
-		background: var(--message-highlight-bg);
+		background: var(--message-jump-bg);
 	}
 }
 
@@ -712,7 +712,7 @@ span .quote:last-of-type .quoteline {
 	padding: 8px;
 	background: var(--secondary-bg);
 	border-radius: 4px;
-	box-shadow: 0 0 8px color-mix(in srgb, var(--shadow) 20%, transparent);
+	box-shadow: 0 0 8px color-mix(in srgb, var(--shadow) 25%, transparent);
 }
 .contextbutton {
 	width: 180px;
@@ -726,14 +726,14 @@ span .quote:last-of-type .quoteline {
 	background: var(--secondary-hover);
 }
 
-/* Popup */
+/* Profile */
 .profile, .hypoprofile {
 	position: absolute;
 	height: 350px;
 	width: 300px;
 	padding: 8px;
-	background: var(--popup-bg);
-	box-shadow: 0 0 8px color-mix(in srgb, var(--shadow) 20%, transparent), inset 0 132px 64px var(--accent_color);
+	background: var(--card-bg);
+	box-shadow: 0 0 8px color-mix(in srgb, var(--shadow) 25%, transparent), inset 0 132px 64px var(--accent_color);
 	border-radius: 8px;
 	overflow: hidden;
 	align-items: flex-start;
@@ -815,6 +815,9 @@ span .quote:last-of-type .quoteline {
 	background: var(--role-color);
 	border-radius: 50%;
 }
+
+/* Emoji Picker */
+
 
 /* Fullscreen */
 .background {
@@ -957,6 +960,6 @@ span .quote:last-of-type .quoteline {
 /* TEST READ NOTIF ON VIVALDI */
 /* DO OTHER EMBED TYPES */
 /* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
-/* LOGIN DIV AND POPUP MENUS */
+/* LOGIN DIV AND POPUP CARDS ESPECIALLY DECIDE ON EMOJI STYLE */
 /* FINAL SHOULD USE PRIMARY TEXT FOR ICON INSTEAD? */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
