@@ -233,12 +233,14 @@ class Channel extends SnowFlake{
 			if(thing.id==="1182819038095799904"||thing.id==="1182820803700625444"){
 				continue;
 			}
-			this.permission_overwrites.set(thing.id,new Permissions(thing.allow,thing.deny));
-			const permission=this.permission_overwrites.get(thing.id);
-			if(permission){
-				const role=this.guild.roleids.get(thing.id);
-				if(role){
-					this.permission_overwritesar.push([role,permission]);
+			if(!this.permission_overwrites.has(thing.id)){//either a bug in the server requires this, or the API is cursed
+				this.permission_overwrites.set(thing.id,new Permissions(thing.allow,thing.deny));
+				const permission=this.permission_overwrites.get(thing.id);
+				if(permission){
+					const role=this.guild.roleids.get(thing.id);
+					if(role){
+						this.permission_overwritesar.push([role,permission]);
+					}
 				}
 			}
 		}
@@ -295,7 +297,7 @@ class Channel extends SnowFlake{
 			return true;
 		}
 		for(const thing of member.roles){
-			const premission=this.permission_overwrites.get(thing.id);
+			let premission=this.permission_overwrites.get(thing.id);
 			if(premission){
 				const perm=premission.getPermission(name);
 				if(perm){
@@ -355,13 +357,16 @@ class Channel extends SnowFlake{
 	}
 	static dragged:[Channel,HTMLDivElement]|[]=[];
 	html:WeakRef<HTMLElement>|undefined;
+	get visable(){
+		return this.hasPermission("VIEW_CHANNEL")
+	}
 	createguildHTML(admin=false):HTMLDivElement{
 		const div=document.createElement("div");
 		this.html=new WeakRef(div);
-		if(!this.hasPermission("VIEW_CHANNEL")){
+		if(!this.visable){
 			let quit=true;
 			for(const thing of this.children){
-				if(thing.hasPermission("VIEW_CHANNEL")){
+				if(thing.visable){
 					quit=false;
 				}
 			}
@@ -926,6 +931,9 @@ class Channel extends SnowFlake{
 			return;
 		}else if(removetitle){
 			removetitle.remove();
+		}
+		if(this.localuser.channelfocus!==this){
+			return;
 		}
 		messages.append(await this.infinite.getDiv(id));
 		this.infinite.updatestuff();
