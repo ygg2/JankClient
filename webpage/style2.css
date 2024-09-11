@@ -50,6 +50,7 @@ body {
 	background: var(--primary-bg);
 	font-family: var(--font);
 	color: var(--primary-text);
+	overflow: hidden;
 }
 #page {
 	height: 100vh;
@@ -194,6 +195,38 @@ textarea:focus-visible,
 		opacity: 1;
 	}
 }
+@keyframes jumped {
+	0%, 100% {
+		background: unset;
+	}
+	50% {
+		background: var(--message-jump-bg);
+	}
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+	height: 10px;
+	width: 10px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-track:hover {
+	background: var(--channels-bg);
+}
+::-webkit-scrollbar-thumb {
+	background: var(--primary-text-soft);
+	border-radius: 8px;
+	border: 2px solid transparent;
+	background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--primary-text-soft);
+}
+#servers::-webkit-scrollbar, #channels::-webkit-scrollbar {
+	display: none;
+}
 
 /* Server List */
 #servers {
@@ -266,7 +299,7 @@ textarea:focus-visible,
 .servertd {
 	flex: 0 0 48px;
 	background: var(--channels-header-bg);
-	border-bottom: solid 2px color-mix(in srgb, var(--black), transparent);
+	border-bottom: solid 2px var(--shadow);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -487,6 +520,7 @@ textarea:focus-visible,
 	right: 16px;
 	padding: 4px;
 	background: var(--secondary-bg);
+	box-shadow: 0 0 2px var(--shadow);
 	border-radius: 4px;
 	gap: 4px;
 }
@@ -545,14 +579,6 @@ textarea:focus-visible,
 .jumped {
 	animation-duration: 1.3s;
 	animation-name: jumped;
-}
-@keyframes jumped {
-	0%, 100% {
-		background: unset;
-	}
-	50% {
-		background: var(--message-jump-bg);
-	}
 }
 
 /* Message Content */
@@ -662,6 +688,7 @@ span .quote:last-of-type .quoteline {
 	padding: 1px;
 	margin-top: 1.5px;
 	background: var(--reaction-bg);
+	color: var(--secondary-text);
 	border: 1.5px solid transparent;
 	border-radius: 4px;
 	display: flex;
@@ -670,9 +697,10 @@ span .quote:last-of-type .quoteline {
 	cursor: pointer;
 }
 .reaction:hover {
-	border-color: var(--focus);
+	border-color: var(--primary-text-soft);
 }
 .reaction.meReacted {
+	background: var(--reaction-reacted-bg);
 	border-color: color-mix(in srgb, var(--accent-color), transparent);
 }
 .smallemoji {
@@ -723,10 +751,11 @@ span .quote:last-of-type .quoteline {
 }
 .contextbutton {
 	width: 180px;
-	padding: 6px 16px;
+	padding: 8px;
 	background: var(--secondary-bg);
 	font-size: .9rem;
 	font-weight: normal;
+	line-height: 1em;
 	border: none;
 }
 .contextmenu button:hover {
@@ -748,6 +777,7 @@ span .quote:last-of-type .quoteline {
 }
 .hypoprofile {
 	position: relative;
+	margin-bottom: 8px;
 }
 .profile .pfp, .hypoprofile .pfp {
 	width: 48px;
@@ -808,7 +838,7 @@ span .quote:last-of-type .quoteline {
 }
 .rolediv {
 	padding: 4px 6px;
-	background: var(--blank-bg);
+	background: var(--role-bg);
 	font-size: .9em;
 	border: solid 1px var(--black);
 	border-radius: 4px;
@@ -836,6 +866,7 @@ span .quote:last-of-type .quoteline {
 	flex-direction: column;
 	gap: 4px;
 	box-sizing: border-box;
+	user-select: none;
 }
 .emojiTitle {
 	font-size: 1.2rem;
@@ -846,10 +877,15 @@ span .quote:last-of-type .quoteline {
 	overflow-x: scroll;
 }
 .emojiSelect {
-	padding: 6px;
+	flex: none;
+	height: 34px;
+	width: 34px;
 	font-size: 22px;
 	line-height: 22px;
 	border-radius: 4px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	cursor: pointer;
 }
 .emojiSelect:hover {
@@ -861,11 +897,12 @@ span .quote:last-of-type .quoteline {
 	margin: 0;
 }
 .emojiBody {
-	padding: 6px;
+	padding: 6px 0;
 	background: var(--secondary-bg);
 	border-radius: 8px;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 	overflow-y: scroll;
 }
 
@@ -1012,6 +1049,5 @@ span .quote:last-of-type .quoteline {
 /* DO OTHER EMBED TYPES */
 /* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
 /* ALSO FIX EMOJI PICKER TTB TYPO */
-/* LOGIN DIV AND POPUP CARDS ESPECIALLY DECIDE ON EMOJI STYLE */
-/* STYLE REACTION BGS, DECIDE WHERE TO TRADE SECONDARY FOR CARD */
+/* LOGIN DIV AND POPUP CARDS */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
