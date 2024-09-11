@@ -30,13 +30,14 @@
 	--green: #22a696;
 
 	--card-bg: #000000;
+	--blank-bg: #232628;
 }
 
 .Light-theme {
 	color-scheme: light;
 
-	--primary-bg: #aaaace;
-	--primary-hover: #b0b3d3;
+	--primary-bg: #aaafce;
+	--primary-hover: #b1b6d4;
 	--primary-text: #202035;
 	--primary-text-soft: #262641;
 
@@ -46,8 +47,8 @@
 	--secondary-text-soft: #211f2e;
 	
 	--servers-bg: #7a7aaa;
-	--channels-bg: #c4c4d9;
-	--channel-selected: #9c9fbd;
+	--channels-bg: #babdd2;
+	--channel-selected: #9c9fbf;
 	--typebox-bg: #bac0df;
 
 	--button-bg: #c2c2d1;
@@ -56,12 +57,13 @@
 	--spoiler: #34333a;
 	--link: #3f5197;
 
-	--black: #5757b5;
+	--black: #7a7aaa;
 	--red: #dc5e5e;
 	--yellow: #ffdb9d;
 	--green: #1c907b;
 
-	--shadow: #43439299;
+	--shadow: #43439240;
+	--blank-bg: #494985;
 	--spoiler-text: #e4e6ed;
 }
 

@@ -415,6 +415,7 @@ textarea:focus-visible,
 .channelnamediv {
 	padding: 0 16px;
 	background: var(--main-header-bg);
+	font-weight: bold;
 }
 #channelw {
 	flex: 1;
@@ -1012,6 +1013,5 @@ span .quote:last-of-type .quoteline {
 /* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
 /* ALSO FIX EMOJI PICKER TTB TYPO */
 /* LOGIN DIV AND POPUP CARDS ESPECIALLY DECIDE ON EMOJI STYLE */
-/* FINAL SHOULD USE PRIMARY TEXT FOR ICON INSTEAD? */
 /* STYLE REACTION BGS, DECIDE WHERE TO TRADE SECONDARY FOR CARD */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
