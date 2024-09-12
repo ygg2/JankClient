@@ -448,6 +448,8 @@ textarea:focus-visible,
 .channelnamediv {
 	padding: 0 16px;
 	background: var(--main-header-bg);
+}
+#channelname {
 	font-weight: bold;
 }
 #channelw {
@@ -535,6 +537,7 @@ textarea:focus-visible,
 	display: block;
 	height: 16px;
 	width: 16px;
+	background: var(--secondary-text);
 }
 #replybox {
 	height: 32px;

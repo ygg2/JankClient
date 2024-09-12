@@ -1,5 +1,9 @@
 :root {
 	--font: "acumin-pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	--black: #000000;
+	--red: #ff5555;
+	--yellow: #ffdb9d;
+	--green: #1c907b;
 }
 
 .Dark-theme {
@@ -23,11 +27,6 @@
 
 	--spoiler: #000000;
 	--link: #5ca9ed;
-
-	--black: #000000;
-	--red: #ff5555;
-	--yellow: #e7af50;
-	--green: #22a696;
 
 	--card-bg: #000000;
 }
@@ -57,10 +56,7 @@
 	--link: #283c8b;
 
 	--black: #434392;
-	--red: #dc5e5e;
-	--yellow: #ffdb9d;
-	--green: #1c907b;
-
+	--red: #ca304d;
 	--blank-bg: #494985;
 	--spoiler-text: #e4e6ed;
 }
