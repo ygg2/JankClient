@@ -231,16 +231,16 @@ textarea:focus-visible,
 /* Server List */
 #servers {
 	height: 100%;
-	padding: 8px;
+	padding: 0 8px;
 	box-sizing: border-box;
 	background: var(--servers-bg);
 	overflow-y: scroll;
 	user-select: none;
 }
-.servericon, #servers .pfp {
+.servericon {
 	height: 48px;
 	width: 48px;
-	margin-bottom: 6px;
+	margin-top: 6px;
 	border-radius: 50%;
 	cursor: pointer;
 }
@@ -296,8 +296,9 @@ textarea:focus-visible,
 	background: var(--channels-bg);
 	user-select: none;
 }
-.servertd {
-	flex: 0 0 48px;
+.servertd, .settingstitle {
+	flex: none;
+	height: 48px;
 	background: var(--channels-header-bg);
 	border-bottom: solid 2px var(--shadow);
 	display: flex;
@@ -396,9 +397,7 @@ textarea:focus-visible,
 
 /* Dock */
 #userdock {
-	width: 100%;
 	padding: 4px 6px;
-	box-sizing: border-box;
 	background: var(--dock-bg);
 	align-items: center;
 	justify-content: space-between;
@@ -458,7 +457,7 @@ textarea:focus-visible,
 	min-height: 0;
 }
 .scroller {
-	flex: 1;
+	width: 100%;
 	padding-bottom: 24px;
 	overflow-y: scroll;
 }
@@ -640,7 +639,8 @@ span .quote:last-of-type .quoteline {
 	gap: 4px;
 }
 .startreply {
-	flex: 0 0 28px;
+	flex: none;
+	width: 28px;
 	margin-left: 20px;
 	background: var(--reply-line);
 }
@@ -900,12 +900,13 @@ span .quote:last-of-type .quoteline {
 	margin: 0;
 }
 .emojiBody {
-	padding: 6px 0;
+	flex: 1;
+	padding: 6px;
 	background: var(--secondary-bg);
 	border-radius: 8px;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	align-content: flex-start;
 	overflow-y: scroll;
 }
 
@@ -934,14 +935,8 @@ span .quote:last-of-type .quoteline {
 
 /* Settings */
 .settingstitle {
-	flex: 0 0 48px;
 	padding-left: 16px;
 	background: var(--settings-header-bg);
-	border-bottom: solid 2px color-mix(in srgb, var(--black), transparent);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	user-select: none;
 }
 .Buttons {
 	flex: 1;
@@ -958,7 +953,9 @@ span .quote:last-of-type .quoteline {
 	overflow-y: scroll;
 }
 .SettingsButton {
-	flex: 0 0 2em;
+	height: 2em;
+	width: 100%;
+	padding: 8px;
 	background: transparent;
 	color: var(--primary-text);
 	font-weight: normal;
@@ -1051,6 +1048,8 @@ span .quote:last-of-type .quoteline {
 /* TEST READ NOTIF ON VIVALDI */
 /* DO OTHER EMBED TYPES */
 /* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
-/* ALSO FIX EMOJI PICKER TTB TYPO */
+/* do a test page to check that the styling works before trying to remake */
 /* LOGIN DIV AND POPUP CARDS */
+/* EMOJI PICKER FOR WEBKIT */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
+/* CHANGED JS FILES: infiniteScroller, message, settings, login (accent color), technically index but that was to remove homepage */

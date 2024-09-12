@@ -24,7 +24,7 @@ class Buttons {
         const htmlarea = document.createElement("div");
         htmlarea.classList.add("flexgrow");
         const buttonTable = document.createElement("div");
-        buttonTable.classList.add("flexttb", "settingbuttons");
+        buttonTable.classList.add("settingbuttons");
         for (const thing of this.buttons) {
             const button = document.createElement("button");
             button.classList.add("SettingsButton");

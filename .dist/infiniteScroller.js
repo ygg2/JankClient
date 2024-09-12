@@ -21,7 +21,7 @@ class InfiniteScroller {
             throw new Error("Div already exists, exiting.");
         }
         const scroll = document.createElement("div");
-        scroll.classList.add("flexttb", "scroller");
+        scroll.classList.add("scroller");
         this.beenloaded = false;
         //this.interval=setInterval(this.updatestuff.bind(this,true),100);
         this.div = scroll;
