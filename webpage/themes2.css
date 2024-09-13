@@ -31,12 +31,42 @@
 	--card-bg: #000000;
 }
 
+.WHITE-theme {
+	color-scheme: light;
+
+  --primary-bg: #ffffff;
+  --primary-hover: #f6f6f9;
+  --primary-text: #4b4b59;
+  --primary-text-soft: #656575;
+
+  --secondary-bg: #e4e4ec;
+  --secondary-hover: #d0d0dd;
+  --secondary-text: #3c3c46;
+	--secondary-text-soft: #4c4c5a;
+
+  --servers-bg: #b4b4ca;
+  --channels-bg: #eaeaf0;
+  --channel-selected: #d1d1df;
+  --typebox-bg: #eaeaf0;
+
+  --button-bg: #cacad8;
+  --button-hover: #b3b3c4;
+
+  --spoiler: #dadada;
+  --link: #3b3bee;
+
+	--black: #4b4b59;
+	--dock-bg: #d1d1df;
+	--dock-hover: #b4b4ca;
+  --card-bg: #d0d0dd;
+}
+
 .Light-theme {
 	color-scheme: light;
 
 	--primary-bg: #aaafce;
 	--primary-hover: #b1b6d4;
-	--primary-text: #202035;
+	--primary-text: #17172b;
 	--primary-text-soft: #424268;
 
 	--secondary-bg: #9397bd;
@@ -79,10 +109,10 @@ body {
 	--blank-bg: var(--channels-bg);
 	--divider: color-mix(in srgb, var(--primary-text), transparent);
 	--channels-header-bg: var(--channels-bg);
-	--channel-hover: color-mix(in srgb, var(--channel-selected), transparent);
+	--channel-hover: color-mix(in srgb, var(--channel-selected) 60%, transparent);
 	--dock-bg: var(--secondary-bg);
 	--dock-hover: var(--secondary-hover);
-	--user-info-bg: var(--secondary-bg);
+	--user-info-bg: var(--dock-bg);
 	--user-info-text: var(--secondary-text);
 
 	--main-header-bg: var(--primary-bg);

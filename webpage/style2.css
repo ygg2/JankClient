@@ -1,25 +1,21 @@
 /* Loading */
 #loading {
 	z-index: 100;
-	position: fixed;
+	position: absolute;
 	height: 100%;
 	width: 100%;
 	background: var(--loading-bg);
 	color: var(--loading-text);
 	text-align: center;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-#centerdiv {
-	flex: none;
+	transition: transform .2s;
+	overflow: hidden; /* keep size if window height is too small */
 }
 #loading.doneloading {
-	display: none;
+	transform: translate(0%, -100%);
 }
 #loadingdiv {
 	display: none;
-	flex: 1;
+	flex: 0 0 100%; /* push out scroller until loaded */
 	overflow: scroll;
 	flex-direction: column-reverse;
 }
@@ -81,9 +77,6 @@ hr {
 pre, samp {
 	background: var(--code-bg);
 }
-button, input, select {
-	cursor: pointer;
-}
 select {
 	appearance: none;
 	-webkit-appearance: none;
@@ -99,9 +92,13 @@ button, input::file-selector-button, select {
 	border: none;
 	border-bottom: 2.5px solid var(--button-border);
 	border-radius: 4px;
+	cursor: pointer;
 }
 button:hover, input::file-selector-button:hover {
 	background: var(--button-hover);
+}
+button:active, input::file-selector-button:active {
+	border: none;
 }
 input::file-selector-button, select {
 	margin-left: 4px;
@@ -129,6 +126,7 @@ input[type="color"] {
 	background: var(--secondary-bg);
 	border: none;
 	border-radius: 4px;
+	cursor: pointer;
 }
 :focus-visible {
 	outline: 2px solid var(--focus);
@@ -230,9 +228,7 @@ textarea:focus-visible,
 
 /* Server List */
 #servers {
-	height: 100%;
-	padding: 0 8px;
-	box-sizing: border-box;
+	padding: 8px;
 	background: var(--servers-bg);
 	overflow-y: scroll;
 	user-select: none;
@@ -240,9 +236,10 @@ textarea:focus-visible,
 .servericon {
 	height: 48px;
 	width: 48px;
-	margin-top: 6px;
+	margin-bottom: 6px;
 	border-radius: 50%;
 	cursor: pointer;
+	transition: border-radius .2s;
 }
 .servericon:hover, .serveropen .servericon {
 	border-radius: 30%;
@@ -276,6 +273,7 @@ textarea:focus-visible,
 	width: 8px;
 	background: var(--primary-text);
 	border-radius: 4px;
+	transition: transform .2s, height .2s;
 }
 .servernoti:hover .unread {
  	transform: translate(-12px, 12px);
@@ -300,7 +298,7 @@ textarea:focus-visible,
 	flex: none;
 	height: 48px;
 	background: var(--channels-header-bg);
-	border-bottom: solid 2px var(--shadow);
+	border-bottom: 2px solid var(--shadow);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -480,7 +478,7 @@ textarea:focus-visible,
 	position: absolute;
 	bottom: 8px;
 	margin-left: 24px;
-	font-size: .9rem;
+	font-size: .9em;
 	display: flex;
 	gap: 4px;
 }
@@ -528,6 +526,7 @@ textarea:focus-visible,
 .messageButtons div {
 	padding: 4px;
 	border-radius: 4px;
+	cursor: pointer;
 }
 .messageButtons div:hover {
 	background: var(--secondary-hover);
@@ -542,7 +541,7 @@ textarea:focus-visible,
 	height: 32px;
 	padding: 0 16px;
 	background: var(--secondary-bg);
-	font-size: .9rem;
+	font-size: .9em;
 	color: var(--secondary-text);
 	border-radius: 8px 8px 0 0;
 	display: flex;
@@ -724,14 +723,14 @@ span .quote:last-of-type .quoteline {
 	padding: 12px;
 	margin-left: 4px;
 	background: var(--embed-bg);
-	font-size: .88rem;
+	font-size: .88em;
 	color: var(--secondary-text);
 	border-radius: 0 8px 8px 0;
 }
 .embed a {
 	display: inline-block;
 	padding-bottom: 4px;
-	font-size: 1rem;
+	font-size: 1em;
 	font-weight: bold;
 }
 .embed .provider {
@@ -775,7 +774,7 @@ span .quote:last-of-type .quoteline {
 	box-shadow: 0 0 8px var(--shadow), inset 0 132px 64px var(--accent_color);
 	border-radius: 8px;
 	overflow: hidden;
-	align-items: start;
+	align-items: flex-start;
 	box-sizing: border-box;
 }
 .hypoprofile {
@@ -792,7 +791,7 @@ span .quote:last-of-type .quoteline {
 	height: 7px;
 	width: 7px;
 	background: var(--black);
-	border: solid 2.5px var(--black);
+	border: 2.5px solid var(--black);
 	border-radius: 50%;
 }
 .onlinestatus {
@@ -830,7 +829,7 @@ span .quote:last-of-type .quoteline {
 	color: var(--secondary-text);
 }
 .pronouns {
-	font-size: .9rem;
+	font-size: .9em;
 	color: var(--secondary-text-soft);
 }
 .rolesbox {
@@ -843,7 +842,7 @@ span .quote:last-of-type .quoteline {
 	padding: 4px 6px;
 	background: var(--role-bg);
 	font-size: .9em;
-	border: solid 1px var(--black);
+	border: 1px solid var(--black);
 	border-radius: 4px;
 	display: flex;
 	align-items: center;
@@ -921,16 +920,90 @@ span .quote:last-of-type .quoteline {
 	flex-direction: column;
 }
 .imgfit {
-	max-height: 100%;
-	max-width: 100%;
+	max-height: 80vh;
+	max-width: 80vw;
 }
-.centeritem {
-	position: fixed;
+.centeritem, .accountSwitcher {
+	position: absolute;
 	top: 50%;
 	left: 50%;
-	max-height: 80vh;
-	max-width: 80vh;
 	transform: translate(-50%, -50%);
+}
+.accountSwitcher {
+	max-height: 80vh;
+	width: 500px;
+	padding: 8px;
+	background: var(--card-bg);
+	border-radius: 8px;
+	box-shadow: 0 0 8px var(--shadow);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	overflow-y: scroll;
+}
+.switchtable {
+	padding: 8px;
+	background: var(--secondary-bg);
+	color: var(--secondary-text);
+	border-radius: 8px;
+	cursor: pointer;
+	align-items: center;
+}
+.switchtable:hover {
+	background: var(--secondary-hover);
+}
+.switchtable .pfp {
+	width: 48px;
+	margin-right: 8px;
+}
+.serverURL {
+	font-size: .9em;
+	color: var(--secondary-text-soft);
+}
+.guildy {
+  height: 80vh;
+  width: 80vw;
+  padding: 8px;
+  background: var(--primary-bg);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+#discovery-guild-content {
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--card-bg);
+  overflow-y: scroll;
+}
+.discovery-guild {
+  position: relative;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background: var(--secondary-bg);
+  overflow: hidden;
+  cursor: pointer;
+}
+.discovery-guild:hover {
+  background: var(--secondary-hover);
+}
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.icon {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+}
+.discovery-guild p {
+  margin: 4px;
+}
+.banner {
+  object-fit: contain;
+  object-position: right;
 }
 
 /* Settings */
@@ -948,17 +1021,16 @@ span .quote:last-of-type .quoteline {
 	width: 180px;
 	padding: 8px;
 	background: var(--settings-panel-bg);
-	border-right: solid 2px color-mix(in srgb, var(--black), transparent);
-	gap: 2px;
+	border-right: 2px solid var(--shadow);
 	overflow-y: scroll;
 }
 .SettingsButton {
 	height: 2em;
 	width: 100%;
 	padding: 8px;
+	margin-bottom: 2px;
 	background: transparent;
 	color: var(--primary-text);
-	font-weight: normal;
 	border: none;
 }
 .SettingsButton:hover {
@@ -993,7 +1065,7 @@ span .quote:last-of-type .quoteline {
 	font-size: 1.2rem;
 }
 .setting p {
-	font-size: .9rem;
+	font-size: .9em;
 	color: var(--secondary-text-soft)
 }
 .tritoggle {
@@ -1019,7 +1091,7 @@ span .quote:last-of-type .quoteline {
 	transform: translateX(50%);
 	padding: 16px;
 	background: var(--primary-bg);
-	font-size: 1.2rem;
+	font-size: 1.2em;
 	font-weight: bold;
 	border-radius: 8px;
 	box-shadow: 0 0 12px var(--shadow);
@@ -1052,4 +1124,4 @@ span .quote:last-of-type .quoteline {
 /* LOGIN DIV AND POPUP CARDS */
 /* EMOJI PICKER FOR WEBKIT */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
-/* CHANGED JS FILES: infiniteScroller, message, settings, login (accent color), technically index but that was to remove homepage */
+/* CHANGED JS FILES: infiniteScroller, message, settings, login (accent color), technically index but that was to remove homepage, index.html */
