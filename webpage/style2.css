@@ -55,6 +55,7 @@ button, input::file-selector-button, select {
 	border-bottom: 2.5px solid var(--button-border);
 	border-radius: 4px;
 	cursor: pointer;
+	transition: background .1s ease-in-out;
 }
 button:hover, input::file-selector-button:hover {
 	background: var(--button-hover);
@@ -329,15 +330,13 @@ form {
 .servertd, .settingstitle {
 	flex: none;
 	height: 48px;
+	padding: 0 16px;
 	background: var(--channels-header-bg);
 	border-bottom: 2px solid var(--shadow);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	align-items: center;
 	user-select: none;
 }
 #serverName {
-	padding: 0 12px;
 	font-size: 1.15rem;
 	white-space: nowrap;
 	overflow: hidden;
@@ -475,11 +474,15 @@ form {
 	min-width: 0;
 }
 .channelnamediv {
-	padding: 0 16px;
 	background: var(--main-header-bg);
+	gap: 8px;
 }
 #channelname {
 	font-weight: bold;
+}
+#channelTopic {
+	font-size: .9em;
+	color: var(--primary-text-soft);
 }
 #channelw {
 	flex: 1;
@@ -781,7 +784,7 @@ span .quote:last-of-type .quoteline {
 	height: 48px;
 }
 .inviteEmbed .flexltr {
-	padding: 8px;
+	padding: 12px;
 	gap: 8px;
 }
 .inviteEmbed .unread {
@@ -792,7 +795,7 @@ span .quote:last-of-type .quoteline {
 }
 .inviteEmbed .invguildinfo {
 	flex: 1;
-	padding: 0 8px;
+	padding: 0 12px;
 	background: var(--primary-bg);
 	border-radius: 4px;
 	display: flex;
@@ -802,14 +805,18 @@ span .quote:last-of-type .quoteline {
 	color: var(--primary-text-soft);
 }
 .inviteEmbed h2 {
-	font-size: 1.15rem;
+	font-size: 1em;
+	font-weight: normal;
 	text-align: center;
+	line-height: 1em;
+	color: var(--secondary-text-soft);
 }
 .acceptinvbutton {
-	width: calc(100% - 16px);
-	margin: 8px;
+	width: calc(100% - 24px);
+	padding: 4px;
+	margin: 12px;
 	background: var(--green);
-	font-size: 1.3rem;
+	font-size: 1.15rem;
 	text-align: center;
 	border-bottom-color: color-mix(in srgb, var(--button-border), var(--green));
 }
@@ -1115,6 +1122,7 @@ span .quote:last-of-type .quoteline {
 
 /* Settings */
 .settingstitle {
+	display: flex;
 	padding-left: 16px;
 	background: var(--settings-header-bg);
 }
@@ -1139,6 +1147,7 @@ span .quote:last-of-type .quoteline {
 	background: none;
 	color: var(--primary-text);
 	border: none;
+	transition: none;
 }
 .SettingsButton:hover {
 	background: var(--settings-panel-hover);
@@ -1223,11 +1232,11 @@ span .quote:last-of-type .quoteline {
 
 /* !! DO NOT STYLE FAKE ICONS THEY WILL BE ADDED LATER !! */
 /* WISHLIST: +, x */
-/* ALSO NEED TO ASK TOMATO IF DESCRIPTION CAN GO NEXT TO CHANNEL NAME */
 /* TEST READ NOTIF ON VIVALDI */
 /* LOGIN DIVS, INVITE PAGE, AND OTHER EMBED TYPES */
 /* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
 /* do a test page to check that the styling works before trying to remake */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
-/* MOVE FLEX TO HTML/TS AND DECIDE ON AN ORDER FOR ALIGN AND JUSTIFY, REMOVE UNNCESSARY FLEX CLASSES (FLEXSTART, MAYBE FLEXGROW? DONTSHRINK, DONTGROW)? */
-/* CHANGED JS FILES: infiniteScroller, message, settings, login (accent color), user, technically index but that was to remove homepage, index.html */
+/* MOVE FLEX TO HTML/TS, REMOVE FLEXGROW IF POSSIBLE? */
+
+/* CHANGED JS FILES: infiniteScroller, message, settings, login (accent color), user, embed, emoji, technically index but that was to remove homepage, index.html */
