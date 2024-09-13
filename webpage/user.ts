@@ -203,7 +203,7 @@ class User extends SnowFlake{
 	}
 	async buildstatuspfp(){
 		const div=document.createElement("div");
-		div.style.position="relative";
+		div.style.position="absolute";
 		const pfp=this.buildpfp();
 		div.append(pfp);
 		{

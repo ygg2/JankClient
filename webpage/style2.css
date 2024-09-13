@@ -769,13 +769,11 @@ span .quote:last-of-type .quoteline {
 	position: absolute;
 	height: 350px;
 	width: 300px;
-	padding: 8px;
 	background: var(--card-bg);
 	box-shadow: 0 0 8px var(--shadow), inset 0 132px 64px var(--accent_color);
 	border-radius: 8px;
 	overflow: hidden;
 	align-items: flex-start;
-	box-sizing: border-box;
 }
 .hypoprofile {
 	position: relative;
@@ -783,6 +781,7 @@ span .quote:last-of-type .quoteline {
 }
 .profile .pfp, .hypoprofile .pfp {
 	width: 48px;
+	margin: 8px 0 0 8px;
 }
 .statusDiv {
 	position: absolute;
@@ -801,18 +800,15 @@ span .quote:last-of-type .quoteline {
 	background:var(--primary-bg);
 }
 .banner {
-	position: absolute;
-	top: 0;
-	left: 0;
 	height: 100px;
 	width: 100%;
 	object-fit: cover;
 }
 .infosection {
 	flex: 1;
-	width: 100%;
+	width: calc(100% - 16px);
 	padding: 8px;
-	margin-top: 52px;
+	margin: 8px;
 	background: var(--secondary-bg);
 	color: var(--secondary-text);
 	border-radius: 8px;
@@ -961,49 +957,54 @@ span .quote:last-of-type .quoteline {
 	color: var(--secondary-text-soft);
 }
 .guildy {
-  height: 80vh;
-  width: 80vw;
-  padding: 8px;
-  background: var(--primary-bg);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+	height: 80vh;
+	width: 80vw;
+	padding: 12px;
+	background: var(--primary-bg);
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 #discovery-guild-content {
-  padding: 8px;
-  border-radius: 8px;
-  background: var(--card-bg);
-  overflow-y: scroll;
+	flex: 1;
+	padding: 8px;
+	border-radius: 8px;
+	background: var(--card-bg);
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+	gap: 8px;
+	overflow-y: scroll;
 }
 .discovery-guild {
-  position: relative;
-  padding: 8px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  background: var(--secondary-bg);
-  overflow: hidden;
-  cursor: pointer;
+	height: 280px;
+	border-radius: 8px;
+	background: var(--secondary-bg);
+	overflow: hidden;
+	cursor: pointer;
 }
 .discovery-guild:hover {
-  background: var(--secondary-hover);
+	background: var(--secondary-hover);
 }
 .flex {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+	margin: 8px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
 }
 .icon {
-  height: 48px;
-  width: 48px;
-  border-radius: 50%;
+	height: 48px;
+	width: 48px;
+	border-radius: 50%;
+}
+.discovery-guild h3 {
+	font-size: 1em;
 }
 .discovery-guild p {
-  margin: 4px;
-}
-.banner {
-  object-fit: contain;
-  object-position: right;
+	margin: 4px 8px;
+	font-size: .9em;
+	color: var(--secondary-text-soft);
+	word-break: break-word;
 }
 
 /* Settings */
@@ -1124,4 +1125,4 @@ span .quote:last-of-type .quoteline {
 /* LOGIN DIV AND POPUP CARDS */
 /* EMOJI PICKER FOR WEBKIT */
 /* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
-/* CHANGED JS FILES: infiniteScroller, message, settings, login (accent color), technically index but that was to remove homepage, index.html */
+/* CHANGED JS FILES: infiniteScroller, message, settings, login (accent color), user, technically index but that was to remove homepage, index.html */
