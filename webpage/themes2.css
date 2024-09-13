@@ -2,7 +2,7 @@
 	--font: "acumin-pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	--black: #000000;
 	--red: #ff5555;
-	--yellow: #ffdb9d;
+	--yellow: #ffc159;
 	--green: #1c907b;
 }
 
@@ -58,7 +58,6 @@
 	--black: #4b4b59;
 	--dock-bg: #d1d1df;
 	--dock-hover: #b4b4ca;
-  --card-bg: #d0d0dd;
 }
 
 .Light-theme {
@@ -70,7 +69,7 @@
 	--primary-text-soft: #424268;
 
 	--secondary-bg: #9397bd;
-	--secondary-hover: #aeb9d9;
+	--secondary-hover: #9ea5cc;
 	--secondary-text: #060415;
 	--secondary-text-soft: #211f2e;
 	
