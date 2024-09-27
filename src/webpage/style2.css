@@ -209,7 +209,7 @@ form {
 }
 #logindiv label, #TOSbox {
 	display: inline-block;
-	margin: 8px 0;
+	margin: 12px 0 2px 0;
 }
 #logindiv br {
 	line-height: 0;
@@ -847,7 +847,7 @@ span .quote:last-of-type .quoteline {
 }
 
 /* Profile */
-.profile, .hypoprofile {
+.profile {
 	position: absolute;
 	height: 350px;
 	width: 300px;
@@ -861,7 +861,7 @@ span .quote:last-of-type .quoteline {
 	position: static;
 	margin-bottom: 8px;
 }
-.profile .pfp, .hypoprofile .pfp {
+.profile .pfp {
 	width: 48px;
 	margin: 8px 0 0 8px;
 }
@@ -891,12 +891,16 @@ span .quote:last-of-type .quoteline {
 	width: calc(100% - 16px);
 	padding: 8px;
 	margin: 8px;
+	margin-top: 64px;
 	background: var(--secondary-bg);
 	color: var(--secondary-text);
 	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
+}
+.profile:has(.banner) .infosection {
+  margin-top: 8px;
 }
 .infosection hr {
 	width: 100%;
@@ -1241,3 +1245,4 @@ span .quote:last-of-type .quoteline {
 /* MOVE FLEX TO HTML/TS, REMOVE FLEXGROW IF POSSIBLE? */
 
 /* CHANGED JS FILES: infiniteScroller, message, settings, login (accent color), user, embed, emoji, technically index but that was to remove homepage, index.html */
+/* What to confirm? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, alignment of header texts */

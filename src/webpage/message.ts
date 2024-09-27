@@ -477,7 +477,6 @@ class Message extends SnowFlake{
 				div.classList.add("topMessage");
 				username.textContent = this.author.username;
 				const userwrap = document.createElement("div");
-				userwrap.classList.add("flexltr");
 				userwrap.appendChild(username);
 				if(this.author.bot){
 					const username = document.createElement("span");

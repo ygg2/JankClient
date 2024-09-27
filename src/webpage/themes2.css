@@ -34,7 +34,7 @@
 .WHITE-theme {
 	color-scheme: light;
 
-  --primary-bg: #ffffff;
+  --primary-bg: #fefefe;
   --primary-hover: #f6f6f9;
   --primary-text: #4b4b59;
   --primary-text-soft: #656575;
@@ -57,7 +57,8 @@
 
 	--black: #4b4b59;
 	--dock-bg: #d1d1df;
-	--dock-hover: #b4b4ca;
+	--dock-hover: #b8b8d0;
+	--green: #46cc8d;
 }
 
 .Light-theme {

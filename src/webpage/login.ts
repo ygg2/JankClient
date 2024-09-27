@@ -95,7 +95,7 @@ function setDefaults(){
 		userinfos.users = {};
 	}
 	if(userinfos.accent_color === undefined){
-		userinfos.accent_color = "#242443";
+		userinfos.accent_color = "#309657";
 	}
 	document.documentElement.style.setProperty(
 		"--accent-color",

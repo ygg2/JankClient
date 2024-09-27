@@ -399,7 +399,7 @@ class User extends SnowFlake{
 			div.classList.add("profile", "flexttb");
 		}else{
 			this.setstatus("online");
-			div.classList.add("hypoprofile", "flexttb");
+			div.classList.add("hypoprofile", "profile", "flexttb");
 		}
 		const badgediv = document.createElement("div");
 		badgediv.classList.add("badges");
