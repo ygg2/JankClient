@@ -53,7 +53,7 @@ async function updateInstances(): Promise<void>{
 	}
 }
 
-updateInstances();
+//updateInstances();
 
 app.use("/getupdates", (_req: Request, res: Response)=>{
 	try{
@@ -88,7 +88,7 @@ app.use("/", async (req: Request, res: Response)=>{
 	}
 
 	if(req.path === "/"){
-		res.sendFile(path.join(__dirname, "webpage", "home.html"));
+		res.sendFile(path.join(__dirname, "webpage", "login.html"));
 		return;
 	}
 
