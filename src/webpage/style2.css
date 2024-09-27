@@ -358,6 +358,7 @@ form {
 	height: 2em;
 	padding: 0 8px;
 	margin: 0 8px;
+	color: var(--primary-text-soft);
 	display: flex;
 	border-radius: 4px;
 	align-items: center;
@@ -365,13 +366,16 @@ form {
 }
 .channel:hover {
 	background: var(--channel-hover);
+	color: var(--primary-text-prominent);
 }
 .viewChannel, .viewChannel:hover {
 	background: var(--channel-selected);
 	font-weight: bold;
+	color: var(--primary-text-prominent);
 }
 .cunread {
 	position: relative;
+	color: var(--primary-text-prominent);
 }
 .cunread:after {
 	content: '';
@@ -387,6 +391,7 @@ form {
 	height: 1em;
 	width: 1em;
 	margin-right: 8px;
+	background: var(--primary-text-soft);
 }
 .capsflex {
 	margin-top: 8px;
@@ -398,12 +403,13 @@ form {
 }
 .channeleffects:hover {
 	background: unset;
-	color: var(--primary-text);
+	color: var(--primary-text-prominent);
 }
 .collapse-icon {
 	height: 12px;
 	width: 12px;
 	margin-right: 6px;
+	background: var(--primary-text-soft);
 	transition: rotate .2s;
 }
 .hiddencat {
@@ -564,13 +570,16 @@ form {
 	border-radius: 4px;
 	cursor: pointer;
 }
-.messageButtons div:hover {
-	background: var(--secondary-hover);
-}
 .messageButtons div span {
 	display: block;
 	height: 16px;
 	width: 16px;
+	background: var(--secondary-text-soft);
+}
+.messageButtons div:hover {
+	background: var(--secondary-hover);
+}
+.messageButtons div:hover span {
 	background: var(--secondary-text);
 }
 #replybox {
@@ -907,7 +916,7 @@ img.bigembedimg {
 	box-sizing: border-box;
 }
 .profile:has(.banner) .infosection {
-  margin-top: 8px;
+	margin-top: 8px;
 }
 .infosection hr {
 	width: 100%;
@@ -1184,7 +1193,7 @@ img.bigembedimg {
 	display: flex;
 }
 .FormSettings button {
-  margin: 16px;
+	margin: 16px;
 }
 .setting {
 	padding: 16px;
