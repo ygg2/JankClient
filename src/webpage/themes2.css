@@ -9,9 +9,9 @@
 .Dark-theme {
 	color-scheme: dark;
 
-	--primary-bg: #2d3036;
+	--primary-bg: #2e3137;
 	--primary-hover: #262a2f;
-	--primary-text: #dddddd;
+	--primary-text: #dfdfdf;
 	--primary-text-soft: #adb8b9;
 
 	--secondary-bg: #141718;
@@ -19,8 +19,8 @@
 
 	--servers-bg: #141718;
 	--channels-bg: #232628;
-	--channel-selected: #393d44;
-	--typebox-bg: #393d44;
+	--channel-selected: #3a3e45;
+	--typebox-bg: #3a3e45;
 
 	--button-bg: #545967;
 	--button-hover: #393d44;
@@ -93,7 +93,7 @@
 /* Optional Vars */
 body {
 	--icon: var(--primary-text);
-	--shadow: color-mix(in srgb, var(--black) 25%, transparent);
+	--shadow: color-mix(in srgb, var(--black) 30%, transparent);
 	--focus: var(--accent-color);
 	--loading-bg: var(--secondary-bg);
 	--loading-text: var(--secondary-text);

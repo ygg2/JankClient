@@ -245,7 +245,7 @@ class User extends SnowFlake{
 
 	async buildstatuspfp(): Promise<HTMLDivElement>{
 		const div = document.createElement("div");
-		div.style.position = "relative";
+		div.style.position = "absolute";
 		const pfp = this.buildpfp();
 		div.append(pfp);
 		const status = document.createElement("div");
