@@ -619,6 +619,16 @@ form {
 .username:hover {
 	text-decoration: underline;
 }
+.bot {
+	padding: 2px 5px;
+	margin-left: 4px;
+	vertical-align: 1px;
+	background: color-mix(in srgb, var(--accent-color) 75%, transparent);
+	font-size: .75em;
+	font-weight: bold;
+	color: var(--primary-text-prominent);
+	border-radius: 4px;
+}
 .jumped {
 	animation: jumped 1.3s;
 }
