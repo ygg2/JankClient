@@ -746,17 +746,21 @@ span .quote:last-of-type .quoteline {
 .filename a {
 	color: var(--filename);
 }
+.embed {
+	max-width: 400px;
+	padding: 12px;
+	background: var(--embed-bg);
+	font-size: .88em;
+	color: var(--secondary-text);
+	border-radius: 4px;
+}
 .embed-color {
 	max-width: 400px;
 	margin-top: 4px;
 	border-radius: 8px;
 }
-.embed {
-	padding: 12px;
+.embed-color .embed {
 	margin-left: 4px;
-	background: var(--embed-bg);
-	font-size: .88em;
-	color: var(--secondary-text);
 	border-radius: 0 8px 8px 0;
 }
 .embed a {
@@ -769,7 +773,10 @@ span .quote:last-of-type .quoteline {
 	padding-bottom: 4px;
 	color: var(--secondary-text-soft);
 }
-.bigembedimg {
+img.embedimg {
+	max-width: 96px;
+}
+img.bigembedimg {
 	margin-top: 8px;
 	border-radius: 4px;
 	cursor: pointer;
@@ -1175,6 +1182,9 @@ span .quote:last-of-type .quoteline {
 	margin: 0;
 	min-height: 0;
 	display: flex;
+}
+.FormSettings button {
+  margin: 16px;
 }
 .setting {
 	padding: 16px;
