@@ -1003,6 +1003,7 @@ img.bigembedimg {
 	border-radius: 8px;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+	grid-auto-rows: min-content;
 	overflow-y: auto;
 }
 
@@ -1257,11 +1258,6 @@ img.bigembedimg {
 /* !! DO NOT STYLE FAKE ICONS THEY WILL BE ADDED LATER !! */
 /* WISHLIST: +, x */
 /* TEST READ NOTIF ON VIVALDI */
-/* LOGIN DIVS, INVITE PAGE, AND OTHER EMBED TYPES */
-/* FIX THE MENU NESTING ON MAIN, MAYBE SPLIT BACKGROUND/FULLSCREEN? */
-/* do a test page to check that the styling works before trying to remake */
-/* SEARCH ANIMATION AND TRANSITION LATER, IMG CLICK SHOULD ANIMATE TOO */
+/* LOGIN DIVS, INVITE PAGE */
 /* MOVE FLEX TO HTML/TS, REMOVE FLEXGROW IF POSSIBLE? */
-
-/* CHANGED JS FILES: infiniteScroller, message, settings, login (accent color), user, embed, emoji, technically index but that was to remove homepage, index.html */
-/* What to confirm? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, alignment of header texts */
+/* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, alignment of header texts */

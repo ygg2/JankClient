@@ -289,7 +289,7 @@ json.guild;
 guild as invitejson["guild"] & { info: { cdn: string } }
 			);
 			const iconrow = document.createElement("div");
-			iconrow.classList.add("flexltr", "flexstart");
+			iconrow.classList.add("flexltr");
 			iconrow.append(icon);
 			{
 				const guildinfo = document.createElement("div");
