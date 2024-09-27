@@ -442,7 +442,6 @@ class Message extends SnowFlake{
 		div.appendChild(build);
 		if({ 0: true, 19: true }[this.type] || this.attachments.length !== 0){
 			const pfpRow = document.createElement("div");
-			pfpRow.classList.add("flexltr");
 			let pfpparent, current;
 			if(premessage != null){
 				pfpparent ??= premessage;
@@ -466,10 +465,7 @@ class Message extends SnowFlake{
 			pfpRow.classList.add("pfprow");
 			build.appendChild(pfpRow);
 			const text = document.createElement("div");
-			text.classList.add("flexttb");
-			const texttxt = document.createElement("div");
-			texttxt.classList.add("commentrow", "flexttb");
-			text.appendChild(texttxt);
+			text.classList.add("commentrow", "flexttb");
 			if(combine){
 				const username = document.createElement("span");
 				username.classList.add("username");
@@ -489,7 +485,7 @@ class Message extends SnowFlake{
 				time.classList.add("timestamp");
 				userwrap.appendChild(time);
 
-				texttxt.appendChild(userwrap);
+				text.appendChild(userwrap);
 			}else{
 				div.classList.remove("topMessage");
 			}
@@ -498,7 +494,7 @@ class Message extends SnowFlake{
 			const messagedwrap = document.createElement("div");
 			messagedwrap.classList.add("flexttb");
 			messagedwrap.appendChild(messaged);
-			texttxt.appendChild(messagedwrap);
+			text.appendChild(messagedwrap);
 
 			build.appendChild(text);
 			if(this.attachments.length){
@@ -521,27 +517,23 @@ class Message extends SnowFlake{
 			//
 		}else if(this.type === 7){
 			const text = document.createElement("div");
-			text.classList.add("flexttb");
-			const texttxt = document.createElement("div");
-			text.appendChild(texttxt);
 			build.appendChild(text);
-			texttxt.classList.add("flexltr");
 			const messaged = document.createElement("span");
 			div.txt = messaged;
 			messaged.textContent = "welcome: ";
-			texttxt.appendChild(messaged);
+			text.appendChild(messaged);
 
 			const username = document.createElement("span");
 			username.textContent = this.author.username;
 			//this.author.profileclick(username);
 			this.author.bind(username, this.guild);
-			texttxt.appendChild(username);
+			text.appendChild(username);
 			username.classList.add("username");
 
 			const time = document.createElement("span");
 			time.textContent = "  " + formatTime(new Date(this.timestamp));
 			time.classList.add("timestamp");
-			texttxt.append(time);
+			text.append(time);
 			div.classList.add("topMessage");
 		}
 		const reactions = document.createElement("div");
