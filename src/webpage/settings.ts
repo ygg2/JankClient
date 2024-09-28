@@ -1199,7 +1199,7 @@ class Settings extends Buttons{
 	}
 	show(){
 		const background = document.createElement("div");
-		background.classList.add("flexttb","background");
+		background.classList.add("flexttb","menu","background");
 
 		const title = document.createElement("h2");
 		title.textContent = this.name;

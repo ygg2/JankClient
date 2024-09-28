@@ -328,7 +328,7 @@ form {
 	background: var(--channels-bg);
 	user-select: none;
 }
-.servertd, .settingstitle {
+.header, .settingstitle {
 	flex: none;
 	height: 48px;
 	padding: 0 16px;
@@ -1147,6 +1147,9 @@ img.bigembedimg {
 }
 
 /* Settings */
+.menu {
+	background: var(--settings-menu-bg);
+}
 .settingstitle {
 	display: flex;
 	padding-left: 16px;
@@ -1155,7 +1158,6 @@ img.bigembedimg {
 .Buttons {
 	flex: 1;
 	min-height: 0;
-	background: var(--primary-bg);
 }
 .settingbuttons {
 	flex: none;
