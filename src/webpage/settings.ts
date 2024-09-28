@@ -719,7 +719,7 @@ class Options implements OptionsElement<void>{
 	title: WeakRef<HTMLElement> = new WeakRef(document.createElement("h2"));
 	generateHTML(): HTMLElement{
 		const div = document.createElement("div");
-		div.classList.add("titlediv");
+		div.classList.add("flexttb","titlediv");
 		const title = document.createElement("h2");
 		title.textContent = this.name;
 		div.append(title);
@@ -1199,7 +1199,7 @@ class Settings extends Buttons{
 	}
 	show(){
 		const background = document.createElement("div");
-		background.classList.add("background");
+		background.classList.add("flexttb","background");
 
 		const title = document.createElement("h2");
 		title.textContent = this.name;

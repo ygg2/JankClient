@@ -426,7 +426,7 @@ class User extends SnowFlake{
 		const pfp = await this.buildstatuspfp();
 		div.appendChild(pfp);
 		const userbody = document.createElement("div");
-		userbody.classList.add("infosection");
+		userbody.classList.add("flexttb","infosection");
 		div.appendChild(userbody);
 		const usernamehtml = document.createElement("h2");
 		usernamehtml.textContent = this.username;

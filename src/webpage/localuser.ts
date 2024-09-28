@@ -772,7 +772,7 @@ class Localuser{
 	}
 	async guildDiscovery(){
 		const content = document.createElement("div");
-		content.classList.add("guildy");
+		content.classList.add("flexttb","guildy");
 		content.textContent = "Loading...";
 		const full = new Dialog(["html", content]);
 		full.show();

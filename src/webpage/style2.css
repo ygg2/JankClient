@@ -454,8 +454,6 @@ form {
 	margin: 6px;
 }
 .userflex {
-	display: flex;
-	flex-direction: column;
 	justify-content: center;
 }
 #status {
@@ -792,6 +790,12 @@ span .quote:last-of-type .quoteline {
 	padding-bottom: 4px;
 	color: var(--secondary-text-soft);
 }
+img.embedicon {
+	width: 16px;
+	margin-right: 4px;
+	border-radius: 50%;
+	vertical-align: bottom;
+}
 img.embedimg {
 	max-width: 96px;
 }
@@ -921,8 +925,6 @@ img.bigembedimg {
 	background: var(--secondary-bg);
 	color: var(--secondary-text);
 	border-radius: 8px;
-	display: flex;
-	flex-direction: column;
 	box-sizing: border-box;
 }
 .profile:has(.banner) .infosection {
@@ -972,8 +974,6 @@ img.bigembedimg {
 	background: var(--card-bg);
 	border-radius: 8px;
 	box-shadow: 0 0 8px var(--shadow);
-	display: flex;
-	flex-direction: column;
 	gap: 4px;
 	box-sizing: border-box;
 	user-select: none;
@@ -1024,8 +1024,6 @@ img.bigembedimg {
 	height: 100%;
 	width: 100%;
 	background: color-mix(in srgb, var(--black) 75%, transparent);
-	display: flex;
-	flex-direction: column;
 }
 .imgfit {
 	max-height: 80vh;
@@ -1053,8 +1051,6 @@ img.bigembedimg {
 	background: var(--card-bg);
 	border-radius: 8px;
 	box-shadow: 0 0 8px var(--shadow);
-	display: flex;
-	flex-direction: column;
 	gap: 8px;
 	overflow-y: auto;
 }
@@ -1107,8 +1103,6 @@ img.bigembedimg {
 .guildy {
 	height: 80vh;
 	width: 80vw;
-	display: flex;
-	flex-direction: column;
 	gap: 6px;
 }
 #discovery-guild-content {
@@ -1189,8 +1183,6 @@ img.bigembedimg {
 }
 .titlediv {
 	max-height: 100%;
-	display: flex;
-	flex-direction: column;
 }
 .optionElement {
 	margin: 16px 16px 0 16px;

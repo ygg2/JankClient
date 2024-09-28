@@ -22,7 +22,7 @@ import{ File }from"./file.js";
 
 	function showAccountSwitcher(): void{
 		const table = document.createElement("div");
-		table.classList.add("accountSwitcher");
+		table.classList.add("flexttb","accountSwitcher");
 
 		for(const user of Object.values(users.users)){
 			const specialUser = user as Specialuser;
