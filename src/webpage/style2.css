@@ -27,10 +27,10 @@ a {
 	color: var(--link);
 	text-decoration: none;
 	word-break: break-all;
+	cursor: pointer;
 }
 a:hover {
 	text-decoration: underline;
-	cursor: pointer;
 }
 hr {
 	height: 2px;
@@ -547,7 +547,7 @@ form {
 /* Message */
 .messagediv, .titlespace {
 	position: relative;
-	padding: 4px 14px 4px 16px;
+	padding: 4px 36px 4px 16px;
 	border-left: 2px solid transparent;
 }
 .messagediv:hover {
@@ -598,6 +598,9 @@ form {
 }
 .topMessage {
 	margin-top: 16px;
+}
+.message {
+	padding-right: 28px;
 }
 .pfprow {
 	flex: none;
@@ -733,6 +736,7 @@ span .quote:last-of-type .quoteline {
 	margin-left: 52px;
 	gap: 4px;
 	flex-wrap: wrap;
+	user-select: none;
 }
 .reaction {
 	min-width: 36px;
@@ -1266,8 +1270,34 @@ img.bigembedimg {
 	background: var(--button-hover);
 }
 
-/* !! DO NOT STYLE FAKE ICONS THEY WILL BE ADDED LATER !! */
-/* WISHLIST: +, x */
 /* TEST READ NOTIF ON VIVALDI */
 /* LOGIN DIVS, INVITE PAGE */
 /* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, alignment of header texts */
+
+/* TEMP: +, x */
+.addchannel {
+	width: 32px;
+	font-size: 18px;
+	line-height: 27px;
+	text-align: center;
+	color: var(--primary-text-soft);
+	cursor: pointer;
+}
+.addchannel:hover {
+	color: var(--primary-text-prominent);
+}
+.home.servericon {
+	font-size: 28px;
+	text-align: center;
+	line-height: 42px;
+	color: var(--accent-color);
+}
+.cancelReply {
+	color: var(--red);
+	background: transparent;
+	border: none;
+}
+.exitsettings {
+	text-align: center;
+	line-height: 32px;
+}
