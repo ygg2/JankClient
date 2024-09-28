@@ -236,7 +236,7 @@ form {
 #loadingdiv {
 	display: none;
 	flex: 0 0 100%; /* push out scroller until loaded */
-	overflow: scroll;
+	overflow: auto;
 	flex-direction: column-reverse;
 }
 #loadingdiv.loading {
@@ -721,13 +721,13 @@ span .quote:last-of-type .quoteline {
 	background: color-mix(in srgb, var(--mention-highlight) 10%, var(--primary-hover));
 }
 .mentionMD {
-	background: color-mix(in srgb, var(--mention) 25%, transparent);
-	padding: 2px;
+	background: color-mix(in srgb, var(--mention), transparent);
+	padding: 0 2px;
 	border-radius: 4px;
 	cursor: pointer;
 }
 .mentionMD:hover {
-	background: color-mix(in srgb, var(--mention) 75%, transparent);
+	background: var(--mention);
 }
 .reactiondiv {
 	margin-left: 52px;
@@ -888,7 +888,7 @@ img.bigembedimg {
 	align-items: flex-start;
 }
 .hypoprofile {
-	position: static;
+	position: relative;
 	margin-bottom: 8px;
 }
 .profile .pfp {
@@ -984,7 +984,7 @@ img.bigembedimg {
 .emojirow {
 	flex: none;
 	align-items: center;
-	overflow-x: scroll;
+	overflow-x: auto;
 }
 .emojiSelect {
 	flex: none;
@@ -1198,6 +1198,13 @@ img.bigembedimg {
 .FormSettings button {
 	margin: 16px;
 }
+#connection-container div {
+	margin-bottom: 16px;
+}
+#connection-container .disabled {
+	color: var(--primary-text-soft);
+	cursor: not-allowed;
+}
 .setting {
 	padding: 16px;
 	background: var(--secondary-bg);
@@ -1261,5 +1268,4 @@ img.bigembedimg {
 /* WISHLIST: +, x */
 /* TEST READ NOTIF ON VIVALDI */
 /* LOGIN DIVS, INVITE PAGE */
-/* MOVE FLEX TO HTML/TS, REMOVE FLEXGROW IF POSSIBLE? */
 /* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, alignment of header texts */

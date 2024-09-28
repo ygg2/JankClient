@@ -128,7 +128,7 @@ body {
 	--reply-line: color-mix(in srgb, var(--primary-text-soft) 20%, transparent);
 	--reply-text: var(--primary-text-soft);
 	--reply-highlight: var(--accent-color);
-	--mention: var(--accent-color);
+	--mention: color-mix(in srgb, var(--accent-color) 80%, transparent);
 	--mention-highlight: var(--yellow);
 
 	--reaction-bg: var(--secondary-bg);
