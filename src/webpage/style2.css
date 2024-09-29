@@ -609,6 +609,7 @@ form {
 }
 .pfprow .pfp {
 	height: 40px;
+	width: 40px;
 }
 .commentrow {
 	gap: 4px;
@@ -739,17 +740,20 @@ span .quote:last-of-type .quoteline {
 	user-select: none;
 }
 .reaction {
-	min-width: 36px;
-	padding: 1px;
-	margin-top: 1.5px;
+	min-width: 30px;
+	padding: 3px;
+	margin-top: 2px;
 	background: var(--reaction-bg);
 	color: var(--secondary-text);
 	border: 1.5px solid transparent;
 	border-radius: 4px;
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
 	cursor: pointer;
+	gap: 4px;
+}
+.reaction p {
+	line-height: 1em;
 }
 .reaction:hover {
 	border-color: var(--primary-text-soft);
@@ -778,11 +782,11 @@ span .quote:last-of-type .quoteline {
 .embed-color {
 	max-width: 400px;
 	margin-top: 4px;
-	border-radius: 8px;
+	border-radius: 4px;
 }
 .embed-color .embed {
 	margin-left: 4px;
-	border-radius: 0 8px 8px 0;
+	border-radius: 0 4px 4px 0;
 }
 .embed a {
 	display: inline-block;
@@ -896,6 +900,7 @@ img.bigembedimg {
 	margin-bottom: 8px;
 }
 .profile .pfp {
+	height: 48px;
 	width: 48px;
 	margin: 8px 0 0 8px;
 }
@@ -1070,6 +1075,7 @@ img.bigembedimg {
 	background: var(--secondary-hover);
 }
 .switchtable .pfp {
+	height: 48px;
 	width: 48px;
 	margin-right: 8px;
 }
@@ -1271,7 +1277,7 @@ img.bigembedimg {
 }
 
 /* TEST READ NOTIF ON VIVALDI */
-/* LOGIN DIVS, INVITE PAGE */
+/* LOGIN DIVS, INVITE PAGE, BOT INVITE PAGE, HOME PAGE */
 /* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, alignment of header texts */
 
 /* TEMP: +, x */

@@ -27,7 +27,7 @@ for(const instance of instances){
 }
 
 app.use(compression());
-
+// @ts-expect-error
 async function updateInstances(): Promise<void>{
 	try{
 		const response = await fetch(
