@@ -239,6 +239,11 @@ form {
 	overflow: auto;
 	flex-direction: column-reverse;
 }
+#switchaccounts {
+	color: var(--link);
+	text-decoration: underline;
+	cursor: pointer;
+}
 #loadingdiv.loading {
 	display: flex;
 }
@@ -349,6 +354,7 @@ form {
 }
 .channels {
 	overflow-y: hidden;
+	transition: height .2s ease-in-out;
 }
 #channels > div > div:first-child {
 	margin-top: 8px;
@@ -363,6 +369,7 @@ form {
 	border-radius: 4px;
 	align-items: center;
 	cursor: pointer;
+	transition: font-weight .1s;
 }
 .channel:hover {
 	background: var(--channel-hover);
@@ -630,6 +637,16 @@ form {
 	font-weight: bold;
 	color: var(--primary-text-prominent);
 	border-radius: 4px;
+}
+.membererror {
+	display: inline-block;
+	width: 14px;
+	margin-left: 4px;
+	font-size: 13px;
+	line-height: 1em;
+	text-align: center;
+	border: solid var(--red) 2px;
+	border-radius: 50%;
 }
 .jumped {
 	animation: jumped 1.3s;
@@ -1059,7 +1076,7 @@ img.bigembedimg {
 	padding: 8px;
 	background: var(--card-bg);
 	border-radius: 8px;
-	box-shadow: 0 0 8px var(--shadow);
+	box-shadow: 0 0 24px var(--shadow), 0 0 1.5px var(--primary-text);
 	gap: 8px;
 	overflow-y: auto;
 }
