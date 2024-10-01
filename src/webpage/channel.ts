@@ -490,6 +490,7 @@ class Channel extends SnowFlake{
 			decdiv.appendChild(decoration);
 
 			const myhtml = document.createElement("p2");
+			myhtml.classList.add("ellipsis");
 			myhtml.textContent = this.name;
 			decdiv.appendChild(myhtml);
 			caps.appendChild(decdiv);
@@ -505,8 +506,8 @@ class Channel extends SnowFlake{
 				this.coatDropDiv(decdiv, childrendiv);
 			}
 			div.appendChild(caps);
-			caps.classList.add("capsflex");
-			decdiv.classList.add("channeleffects");
+			caps.classList.add("flexltr","capsflex");
+			decdiv.classList.add("flexltr","channeleffects");
 			decdiv.classList.add("channel");
 
 			Channel.contextmenu.bindContextmenu(decdiv, this,undefined);
@@ -552,6 +553,7 @@ class Channel extends SnowFlake{
 			// @ts-ignore I dont wanna deal with this
 			div.all = this;
 			const myhtml = document.createElement("span");
+			myhtml.classList.add("ellipsis");
 			myhtml.textContent = this.name;
 			if(this.type === 0){
 				const decoration = document.createElement("span");

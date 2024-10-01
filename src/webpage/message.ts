@@ -419,7 +419,7 @@ class Message extends SnowFlake{
 			replyline.appendChild(line2);
 			line2.classList.add("reply");
 			line.classList.add("startreply");
-			replyline.classList.add("replyflex");
+			replyline.classList.add("flexltr","replyflex");
 			// TODO: Fix this
 			this.channel.getmessage(this.message_reference.message_id).then(message=>{
 				if(message.author.relationshipType === 2){
