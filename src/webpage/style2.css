@@ -78,7 +78,7 @@ textarea {
 	height: 144px;
 	resize: none;
 }
-textarea, input[type="text"], input[type="password"] {
+textarea, input[type="text"], input[type="password"], #date {
 	display: block;
 	width: 100%;
 	min-width: 300px;
@@ -205,16 +205,14 @@ form {
 	margin: 0;
 }
 #logindiv {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	
-	width: 480px;
+	max-height: 100vh;
+	width: 516px;
 	padding: 16px;
 	background: var(--card-bg);
 	border-radius: 8px;
 	box-shadow: 0 0 8px var(--shadow);
+	box-sizing: border-box;
+	overflow-y: auto;
 }
 #logindiv label, #TOSbox {
 	display: inline-block;
@@ -665,6 +663,7 @@ form {
 .spoiler {
 	background: var(--spoiler);
 	color: var(--spoiler);
+	cursor: pointer;
 }
 .spoiler:hover {
 	background: var(--spoiler-hover);
@@ -1095,7 +1094,7 @@ img.bigembedimg {
 	justify-content: center;
 	gap: 8px;
 }
-.centeritem, .accountSwitcher, #logindiv { /* fix when new modals */
+.centeritem, .accountSwitcher, #logindiv {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -1319,7 +1318,7 @@ img.bigembedimg {
 }
 
 /* TEST READ NOTIF ON VIVALDI */
-/* LOGIN DIVS, INVITE PAGE, BOT INVITE PAGE, HOME PAGE */
+/* INSTANCE DROPDOWN, INVITE PAGE, BOT INVITE PAGE, HOME PAGE (need to turn on instance pinging to work on this) */
 /* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, vertical alignment of header texts, ellipsized text, sizing for empty, low horizontal content, and loading channels */
 
 /* TEMP: +, x */
