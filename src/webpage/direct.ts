@@ -38,6 +38,7 @@ class Direct extends Guild{
 			const temp = new Group(thing, this);
 			this.channels.push(temp);
 			this.channelids[temp.id] = temp;
+			this.localuser.channelids.set(temp.id, temp);
 		}
 		this.headchannels = this.channels;
 	}
@@ -184,16 +185,17 @@ class Group extends Channel{
 
 		const loading = document.getElementById("loadingdiv") as HTMLDivElement;
 		Channel.regenLoadingMessages();
+
 		loading.classList.add("loading");
 		this.rendertyping();
 		await this.putmessages();
 		await prom;
+		this.localuser.getSidePannel();
 		if(id !== Channel.genid){
 			return;
 		}
 		this.buildmessages();
-		(document.getElementById("typebox") as HTMLDivElement).contentEditable =
-	"" + true;
+		(document.getElementById("typebox") as HTMLDivElement).contentEditable ="" + true;
 	}
 	messageCreate(messagep: { d: messagejson }){
 		const messagez = new Message(messagep.d, this);
