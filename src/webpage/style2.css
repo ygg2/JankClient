@@ -10,9 +10,11 @@ body {
 	height: 100vh;
 }
 .flexltr {
+	min-height: 0;
 	display: flex;
 }
 .flexttb {
+	min-width: 0;
 	display: flex;
 	flex-direction: column;
 }
@@ -22,6 +24,11 @@ p, h1, h2, h3, pre {
 .title {
 	font-size: 1.5rem;
 	font-weight: bold;
+}
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 a {
 	color: var(--link);
@@ -106,6 +113,8 @@ textarea:focus-visible,
 /* Icons */
 .pfp, .replypfp {
 	display: block;
+	height: 32px;
+	width: 32px;
 	border-radius: 50%;
 	cursor: pointer;
 	user-select: none;
@@ -236,7 +245,7 @@ form {
 #loadingdiv {
 	display: none;
 	flex: 0 0 100%; /* push out scroller until loaded */
-	overflow: auto;
+	overflow-y: auto;
 	flex-direction: column-reverse;
 }
 #switchaccounts {
@@ -267,6 +276,7 @@ form {
 
 /* Server List */
 #servers {
+	flex: 0 0 auto;
 	padding: 8px;
 	background: var(--servers-bg);
 	overflow-y: auto;
@@ -344,9 +354,6 @@ form {
 }
 #serverName {
 	font-size: 1.15rem;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 #channels {
 	flex: 1;
@@ -433,10 +440,6 @@ form {
 .channeleffects:has(.pfp):hover {
 	background: var(--channel-hover);
 }
-.channeleffects .pfp {
-	height: 32px;
-	width: 32px;
-}
 
 /* Dock */
 #userdock {
@@ -481,10 +484,6 @@ form {
 }
 
 /* Message Area */
-.messageflex {
-	flex: 1;
-	min-width: 0;
-}
 .channelnamediv {
 	background: var(--main-header-bg);
 	gap: 8px;
@@ -498,11 +497,8 @@ form {
 }
 #channelw {
 	flex: 1;
-	display: flex;
-	min-height: 0;
 }
 .scroller {
-	width: 100%;
 	padding-bottom: 24px;
 	overflow-y: auto;
 }
@@ -718,9 +714,6 @@ span .quote:last-of-type .quoteline {
 	width: 20px;
 }
 .replytext {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	cursor: pointer;
 }
 .reply {
@@ -878,6 +871,37 @@ img.bigembedimg {
 }
 .acceptinvbutton:hover, .acceptinvbutton:disabled {
 	background: color-mix(in hsl,var(--green) 80%,var(--black));
+}
+
+/* Sidebar */
+#sideDiv {
+	flex: none;
+	width: 240px;
+	padding: 16px 8px;
+	background: var(--sidebar-bg);
+	overflow-y: auto;
+	box-sizing: border-box;
+}
+.memberList {
+	padding-bottom: 16px;
+	color: var(--primary-text-soft);
+}
+.memberList h3 {
+	margin: 0 8px 4px 8px;
+	font-size: 1rem;
+}
+.memberList .flexltr {
+	padding: 4px 8px;
+	border-radius: 4px;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+}
+.memberList .flexltr:hover {
+	background: var(--sidebar-hover);
+}
+.memberList.offline .flexltr {
+	opacity: .5;
 }
 
 /* Context Menu */
@@ -1102,17 +1126,12 @@ img.bigembedimg {
 }
 .invitediv {
 	width: 300px;
+	padding-left: 8px;
 	border-radius: 4px;
 	background: var(--secondary-bg);
 	overflow: hidden;
 	display: flex;
 	align-items: center;
-}
-.invitediv > span {
-	margin-left: 8px;
-	overflow-x: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 }
 .copycontainer {
 	flex: none;
@@ -1184,7 +1203,6 @@ img.bigembedimg {
 }
 .Buttons {
 	flex: 1;
-	min-height: 0;
 }
 .settingbuttons {
 	flex: none;

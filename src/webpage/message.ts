@@ -413,7 +413,7 @@ class Message extends SnowFlake{
 			replyline.appendChild(username);
 			const reply = document.createElement("div");
 			username.classList.add("username");
-			reply.classList.add("replytext");
+			reply.classList.add("replytext","ellipsis");
 			replyline.appendChild(reply);
 			const line2 = document.createElement("hr");
 			replyline.appendChild(line2);

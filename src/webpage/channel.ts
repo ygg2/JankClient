@@ -123,6 +123,7 @@ class Channel extends SnowFlake{
 		const div = document.createElement("div");
 		div.classList.add("invitediv");
 		const text = document.createElement("span");
+		text.classList.add("ellipsis");
 		div.append(text);
 		let uses = 0;
 		let expires = 1800;

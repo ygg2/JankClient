@@ -99,8 +99,6 @@ body {
 	--focus: var(--accent-color);
 	--loading-bg: var(--secondary-bg);
 	--loading-text: var(--secondary-text);
-	--card-bg: var(--primary-bg);
-	--role-bg: var(--secondary-hover);
 
 	--primary-text-prominent: var(--primary-text);
 	--secondary-text: var(--primary-text);
@@ -135,6 +133,11 @@ body {
 	--reaction-reacted-bg: var(--secondary-hover);
 	--embed-bg: var(--secondary-bg);
 	--filename: var(--link);
+
+	--sidebar-bg: var(--channels-bg);
+	--sidebar-hover: var(--channel-hover);
+	--card-bg: var(--primary-bg);
+	--role-bg: var(--secondary-hover);
 
 	--settings-menu-bg: var(--primary-bg);
 	--settings-header-bg: var(--main-header-bg);

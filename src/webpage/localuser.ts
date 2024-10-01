@@ -603,6 +603,7 @@ class Localuser{
 				const memberdiv=document.createElement("div");
 				const pfp=member.user.buildpfp();
 				const username=document.createElement("span");
+				username.classList.add("ellipsis");
 				username.textContent=member.name;
 				member.bind(username)
 				member.user.bind(memberdiv,member.guild,false);
