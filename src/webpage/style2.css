@@ -201,6 +201,53 @@ textarea:focus-visible,
 	display: none;
 }
 
+/* Homepage */
+#titleDiv {
+	padding: 8px;
+	background: var(--primary-bg);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 32px;
+}
+.TitleButtons h1 {
+	font-size: 1.5rem;
+}
+#homePage {
+	max-width: 80%;
+	padding: 0 16px 32px 16px;
+	margin: 0 auto;
+}
+h1.pagehead {
+	padding: 22px;
+	font-size: 2.5rem;
+	text-align: center;
+}
+.pagebox {
+	padding: 16px;
+	margin-bottom: 16px;
+	background: var(--primary-bg);
+	border-radius: 8px;
+}
+#instancebox {
+	margin-top: 12px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(318px, 1fr));
+	gap: 16px;
+}
+.instance {
+	padding: 16px;
+	background: var(--secondary-bg);
+	color: var(--secondary-text);
+	border-radius: 8px;
+	gap: 12px;
+}
+.instance img {
+	height: 64px;
+	width: 64px;
+	border-radius: 30%;
+}
+
 /* Login/Invite */
 form {
 	margin: 0;
@@ -221,7 +268,7 @@ form {
 }
 #logindiv label, #TOSbox {
 	display: inline-block;
-	margin: 12px 0 2px 0;
+	margin: 12px 0 4px 0;
 }
 #logindiv br {
 	line-height: 0;
@@ -393,6 +440,7 @@ form {
 }
 #channels {
 	flex: 1;
+	padding-bottom: 12px;
 	overflow-y: auto;
 }
 .channels {
@@ -537,7 +585,7 @@ form {
 }
 .scroller {
 	flex: 1;
-	padding-bottom: 24px;
+	padding-bottom: 28px;
 	overflow-y: auto;
 }
 #realbox {
@@ -845,6 +893,7 @@ span .quote:last-of-type .quoteline {
 	color: var(--secondary-text-soft);
 }
 img.embedicon {
+	height: 16px;
 	width: 16px;
 	margin-right: 4px;
 	border-radius: 50%;
