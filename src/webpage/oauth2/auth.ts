@@ -221,7 +221,7 @@ type botjsonfetch={
 			const int = Number((BigInt(json.bot.id) >> 22n) % 6n);
 			pfp.src=`${urls.cdn}/embed/avatars/${int}.png`;
 		}
-		const perms=document.getElementById("permsions") as HTMLDivElement;
+		const perms=document.getElementById("permissions") as HTMLDivElement;
 
 		if(perms&&permstr){
 			const permisions=new Permissions(permstr)
