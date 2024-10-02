@@ -205,17 +205,18 @@ textarea:focus-visible,
 #titleDiv {
 	padding: 8px;
 	background: var(--primary-bg);
+	font-size: .8rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 32px;
+	gap: 28px;
 }
 .TitleButtons h1 {
-	font-size: 1.5rem;
+	font-size: 1.5em;
 }
 #homePage {
 	max-width: 80%;
-	padding: 0 16px 32px 16px;
+	padding: 0 16px 40px 16px;
 	margin: 0 auto;
 }
 h1.pagehead {
@@ -229,8 +230,15 @@ h1.pagehead {
 	background: var(--primary-bg);
 	border-radius: 8px;
 }
+.pagebox h2 {
+	margin-bottom: 12px;
+}
+.pagebox ul {
+	margin: 8px 0;
+	padding-inline-start: 24px;
+	line-height: 1.5em;
+}
 #instancebox {
-	margin-top: 12px;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(318px, 1fr));
 	gap: 16px;
