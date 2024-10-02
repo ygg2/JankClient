@@ -153,7 +153,7 @@ class Group extends Channel{
 		const div = document.createElement("div");
 		Group.contextmenu.bindContextmenu(div, this,undefined);
 		this.html = new WeakRef(div);
-		div.classList.add("flexltr","channeleffects");
+		div.classList.add("flexltr","channeleffects","channel");
 		const myhtml = document.createElement("span");
 		myhtml.classList.add("ellipsis");
 		myhtml.textContent = this.name;
