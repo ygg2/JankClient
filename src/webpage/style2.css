@@ -216,7 +216,7 @@ textarea:focus-visible,
 }
 #homePage {
 	max-width: 80%;
-	padding: 0 16px 40px 16px;
+	padding-bottom: 40px;
 	margin: 0 auto;
 }
 h1.pagehead {
@@ -234,7 +234,6 @@ h1.pagehead {
 	margin-bottom: 12px;
 }
 .pagebox ul {
-	margin: 8px 0;
 	line-height: 1.5em;
 }
 #instancebox {
