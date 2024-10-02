@@ -41,7 +41,7 @@ login?: string;
 
 				{
 					const textbox = document.createElement("div");
-					textbox.classList.add("flexttb", "instatancetextbox");
+					textbox.classList.add("flexttb", "instancetextbox");
 					const title = document.createElement("h2");
 					title.innerText = instance.name;
 					if(instance.online !== undefined){
