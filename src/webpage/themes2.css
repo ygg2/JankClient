@@ -99,7 +99,7 @@ body {
 	--secondary-text-soft: var(--primary-text-soft);
 	--text-input-bg: var(--secondary-bg);
 	--button-text: var(--primary-text);
-	--button-border: var(--primary-text-soft);
+	--button-border: color-mix(in srgb, var(--button-text), transparent);
 
 	--icon: var(--primary-text);
 	--focus: var(--accent-color);
@@ -136,7 +136,7 @@ body {
 	--sidebar-hover: var(--channel-hover);
 	--card-bg: var(--primary-bg);
 	--role-bg: var(--secondary-hover);
-	--settings-menu-bg: var(--primary-bg);
+	--settings-bg: var(--primary-bg);
 	--settings-header-bg: var(--main-header-bg);
 	--settings-panel-bg: var(--channels-bg);
 	--settings-panel-selected: var(--channel-selected);

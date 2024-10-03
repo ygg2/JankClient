@@ -1137,7 +1137,7 @@ class Localuser{
 				color = "transparent";
 			}
 			const colorPicker = settingsLeft.addColorInput(
-				"Profile color",
+				"Profile color:",
 				_=>{},
 				{ initColor: color }
 			);
@@ -1428,9 +1428,9 @@ class Localuser{
 						}
 					);
 
-					form.addTextInput("Name", "name", { required: true });
+					form.addTextInput("Name:", "name", { required: true });
 					form.addSelect(
-						"Team",
+						"Team:",
 						"team_id",
 						["Personal", ...teams.map((team: { name: string })=>team.name)],
 						{
