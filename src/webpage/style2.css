@@ -19,7 +19,7 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-p, h1, h2, h3, pre {
+p, h1, h2, h3, pre, form {
 	margin: 0;
 }
 .title {
@@ -277,9 +277,6 @@ span.instanceStatus {
 }
 
 /* Login/Invite */
-form {
-	margin: 0;
-}
 #logindiv, #invitebody {
 	position: absolute;
 	top: 50%;
