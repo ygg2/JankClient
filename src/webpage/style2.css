@@ -75,23 +75,6 @@ button:active:enabled, input::file-selector-button:active {
 input::file-selector-button, select {
 	margin-left: 4px;
 }
-textarea {
-	height: 144px;
-	resize: none;
-}
-textarea, input[type="text"], input[type="password"], #date {
-	display: block;
-	width: 100%;
-	min-width: 300px;
-	padding: 8px;
-	background: var(--text-input-bg);
-	font-family: var(--font);
-	font-size: 1rem;
-	color: var(--secondary-text);
-	border: none;
-	border-radius: 4px;
-	box-sizing: border-box;
-}
 input[type="color"] {
 	display: block;
 	height: 40px;
@@ -101,12 +84,33 @@ input[type="color"] {
 	border-radius: 4px;
 	cursor: pointer;
 }
-:focus-visible {
-	outline: 2px solid var(--focus);
+textarea {
+	height: 144px;
+	resize: none;
 }
 input[type="text"],
 input[type="password"],
-textarea:focus-visible,
+input[type="search"],
+input[type="date"],
+textarea {
+	display: block;
+	width: 100%;
+	min-width: 300px;
+	padding: 8px 12px;
+	background: var(--text-input-bg);
+	font-family: var(--font);
+	font-size: 1rem;
+	color: var(--secondary-text);
+	border: none;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+::-webkit-calendar-picker-indicator {
+	opacity: 1;
+}
+:focus-visible {
+	outline: 2px solid var(--focus);
+}
 #typebox:focus-visible {
 	outline: none;
 }
@@ -293,11 +297,22 @@ form {
 	display: inline-block;
 	margin: 12px 0 4px 0;
 }
-#logindiv br {
-	line-height: 0;
+#verify {
+	color: var(--primary-text-soft);
+}
+#TOS {
+	vertical-align: bottom;
+	margin-bottom: 6px;
+}
+#h-captcha {
+	margin: 16px 0;
 }
 #logindiv button {
-	margin: 16px 0 12px 0;
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 16px;
+	font-size: 1.15rem;
+	text-align: center;
 }
 #invitebody {
 	background: var(--card-bg);
@@ -619,7 +634,7 @@ form {
 	cursor:not-allowed;
 }
 #typebox[contenteditable=false]:before {
-	content: "You can't chat here";
+	content: "You can't send messages here";
 	color: color-mix(in hsl, var(--typebox-bg), var(--primary-text));
 }
 #typing {
@@ -854,7 +869,7 @@ span .quote:last-of-type .quoteline {
 }
 .reaction {
 	min-width: 30px;
-	padding: 3px;
+	padding: 3px 4px;
 	margin-top: 4px;
 	background: var(--reaction-bg);
 	color: var(--secondary-text);
@@ -1423,8 +1438,7 @@ img.bigembedimg {
 	background: var(--button-hover);
 }
 
-/* TEST READ NOTIF ON VIVALDI */
-/* INSTANCE DROPDOWN (need chromium), INVITEIMG (need a bot to invite to test what happens to the html, then standardize it with the guild one) */
+/* INVITEIMG (need a bot to invite to test what happens to the html, then standardize it with the guild one) */
 /* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, vertical alignment of header texts, ellipsized text, sizing for empty, low horizontal content, and loading channels */
 
 /* TEMP: +, x */
