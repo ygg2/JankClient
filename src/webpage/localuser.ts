@@ -1105,7 +1105,7 @@ class Localuser{
 			});
 			let changed = false;
 			const pronounbox = settingsLeft.addTextInput(
-				"Pronouns",
+				"Pronouns:",
 				_=>{
 					if(newpronouns || newbio || changed){
 						this.updateProfile({
