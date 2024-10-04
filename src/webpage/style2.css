@@ -342,8 +342,20 @@ span.instanceStatus {
 	margin-top: 24px;
 	text-align: center;
 }
-.permissions h1 {
-	font-size: 1.5rem;
+#permissions {
+  margin-top: 8px;
+  color: var(--primary-text-soft);
+}
+#permissions h1 {
+  font-size: 1.5rem;
+  color: var(--primary-text);
+}
+#permissions .flexttb {
+  margin-top: 12px;
+}
+#permissions h2 {
+  font-size: 1rem;
+  color: var(--primary-text);
 }
 
 /* Loading */
