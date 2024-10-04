@@ -77,8 +77,9 @@ button:active:enabled, input::file-selector-button:active {
 }
 input[type="color"] {
 	display: block;
-	height: 40px;
-	width: 40px;
+	height: 48px;
+	width: 48px;
+	margin-top: 4px;
 	background: var(--secondary-bg);
 	border: none;
 	border-radius: 4px;
@@ -678,7 +679,7 @@ span.instanceStatus {
 /* Message */
 .messagediv, .titlespace {
 	position: relative;
-	padding: 4px 36px 4px 16px;
+	padding: 3px 36px 3px 16px;
 	border-left: 2px solid transparent;
 }
 .messagediv:hover {
