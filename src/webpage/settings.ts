@@ -338,6 +338,8 @@ class SelectInput implements OptionsElement<number>{
 		const span = document.createElement("span");
 		span.textContent = this.label;
 		div.append(span);
+		const selectSpan = document.createElement("span");
+		selectSpan.style.position = "relative";
 		const select = document.createElement("select");
 
 		select.onchange = this.onChange.bind(this);
@@ -348,7 +350,11 @@ class SelectInput implements OptionsElement<number>{
 		}
 		this.select = new WeakRef(select);
 		select.selectedIndex = this.index;
-		div.append(select);
+		selectSpan.append(select);
+		const selectArrow = document.createElement("span");
+		selectArrow.classList.add("svgtheme","svg-category","selectarrow");
+		selectSpan.append(selectArrow);
+		div.append(selectSpan);
 		return div;
 	}
 	private onChange(){
@@ -438,11 +444,13 @@ class FileInput implements OptionsElement<FileList | null>{
 		const span = document.createElement("span");
 		span.textContent = this.label;
 		div.append(span);
+		const innerDiv = document.createElement("div");
+		innerDiv.classList.add("flexltr","fileinputdiv")
 		const input = document.createElement("input");
 		input.type = "file";
 		input.oninput = this.onChange.bind(this);
 		this.input = new WeakRef(input);
-		div.append(input);
+		innerDiv.append(input);
 		if(this.clear){
 			const button = document.createElement("button");
 			button.textContent = "Clear";
@@ -453,7 +461,8 @@ class FileInput implements OptionsElement<FileList | null>{
 				this.value = null;
 				this.owner.changed();
 			};
-			div.append(button);
+			innerDiv.append(button);
+			div.append(innerDiv);
 		}
 		return div;
 	}

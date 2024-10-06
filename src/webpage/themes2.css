@@ -22,8 +22,8 @@
 	--channel-selected: #3a3e45;
 	--typebox-bg: #3a3e45;
 
-	--button-bg: #545967;
-	--button-hover: #3e434a;
+	--button-bg: #4e5457;
+	--button-hover: #6b7174;
 
 	--spoiler: #000000;
 	--link: #5ca9ed;
@@ -99,7 +99,6 @@ body {
 	--secondary-text-soft: var(--primary-text-soft);
 	--text-input-bg: var(--secondary-bg);
 	--button-text: var(--primary-text);
-	--button-border: color-mix(in srgb, var(--button-text), transparent);
 
 	--icon: var(--accent-color);
 	--focus: var(--accent-color);

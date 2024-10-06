@@ -52,20 +52,14 @@ pre, samp {
 	background: var(--code-bg);
 	color: var(--code-text);
 }
-select {
-	appearance: none;
-	-webkit-appearance: none;
-}
 button, input::file-selector-button, select {
-	padding: 2px 8px;
+	padding: 6px 10px;
 	background: var(--button-bg);
 	font-size: 1rem;
 	font-family: var(--font);
-	font-weight: bold;
 	text-align: left;
 	color: var(--button-text);
 	border: none;
-	border-bottom: 2.5px solid var(--button-border);
 	border-radius: 4px;
 	cursor: pointer;
 	transition: background .1s ease-in-out;
@@ -75,6 +69,23 @@ button:hover, input::file-selector-button:hover {
 }
 button:active:enabled, input::file-selector-button:active {
 	border: none;
+}
+select {
+	appearance: none;
+	-webkit-appearance: none;
+	padding-right: 32px;
+	margin-left: 4px;
+}
+.selectarrow {
+	position: absolute;
+	top: 4px;
+	right: 10px;
+	pointer-events: none;
+	height: 12px;
+	width: 12px;
+}
+input[type="file"] {
+	margin-top: 4px;
 }
 input[type="color"] {
 	display: block;
@@ -97,7 +108,7 @@ input[type="date"],
 textarea {
 	display: block;
 	width: 100%;
-	min-width: 300px;
+	min-width: 350px;
 	padding: 8px 12px;
 	margin-top: 4px;
 	background: var(--text-input-bg);
@@ -557,7 +568,6 @@ span.instanceStatus {
 	height: 12px;
 	width: 12px;
 	margin-right: 6px;
-	background: var(--primary-text-soft);
 	transition: rotate .2s;
 }
 .hiddencat {
@@ -1097,7 +1107,6 @@ img.bigembedimg {
 	padding: 8px;
 	background: var(--secondary-bg);
 	font-size: .9rem;
-	font-weight: normal;
 	line-height: 1em;
 	border: none;
 }
@@ -1399,7 +1408,6 @@ img.bigembedimg {
 	width: 100%;
 	padding: 8px 12px;
 	background: none;
-	font-weight: normal;
 	color: var(--primary-text-soft);
 	border: none;
 	transition: none;
@@ -1416,6 +1424,7 @@ img.bigembedimg {
 }
 .optionElement, .FormSettings > button {
 	margin: 16px 16px 0 16px;
+	word-break: break-word;
 }
 .optionElement:has(.optionElement) {
 	margin: 0;
@@ -1424,9 +1433,12 @@ img.bigembedimg {
 	min-height: 0;
 	display: flex;
 }
-.optionElement span {
-	margin-right: 4px;
-	word-break: break-word;
+.optionElement input[type="text"], .optionElement textarea {
+	width: 500px;
+}
+.fileinputdiv {
+	width: 500px;
+	justify-content: space-between;
 }
 #connection-container div {
 	margin-bottom: 16px;
