@@ -101,7 +101,7 @@ body {
 	--button-text: var(--primary-text);
 	--button-border: color-mix(in srgb, var(--button-text), transparent);
 
-	--icon: var(--primary-text);
+	--icon: var(--accent-color);
 	--focus: var(--accent-color);
 	--shadow: color-mix(in srgb, var(--black) 30%, transparent);
 	--scrollbar: var(--primary-text-soft);
@@ -119,6 +119,7 @@ body {
 	--main-header-bg: transparent;
 	--message-jump-bg: color-mix(in srgb, var(--accent-color) 20%, transparent);
 	--code-bg: var(--secondary-bg);
+	--code-text: var(--secondary-text);
 	--spoiler-text: var(--primary-text);
 	--spoiler-hover: color-mix(in srgb, var(--spoiler), var(--primary-text-soft) 10%);
 	--quote-line: color-mix(in srgb, var(--primary-text-soft), transparent);
@@ -135,7 +136,7 @@ body {
 	--sidebar-bg: var(--channels-bg);
 	--sidebar-hover: var(--channel-hover);
 	--card-bg: var(--primary-bg);
-	--role-bg: var(--secondary-hover);
+	--role-bg: var(--primary-bg);
 	--settings-bg: var(--primary-bg);
 	--settings-header-bg: var(--main-header-bg);
 	--settings-panel-bg: var(--channels-bg);

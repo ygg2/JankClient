@@ -50,6 +50,7 @@ hr {
 }
 pre, samp {
 	background: var(--code-bg);
+	color: var(--code-text);
 }
 select {
 	appearance: none;
@@ -161,7 +162,7 @@ textarea {
 }
 .svgtheme {
 	display: block;
-	background: var(--icon);
+	background: var(--primary-text-soft);
 	mask-repeat: no-repeat;
 }
 
@@ -314,7 +315,7 @@ span.instanceStatus {
 	text-align: center;
 }
 #invitebody {
-	background: var(--card-bg);
+	background: var(--primary-bg);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -348,7 +349,7 @@ span.instanceStatus {
 	color: var(--primary-text-soft);
 }
 #permissions h1 {
-	font-size: 1.5rem;
+	font-size: 1.4rem;
 	color: var(--primary-text);
 }
 #permissions .flexttb {
@@ -433,7 +434,7 @@ span.instanceStatus {
 	background: var(--blank-bg);
 }
 .home .svgicon {
-	background: var(--accent-color);
+	background: var(--icon);
 }
 .lightbr {
 	margin: 8px 4px;
@@ -610,6 +611,7 @@ span.instanceStatus {
 	height: 22px;
 	width: 22px;
 	margin: 6px;
+	background: var(--user-info-text);
 }
 
 /* Message Area */
@@ -630,14 +632,72 @@ span.instanceStatus {
 }
 .scroller {
 	flex: 1;
-	padding-bottom: 28px;
+	padding-bottom: 22px;
 	overflow-y: auto;
 }
+#pasteimage {
+	height: 30%;
+	padding: 12px;
+	margin: 16px;
+	background: var(--typebox-bg);
+	border-radius: 4px;
+	display: flex;
+	gap: 12px;
+	overflow-y: auto;
+}
+#pasteimage:empty {
+	height: 0;
+	padding: 0;
+	margin: 0;
+}
+.containedFile {
+	position: relative;
+	background: var(--secondary-bg);
+	border-radius: 8px;
+	flex: 0 0 192px;
+	overflow: hidden;
+}
+.messageimgdiv {
+	height: 100%;
+}
+.messageimg {
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+	user-select: none;
+	cursor: pointer;
+}
+.controls {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+}
+.controls button {
+	height: 32px;
+	width: 32px;
+	border: none;
+}
+#replybox {
+	height: 32px;
+	padding: 0 16px;
+	background: var(--secondary-bg);
+	font-size: .9em;
+	color: var(--secondary-text);
+	border-radius: 8px 8px 0 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	transition: height .2s;
+}
+#replybox.hideReplyBox {
+	height: 0;
+	overflow: hidden;
+}
 #realbox {
-	padding: 0 16px 32px 16px;
+	padding: 0 16px 28px 16px;
 }
 #typebox {
-	padding: 8px 12px;
+	padding: 10px 14px;
 	background: var(--typebox-bg);
 	border-radius: 4px;
 }
@@ -711,22 +771,6 @@ span.instanceStatus {
 }
 .messageButtons div:hover span {
 	background: var(--secondary-text);
-}
-#replybox {
-	height: 32px;
-	padding: 0 16px;
-	background: var(--secondary-bg);
-	font-size: .9em;
-	color: var(--secondary-text);
-	border-radius: 8px 8px 0 0;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	transition: height .2s;
-}
-#replybox.hideReplyBox {
-	height: 0;
-	overflow: hidden;
 }
 .topMessage {
 	margin-top: 16px;
@@ -865,7 +909,7 @@ span .quote:last-of-type .quoteline {
 }
 .mentionMD {
 	background: color-mix(in srgb, var(--mention), transparent);
-	padding: 0 2px;
+	padding: 1px 2px;
 	border-radius: 4px;
 	cursor: pointer;
 }
@@ -1034,6 +1078,7 @@ img.bigembedimg {
 }
 .memberList .flexltr:hover {
 	background: var(--sidebar-hover);
+	color: var(--primary-text-prominent);
 }
 .memberList.offline .flexltr {
 	opacity: .5;
@@ -1351,17 +1396,17 @@ img.bigembedimg {
 	overflow-y: auto;
 }
 .SettingsButton {
-	height: 2em;
 	width: 100%;
-	padding: 8px;
-	margin-bottom: 2px;
+	padding: 8px 12px;
 	background: none;
-	color: var(--primary-text);
+	font-weight: normal;
+	color: var(--primary-text-soft);
 	border: none;
 	transition: none;
 }
 .SettingsButton:hover {
 	background: var(--settings-panel-hover);
+	color: var(--primary-text-prominent);
 }
 .titlediv {
 	max-height: 100%;
@@ -1490,7 +1535,7 @@ img.bigembedimg {
 	font-size: 28px;
 	text-align: center;
 	line-height: 42px;
-	color: var(--accent-color);
+	color: var(--icon);
 }
 .cancelReply {
 	color: var(--red);
