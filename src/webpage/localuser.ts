@@ -601,7 +601,7 @@ class Localuser{
 
 			for(const member of list){
 				const memberdiv=document.createElement("div");
-				const pfp=member.user.buildpfp();
+				const pfp=await member.user.buildstatuspfp();
 				const username=document.createElement("span");
 				username.classList.add("ellipsis");
 				username.textContent=member.name;
