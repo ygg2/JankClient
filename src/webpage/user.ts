@@ -450,7 +450,7 @@ class User extends SnowFlake{
 			Member.resolveMember(this, guild).then(member=>{
 				if(!member)return;
 				const roles = document.createElement("div");
-				roles.classList.add("rolesbox");
+				roles.classList.add("flexltr","rolesbox");
 				for(const role of member.roles){
 					const roleDiv = document.createElement("div");
 					roleDiv.classList.add("rolediv");
