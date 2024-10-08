@@ -642,6 +642,7 @@ span.instanceStatus {
 	font-weight: bold;
 }
 #channelTopic {
+	height: 1rem;
 	font-size: .9em;
 	color: var(--primary-text-soft);
 }
@@ -1554,7 +1555,6 @@ img.bigembedimg {
 }
 
 /* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, vertical alignment of header texts, ellipsized text, sizing for empty, low horizontal content, loading channels, file input, and selects */
-/* fix alignment of text in channel header */
 
 /* TEMP: +, x */
 .addchannel {
