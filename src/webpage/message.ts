@@ -508,7 +508,6 @@ class Message extends SnowFlake{
 			}
 			if(this.embeds.length){
 				const embeds = document.createElement("div");
-				embeds.classList.add("flexltr");
 				for(const thing of this.embeds){
 					embeds.appendChild(thing.generateHTML());
 				}

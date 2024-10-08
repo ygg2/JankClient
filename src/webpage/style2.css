@@ -70,6 +70,10 @@ button:hover, input::file-selector-button:hover {
 button:active:enabled, input::file-selector-button:active {
 	border: none;
 }
+.selectspan {
+	display: inline-block;
+	position: relative;
+}
 select {
 	appearance: none;
 	-webkit-appearance: none;
@@ -78,7 +82,7 @@ select {
 }
 .selectarrow {
 	position: absolute;
-	top: 4px;
+	top: 10px;
 	right: 10px;
 	height: 12px;
 	width: 12px;
@@ -1006,6 +1010,7 @@ img.embedimg {
 	max-width: 96px;
 }
 img.bigembedimg {
+	height: auto !important;
 	margin-top: 8px;
 	border-radius: 4px;
 	cursor: pointer;
@@ -1085,11 +1090,19 @@ img.bigembedimg {
 	font-size: 1rem;
 }
 .memberList .flexltr {
+	position: relative;
+	height: 2em;
 	padding: 4px 8px;
 	border-radius: 4px;
 	align-items: center;
-	gap: 8px;
 	cursor: pointer;
+}
+.memberList .statusDiv {
+	right: 0;
+	bottom: 0;
+}
+.memberList .ellipsis {
+	margin-left: 40px;
 }
 .memberList .flexltr:hover {
 	background: var(--sidebar-hover);
@@ -1275,15 +1288,6 @@ img.bigembedimg {
 	max-height: 80vh;
 	max-width: 80vw;
 }
-.nonimagecenter {
-	padding: 12px;
-	background: var(--primary-bg);
-	border-radius: 8px;
-}
-.nonimagecenter .flexttb, .nonimagecenter .flexltr {
-	justify-content: center;
-	gap: 8px;
-}
 .centeritem, .accountSwitcher {
 	position: absolute;
 	top: 50%;
@@ -1293,8 +1297,10 @@ img.bigembedimg {
 .accountSwitcher {
 	max-height: 80vh;
 	width: 500px;
-	padding: 8px;
-	background: var(--card-bg);
+	padding: 12px;
+	margin: 0;
+	background: var(--secondary-bg);
+	border: none;
 	border-radius: 8px;
 	box-shadow: 0 0 24px var(--shadow), 0 0 1.5px var(--primary-text);
 	gap: 8px;
@@ -1302,14 +1308,13 @@ img.bigembedimg {
 }
 .switchtable {
 	padding: 8px;
-	background: var(--secondary-bg);
-	color: var(--secondary-text);
+	background: var(--primary-bg);
 	border-radius: 8px;
 	cursor: pointer;
 	align-items: center;
 }
 .switchtable:hover {
-	background: var(--secondary-hover);
+	background: var(--primary-hover);
 }
 .switchtable .pfp {
 	height: 48px;
@@ -1318,7 +1323,22 @@ img.bigembedimg {
 }
 .serverURL {
 	font-size: .9em;
-	color: var(--secondary-text-soft);
+	color: var(--primary-text-soft);
+}
+.accountSwitcher h1 {
+	margin-bottom: 4px;
+	text-align: center;
+}
+.accountSwitcher select {
+	width: 100%;
+	margin: 0;
+}
+.accountSwitcher:has(button) {
+	padding: 24px;
+}
+.accountSwitcher button {
+	padding: 12px;
+	text-align: center;
 }
 .invitediv {
 	width: 300px;
@@ -1534,10 +1554,7 @@ img.bigembedimg {
 }
 
 /* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, vertical alignment of header texts, ellipsized text, sizing for empty, low horizontal content, loading channels, file input, and selects */
-/* enforce embed size and/or make it work when small */
-/* temp popup styling */
 /* fix alignment of text in channel header */
-/* ask how to emoji upload */
 
 /* TEMP: +, x */
 .addchannel {
@@ -1565,4 +1582,23 @@ img.bigembedimg {
 .exitsettings {
 	text-align: center;
 	line-height: 32px;
+}
+.nonimagecenter {
+	padding: 12px;
+	background: var(--card-bg);
+	border-radius: 8px;
+}
+.nonimagecenter .flexttb, .nonimagecenter .flexltr {
+	padding: 16px;
+	background: var(--primary-bg);
+	border-radius: 8px;
+	justify-content: center;
+	gap: 8px;
+}
+fieldset {
+	margin-bottom: 4px;
+	border-color: var(--primary-text-soft);
+}
+fieldset input[type="radio"] {
+	margin: 6px;
 }

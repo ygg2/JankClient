@@ -102,18 +102,24 @@ type botjsonfetch={
 				}
 			}
 			const dialog=document.createElement("dialog");
-			dialog.classList.add("accountSwitcher");
+			dialog.classList.add("flexttb","accountSwitcher");
 			const h1=document.createElement("h1");
 			dialog.append(h1);
 			h1.textContent="Invite to server:";
 			const select=document.createElement("select");
+			const selectSpan=document.createElement("span");
+			selectSpan.classList.add("selectspan");
+			const selectArrow = document.createElement("span");
+			selectArrow.classList.add("svgtheme","svg-category","selectarrow");
 			for(const guild of guilds){
 				const option=document.createElement("option");
 				option.textContent=guild.name;
 				option.value=guild.id;
 				select.append(option);
 			}
-			dialog.append(select);
+			selectSpan.append(select);
+			selectSpan.append(selectArrow);
+			dialog.append(selectSpan);
 			const button=document.createElement("button");
 			button.textContent="Invite";
 			dialog.append(button);
@@ -193,7 +199,7 @@ type botjsonfetch={
 		}
 
 		table.append(td);
-		table.classList.add("accountSwitcher");
+		table.classList.add("flexttb","accountSwitcher");
 		console.log(table);
 		document.body.append(table);
 	}

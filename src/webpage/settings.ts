@@ -339,7 +339,7 @@ class SelectInput implements OptionsElement<number>{
 		span.textContent = this.label;
 		div.append(span);
 		const selectSpan = document.createElement("span");
-		selectSpan.style.position = "relative";
+		selectSpan.classList.add("selectspan");
 		const select = document.createElement("select");
 
 		select.onchange = this.onChange.bind(this);
