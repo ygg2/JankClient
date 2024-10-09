@@ -9,8 +9,8 @@
 .Dark-theme {
 	color-scheme: dark;
 
-	--primary-bg: #2e3137;
-	--primary-hover: #262a2f;
+	--primary-bg: #303339;
+	--primary-hover: #272b31;
 	--primary-text: #dfdfdf;
 	--primary-text-soft: #adb8b9;
 
@@ -18,8 +18,8 @@
 	--secondary-hover: #252b2c;
 
 	--servers-bg: #141718;
-	--channels-bg: #232628;
-	--channel-selected: #3a3e45;
+	--channels-bg: #25282b;
+	--channel-selected: #3c4046;
 	--typebox-bg: #3a3e45;
 
 	--button-bg: #4e5457;

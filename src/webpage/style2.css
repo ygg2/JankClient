@@ -326,6 +326,7 @@ span.instanceStatus {
 }
 #h-captcha {
 	margin: 16px 0;
+	text-align: center;
 }
 #logindiv button {
 	width: 100%;
@@ -1604,9 +1605,15 @@ fieldset input[type="radio"] {
 	color: var(--icon);
 }
 .cancelReply {
+	width: 24px;
+	padding: 0;
+	text-align: center;
 	color: var(--red);
 	background: transparent;
 	border: none;
+}
+.cancelReply:hover {
+	background: var(--secondary-hover);
 }
 .exitsettings {
 	text-align: center;
