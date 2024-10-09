@@ -439,7 +439,7 @@ span.instanceStatus {
 	overflow-y: auto;
 	user-select: none;
 }
-.servericon {
+.servericon, #sentdms .pfp {
 	height: 48px;
 	width: 48px;
 	margin-bottom: 6px;
@@ -447,7 +447,7 @@ span.instanceStatus {
 	cursor: pointer;
 	transition: border-radius .2s;
 }
-.servericon:hover, .serveropen .servericon {
+.servericon:hover, .serveropen .servericon, #sentdms .pfp:hover {
 	border-radius: 30%;
 }
 .svgicon {
@@ -491,6 +491,22 @@ span.instanceStatus {
 }
 .notiunread {
 	transform: translate(-12px, 20px);
+}
+#sentdms {
+	position: relative;
+}
+.unread.pinged, .servernoti:hover .unread.pinged {
+	height: 16px;
+	width: 16px;
+	transform: translate(28px, 28px);
+	background: var(--red);
+	font-size: .75rem;
+	font-weight: bold;
+	line-height: 15px;
+	text-align: center;
+	border: 4px solid var(--servers-bg);
+	border-radius: 50%;
+	pointer-events: none;
 }
 
 /* Channel Panel */
@@ -1406,7 +1422,7 @@ fieldset input[type="radio"] {
 #discovery-guild-content {
 	flex: 1;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 	gap: 8px;
 	overflow-y: auto;
 }
@@ -1421,7 +1437,7 @@ fieldset input[type="radio"] {
 	background: var(--secondary-hover);
 }
 .flex {
-	margin: 8px;
+	margin: 12px;
 	display: flex;
 	align-items: center;
 	gap: 6px;
@@ -1435,7 +1451,7 @@ fieldset input[type="radio"] {
 	font-size: 1em;
 }
 .discovery-guild p {
-	margin: 4px 8px;
+	margin: 0 12px;
 	font-size: .9em;
 	color: var(--secondary-text-soft);
 	word-break: break-word;
@@ -1590,7 +1606,6 @@ fieldset input[type="radio"] {
 }
 
 /* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, vertical alignment of header texts, ellipsized text, sizing for empty, low horizontal content, loading channels, file input, and selects */
-/* DM notification styling when I can see those */
 
 /* TEMP: +, x */
 .addchannel {
