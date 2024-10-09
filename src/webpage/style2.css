@@ -710,6 +710,9 @@ span.instanceStatus {
 	user-select: none;
 	cursor: pointer;
 }
+.attachments .messageimg {
+	border-radius: 4px;
+}
 .controls {
 	position: absolute;
 	top: 6px;
