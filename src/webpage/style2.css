@@ -39,7 +39,7 @@ p, h1, h2, h3, pre, form {
 a {
 	color: var(--link);
 	text-decoration: none;
-	word-break: break-all;
+	word-break: break-word;
 	cursor: pointer;
 }
 a:hover {
@@ -1244,18 +1244,18 @@ img.bigembedimg {
 /* Emoji Picker */
 .emojiPicker {
 	position: absolute;
-	height: 350px;
-	width: 300px;
-	padding: 8px;
+	height: 440px;
+	width: 360px;
+	padding: 12px;
 	background: var(--card-bg);
 	border-radius: 8px;
 	box-shadow: 0 0 8px var(--shadow);
-	gap: 4px;
+	gap: 8px;
 	box-sizing: border-box;
 	user-select: none;
 }
 .emojiTitle {
-	font-size: 1.15rem;
+	font-size: 1.2rem;
 }
 .emojirow {
 	flex: none;
@@ -1264,10 +1264,10 @@ img.bigembedimg {
 }
 .emojiSelect {
 	flex: none;
-	height: 34px;
-	width: 34px;
-	font-size: 22px;
-	line-height: 22px;
+	height: 40px;
+	width: 40px;
+	font-size: 28px;
+	line-height: 28px;
 	border-radius: 4px;
 	display: flex;
 	align-items: center;
@@ -1278,8 +1278,8 @@ img.bigembedimg {
 	background: var(--secondary-hover);
 }
 .emoji-server, .emojiBody .smallemoji {
-	height: 22px;
-	width: 22px;
+	height: auto;
+	width: 28px;
 	margin: 0;
 }
 .emojiBody {
@@ -1288,7 +1288,7 @@ img.bigembedimg {
 	background: var(--secondary-bg);
 	border-radius: 8px;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
 	grid-auto-rows: min-content;
 	overflow-y: auto;
 }
@@ -1563,15 +1563,16 @@ fieldset input[type="radio"] {
 	right: 50%;
 	transform: translateX(50%);
 	padding: 16px;
-	background: var(--primary-bg);
+	background: var(--secondary-bg);
 	font-size: 1.2em;
 	font-weight: bold;
+	color: var(--secondary-text);
 	border-radius: 8px;
 	align-items: center;
-	box-shadow: 0 0 8px var(--shadow);
+	box-shadow: 0 0 24px var(--shadow), 0 0 1px var(--primary-text);
 }
 .savediv button {
-	margin-left: 16px;
+	margin-left: 12px;
 	background: var(--green);
 }
 .exitsettings {
