@@ -30,9 +30,11 @@ p, h1, h2, h3, pre, form {
 	font-weight: bold;
 }
 .ellipsis {
-	white-space: nowrap;
+	display: -webkit-box;
+	word-break: break-all;
 	overflow: hidden;
-	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
 }
 a {
 	color: var(--link);
@@ -732,7 +734,7 @@ span.instanceStatus {
 }
 #typing {
 	position: absolute;
-	bottom: 8px;
+	bottom: 7px;
 	margin-left: 24px;
 	font-size: .9em;
 	gap: 4px;
@@ -741,6 +743,7 @@ span.instanceStatus {
 	display: none;
 }
 .loading-indicator {
+	margin-top: 2px;
 	align-items: center;
 }
 .dot {
@@ -760,9 +763,11 @@ span.instanceStatus {
 
 /* Message */
 .messagediv, .titlespace {
-	position: relative;
 	padding: 3px 36px 3px 16px;
 	border-left: 2px solid transparent;
+}
+.messagediv {
+	position: relative;
 }
 .messagediv:hover {
 	background: var(--primary-hover);
@@ -964,7 +969,7 @@ span .quote:last-of-type .quoteline {
 	line-height: 1em;
 }
 .reaction:hover {
-	border-color: var(--primary-text-soft);
+	border-color: color-mix(in srgb, var(--primary-text-soft), transparent);
 }
 .reaction.meReacted {
 	background: var(--reaction-reacted-bg);
@@ -1105,8 +1110,8 @@ img.bigembedimg {
 	cursor: pointer;
 }
 .memberList .statusDiv {
-	right: 0;
-	bottom: 0;
+	right: -1px;
+	bottom: -1px;
 }
 .memberList .ellipsis {
 	margin-left: 40px;
