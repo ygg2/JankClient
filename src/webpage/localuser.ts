@@ -839,7 +839,7 @@ class Localuser{
 						["title", "Create a guild"],
 						[
 							"fileupload",
-							"Icon:",
+							"Icon: ",
 							function(event: Event){
 								const target = event.target as HTMLInputElement;
 								if(!target.files)return;

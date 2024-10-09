@@ -244,9 +244,12 @@ class ButtonInput implements OptionsElement<void>{
 	}
 	generateHTML(): HTMLDivElement{
 		const div = document.createElement("div");
-		const span = document.createElement("span");
-		span.textContent = this.label;
-		div.append(span);
+		if(this.label){
+			const span = document.createElement("span");
+			span.classList.add("inlinelabel");
+			span.textContent = this.label;
+			div.append(span);
+		}
 		const button = document.createElement("button");
 		button.textContent = this.textContent;
 		button.onclick = this.onClickEvent.bind(this);

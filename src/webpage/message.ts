@@ -500,7 +500,7 @@ class Message extends SnowFlake{
 			if(this.attachments.length){
 				console.log(this.attachments);
 				const attach = document.createElement("div");
-				attach.classList.add("flexltr");
+				attach.classList.add("flexltr","attachments");
 				for(const thing of this.attachments){
 					attach.appendChild(thing.getHTML());
 				}
@@ -586,25 +586,28 @@ class Message extends SnowFlake{
 								return;
 							}
 							const diaolog = new Dialog([
-								"hdiv",
-								["title", "are you sure you want to delete this?"],
+								"vdiv",
+								["title", "Are you sure you want to delete this?"],
 								[
-									"button",
-									"",
-									"yes",
-									()=>{
-										this.delete();
-										diaolog.hide();
-									},
-								],
-								[
-									"button",
-									"",
-									"no",
-									()=>{
-										diaolog.hide();
-									},
-								],
+									"hdiv",
+									[
+										"button",
+										"",
+										"Yes",
+										()=>{
+											this.delete();
+											diaolog.hide();
+										},
+									],
+									[
+										"button",
+										"",
+										"No",
+										()=>{
+											diaolog.hide();
+										},
+									],
+								]
 							]);
 							diaolog.show();
 						};

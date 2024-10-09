@@ -55,6 +55,9 @@ pre, samp {
 	color: var(--code-text);
 	text-wrap: wrap;
 }
+video {
+	max-width: 100%;
+}
 button, input::file-selector-button, select {
 	padding: 6px 10px;
 	background: var(--button-bg);
@@ -152,13 +155,13 @@ textarea {
 .svg-announce {
 	mask: url(/icons/announce.svg);
 }
-.svg-edit{
+.svg-edit {
 	mask: url(/icons/edit.svg);
 }
-.svg-reply{
+.svg-reply {
 	mask: url(/icons/reply.svg);
 }
-.svg-delete{
+.svg-delete {
 	mask: url(/icons/delete.svg);
 }
 .svg-category {
@@ -815,11 +818,26 @@ span.instanceStatus {
 .messageButtons div:hover span {
 	background: var(--secondary-text);
 }
+.message {
+	padding-right: 28px;
+}
 .topMessage {
 	margin-top: 16px;
 }
-.message {
-	padding-right: 28px;
+.zeroheight {
+	padding: 0;
+}
+.blocked {
+	display: inline-block;
+	margin-bottom: 4px;
+	color: var(--primary-text-soft);
+	cursor: pointer;
+}
+.message.blocked {
+	margin-bottom: 0;
+}
+.messagediv:has(.message.blocked):hover {
+	background: transparent;
 }
 .pfprow {
 	flex: none;
@@ -999,6 +1017,11 @@ span .quote:last-of-type .quoteline {
 /* Message External */
 .filename a {
 	color: var(--filename);
+}
+.attachments {
+	margin-top: 4px;
+	gap: 4px;
+	flex-wrap: wrap;
 }
 .embed {
 	max-width: 400px;
@@ -1184,6 +1207,7 @@ img.bigembedimg {
 	height: 48px;
 	width: 48px;
 	margin: 8px 0 0 8px;
+	cursor: auto;
 }
 .statusDiv {
 	position: absolute;
@@ -1374,6 +1398,9 @@ fieldset input[type="radio"] {
 	font-size: .9em;
 	color: var(--primary-text-soft);
 }
+.accountSwitcher {
+	z-index: 102;
+}
 .accountSwitcher h1 {
 	margin-bottom: 4px;
 	text-align: center;
@@ -1547,6 +1574,9 @@ fieldset input[type="radio"] {
 #app-list-container h2 {
 	font-size: 1rem;
 }
+.inlinelabel {
+	margin-right: 4px;
+}
 .setting {
 	padding: 16px;
 	background: var(--secondary-bg);
@@ -1604,8 +1634,6 @@ fieldset input[type="radio"] {
 .exitsettings:hover {
 	background: var(--button-hover);
 }
-
-/* What to confirm after replacing TS files + index.html with the ones from this branch? Default accent color, alignment of timestamp, absolute positioning of profile/hypoprofile card icon and banner, removal of neunence, vertical alignment of header texts, ellipsized text, sizing for empty, low horizontal content, loading channels, file input, and selects */
 
 /* TEMP: +, x */
 .addchannel {
