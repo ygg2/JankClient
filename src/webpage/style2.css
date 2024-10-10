@@ -625,16 +625,19 @@ span.instanceStatus {
 }
 #userinfo {
 	min-width: 50%;
+	padding: 0 6px;
 	background: var(--user-info-bg);
 	color: var(--user-info-text);
 	border-radius: 8px;
+	box-sizing: border-box;
+	gap: 6px;
 	cursor: pointer;
 }
 #userinfo:hover {
 	background: var(--dock-hover);
 }
 #userpfp {
-	margin: 6px;
+	margin: 6px 0;
 }
 .userflex {
 	justify-content: center;
@@ -725,7 +728,8 @@ span.instanceStatus {
 }
 #replybox {
 	height: 32px;
-	padding: 0 16px;
+	padding: 0 10px 0 16px;
+	margin: 0 16px;
 	background: var(--secondary-bg);
 	font-size: .9em;
 	color: var(--secondary-text);
@@ -753,6 +757,9 @@ span.instanceStatus {
 #typebox[contenteditable=false]:before {
 	content: "You can't send messages here";
 	opacity: .5;
+}
+#typebox.typeboxreplying {
+	border-radius: 0 0 4px 4px;
 }
 #typing {
 	position: absolute;
@@ -856,6 +863,7 @@ span.instanceStatus {
 }
 .username {
 	font-weight: bold;
+	white-space: nowrap;
 	cursor: pointer;
 }
 .username:hover {

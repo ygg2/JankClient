@@ -767,6 +767,7 @@ class Channel extends SnowFlake{
 	}
 	makereplybox(){
 		const replybox = document.getElementById("replybox") as HTMLElement;
+		const typebox = document.getElementById("typebox") as HTMLElement;
 		if(this.replyingto){
 			replybox.innerHTML = "";
 			const span = document.createElement("span");
@@ -779,14 +780,17 @@ class Channel extends SnowFlake{
 				replybox.classList.add("hideReplyBox");
 				this.replyingto = null;
 				replybox.innerHTML = "";
+				typebox.classList.remove("typeboxreplying");
 			};
 			replybox.classList.remove("hideReplyBox");
 			X.textContent = "⦻";
 			X.classList.add("cancelReply");
 			replybox.append(span);
 			replybox.append(X);
+			typebox.classList.add("typeboxreplying");
 		}else{
 			replybox.classList.add("hideReplyBox");
+			typebox.classList.remove("typeboxreplying");
 		}
 	}
 	async getmessage(id: string): Promise<Message>{
