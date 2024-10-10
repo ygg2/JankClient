@@ -393,7 +393,7 @@ span.instanceStatus {
 	position: absolute;
 	height: 100%;
 	width: 100%;
-	background: var(--loading-bg);
+	background: var(--loading-bg, inherit) !important;
 	color: var(--loading-text);
 	text-align: center;
 	transition: transform .2s;
@@ -752,6 +752,9 @@ span.instanceStatus {
 	background: var(--typebox-bg);
 	border-radius: 4px;
 	overflow-y: auto;
+}
+#typebox:before {
+	content: "\feff";
 }
 #typebox[contenteditable=false] {
 	cursor:not-allowed;
