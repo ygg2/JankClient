@@ -959,8 +959,8 @@ span .quote:last-of-type .quoteline {
 	position: absolute;
 	top: calc(50% - 1px);
 	left: 19px;
-	height: 50%;
-	width: 26px;
+	height: calc(50% + 1px);
+	width: 28px;
 	border-top: 2px solid var(--reply-line);
 	border-left: 2px solid var(--reply-line);
 	border-top-left-radius: 8px;
