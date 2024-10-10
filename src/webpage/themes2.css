@@ -40,13 +40,13 @@
 	--primary-text: #4b4b59;
 	--primary-text-soft: #656575;
 
-	--secondary-bg: #e4e4ec;
+	--secondary-bg: #e0e0ea;
 	--secondary-hover: #d0d0dd;
 
 	--servers-bg: #b4b4ca;
 	--channels-bg: #eaeaf0;
-	--channel-selected: #d1d1df;
-	--typebox-bg: #eaeaf0;
+	--channel-selected: #c7c7d9;
+	--typebox-bg: #ededf4;
 
 	--button-bg: #cacad8;
 	--button-hover: #b3b3c4;

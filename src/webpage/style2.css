@@ -747,9 +747,11 @@ span.instanceStatus {
 	padding: 0 16px 28px 16px;
 }
 #typebox {
+	max-height: 50vh;
 	padding: 10px 14px;
 	background: var(--typebox-bg);
 	border-radius: 4px;
+	overflow-y: auto;
 }
 #typebox[contenteditable=false] {
 	cursor:not-allowed;
@@ -760,6 +762,9 @@ span.instanceStatus {
 }
 #typebox.typeboxreplying {
 	border-radius: 0 0 4px 4px;
+}
+#typebox img {
+	max-width: 100%;
 }
 #typing {
 	position: absolute;
@@ -942,17 +947,29 @@ span .quote:last-of-type .quoteline {
 	margin-left: 8px;
 }
 .replyflex {
+	position: relative;
 	margin-bottom: 4px;
 	font-size: .9em;
 	color: var(--reply-text);
 	align-items: center;
 	gap: 4px;
 }
+.replyflex::before {
+	content: '';
+	position: absolute;
+	top: calc(50% - 1px);
+	left: 19px;
+	height: 50%;
+	width: 26px;
+	border-top: 2px solid var(--reply-line);
+	border-left: 2px solid var(--reply-line);
+	border-top-left-radius: 8px;
+}
 .startreply {
 	flex: none;
 	width: 28px;
 	margin-left: 20px;
-	background: var(--reply-line);
+	background: transparent;
 }
 .replypfp {
 	height: 20px;
