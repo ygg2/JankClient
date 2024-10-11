@@ -56,7 +56,11 @@ pre, samp {
 	text-wrap: wrap;
 }
 video {
+	max-height: 50vh;
 	max-width: 100%;
+}
+audio::-webkit-media-controls-panel {
+	background: var(--secondary-bg);
 }
 button, input::file-selector-button, select {
 	padding: 6px 10px;
@@ -753,7 +757,7 @@ span.instanceStatus {
 	border-radius: 4px;
 	overflow-y: auto;
 }
-#typebox:before {
+#typebox > span::before {
 	content: "\feff";
 }
 #typebox[contenteditable=false] {
@@ -1063,6 +1067,9 @@ span .quote:last-of-type .quoteline {
 	font-size: .88em;
 	color: var(--secondary-text);
 	border-radius: 4px;
+}
+.linkembed {
+	margin-top: 4px;
 }
 .embed-color {
 	max-width: 400px;
