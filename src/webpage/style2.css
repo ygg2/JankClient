@@ -54,6 +54,7 @@ pre, samp {
 	background: var(--code-bg);
 	color: var(--code-text);
 	text-wrap: wrap;
+	word-break: break-word;
 }
 video, iframe {
 	max-height: 50vh;
