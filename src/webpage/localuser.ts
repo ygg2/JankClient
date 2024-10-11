@@ -1546,7 +1546,7 @@ class Localuser{
 		});
 		form.addTextInput("Bot username:","username",{initText:bot.username});
 		form.addFileInput("Bot avatar:","avatar");
-		form.addButtonInput("Reset Token:","Reset",async ()=>{
+		form.addButtonInput("","Reset Token",async ()=>{
 			if(!confirm("Are you sure you want to reset the bot token? Your bot will stop working until you update it.")){
 				return;
 			}
@@ -1586,7 +1586,7 @@ class Localuser{
 				this.userinfo.updateLocal();
 			}
 		});
-		form.addButtonInput("","Advanced bot settings",()=>{
+		form.addButtonInput("","Advanced Bot Settings",()=>{
 			const token=this.botTokens.get(appId);
 			if(token){
 				const botc=new Bot(bot,token,this);

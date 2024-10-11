@@ -75,6 +75,9 @@ button, input::file-selector-button, select {
 	cursor: pointer;
 	transition: background .1s ease-in-out;
 }
+input::file-selector-button {
+	margin-right: 6px;
+}
 button:hover, input::file-selector-button:hover {
 	background: var(--button-hover);
 }

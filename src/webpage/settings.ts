@@ -448,7 +448,7 @@ class FileInput implements OptionsElement<FileList | null>{
 		span.textContent = this.label;
 		div.append(span);
 		const innerDiv = document.createElement("div");
-		innerDiv.classList.add("flexltr","fileinputdiv")
+		innerDiv.classList.add("flexltr","fileinputdiv");
 		const input = document.createElement("input");
 		input.type = "file";
 		input.oninput = this.onChange.bind(this);
