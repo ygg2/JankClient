@@ -465,8 +465,8 @@ class FileInput implements OptionsElement<FileList | null>{
 				this.owner.changed();
 			};
 			innerDiv.append(button);
-			div.append(innerDiv);
 		}
+		div.append(innerDiv);
 		return div;
 	}
 	onChange(){
