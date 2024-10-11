@@ -670,14 +670,13 @@ span.instanceStatus {
 /* Message Area */
 .channelnamediv {
 	background: var(--main-header-bg);
-	gap: 8px;
 }
 #channelname {
 	flex: none;
 	font-weight: bold;
 }
 #channelTopic {
-	height: 1rem;
+	margin: auto 0 0 8px;
 	font-size: .9em;
 	color: var(--primary-text-soft);
 }
