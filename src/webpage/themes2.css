@@ -6,6 +6,7 @@
 	--green: #1c907b;
 }
 
+/* Themes. Last group in each is the optional vars */
 .Dark-theme {
 	color-scheme: dark;
 
@@ -92,7 +93,7 @@
 	--spoiler-text: #e4e6ed;
 }
 
-/* Optional Vars */
+/* Optional Var Defaults */
 body {
 	--primary-text-prominent: var(--primary-text);
 	--secondary-text: var(--primary-text);

@@ -21,6 +21,7 @@ body {
 }
 .flexgrow {
 	flex-grow: 1;
+	min-height: 0;
 }
 p, h1, h2, h3, pre, form {
 	margin: 0;
@@ -670,6 +671,7 @@ span.instanceStatus {
 /* Message Area */
 .channelnamediv {
 	background: var(--main-header-bg);
+	gap: 8px;
 }
 #channelname {
 	flex: none;
@@ -679,6 +681,9 @@ span.instanceStatus {
 	margin: auto 0 0 8px;
 	font-size: .9em;
 	color: var(--primary-text-soft);
+}
+#channelTopic[hidden] {
+	display: none;
 }
 #channelw {
 	flex: 1;
@@ -1131,7 +1136,7 @@ img.bigembedimg {
 }
 .inviteEmbed .invguildinfo {
 	flex: 1;
-	padding: 0 12px;
+	padding: 4px 12px;
 	background: var(--primary-bg);
 	border-radius: 4px;
 	justify-content: center;
@@ -1405,6 +1410,7 @@ img.bigembedimg {
 	border: none;
 	border-radius: 8px;
 	box-shadow: 0 0 24px var(--shadow), 0 0 1.5px var(--primary-text);
+	box-sizing: border-box;
 	gap: 8px;
 	overflow-y: auto;
 }
@@ -1661,6 +1667,7 @@ fieldset input[type="radio"] {
 	border-radius: 8px;
 	align-items: center;
 	box-shadow: 0 0 24px var(--shadow), 0 0 1px var(--primary-text);
+	box-sizing: border-box;
 }
 .savediv button {
 	margin-left: 12px;
@@ -1712,4 +1719,115 @@ fieldset input[type="radio"] {
 .exitsettings {
 	text-align: center;
 	line-height: 32px;
+}
+
+/* Jank Mobile Temporary */
+#mobilecontrol, #mobilearrow {
+	display: none;
+}
+@media screen and (max-width: 500px) {
+	#page, #mobilearrow {
+		display: block;
+	}
+	#mainarea, .titlediv:has(.settingstitle) {
+		height: 100%;
+		box-shadow: 0 0 14px var(--shadow);
+	}
+	#mainarea {
+		height: calc(100% - 138px);
+		transition: height .4s;
+	}
+	#page:has(#mobilecontrol:checked) #mainarea {
+		height: 176px;
+	}
+	#page:has(#mobilecontrol:checked) .channelflex {
+		height: calc(100% - 224px);
+	}
+	#mobilearrow {
+		flex: none;
+		width: 14px;
+		height: 14px;
+	}
+	#page:has(#mobilecontrol:checked) #mobilearrow {
+		rotate: 180deg;
+	}
+	#logindiv, #invitebody, .accountSwitcher, .savediv, .fileinputdiv, input[type="text"], input[type="password"], input[type="search"], input[type="date"], textarea {
+		width: 100%;
+		min-width: unset;
+	}
+	#servertd, #sideDiv, .userflex, .lightbr, .serveropen .unread {
+		display: none;
+	}
+	#userdock, .Buttons, .flexltr.flexspace {
+		flex-direction: column;
+		justify-content: start;
+	}
+	#servers {
+		display: flex;
+		gap: 8px;
+	}
+	.servericon, #sentdms .pfp, .pfprow .pfp {
+		height: 32px;
+		width: 32px;
+		margin: 0;
+	}
+	.unread {
+		right: 0;
+		transform: translate(0, -20px);
+	}
+	.notiunread {
+		transform: translate(0, 0);
+	}
+	.serveropen .servericon {
+		outline: 2px solid var(--primary-text);
+	}
+	.channelflex {
+		height: 90px;
+		width: auto;
+		flex-direction: row;
+		transition: height .4s;
+	}
+	.channelnamediv, .settingstitle {
+		height: 36px;
+	}
+	#replybox, .optionElement {
+		margin-left: 8px;
+		margin-right: 8px;
+	}
+	.messagediv, #realbox {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+	.message {
+		padding-right: 4px;
+	}
+	.topMessage {
+		margin-top: 8px;
+	}
+	.pfprow {
+		width: 32px;
+		margin-right: 8px;
+	}
+	.inviteEmbed {
+		max-width: 100%;
+	}
+	.reactiondiv {
+		margin-left: 38px;
+	}
+	.emojiPicker {
+		height: 256px;
+		max-width: 100%;
+	}
+	.settingbuttons {
+		height: 90px;
+		width: auto;
+		border: none;
+	}
+	.fileinputdiv {
+		flex-wrap: wrap;
+		gap: 4px;
+	}
+	.savediv button, .capsflex {
+		margin: 0;
+	}
 }
