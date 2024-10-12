@@ -1763,7 +1763,7 @@ fieldset input[type="radio"] {
 	#page:has(#mobilecontrol:checked) #mobilecollapse span {
 		rotate: 180deg;
 	}
-	#logindiv, #invitebody, .accountSwitcher, .nonimagecenter, .savediv, .fileinputdiv, input[type="text"], input[type="password"], input[type="search"], input[type="date"], textarea {
+	#logindiv, #invitebody, .accountSwitcher, .nonimagecenter, .savediv, .fileinputdiv, input[type="text"], input[type="password"], input[type="search"], input[type="date"], textarea, .optionElement input[type="text"], .optionElement textarea {
 		width: 100%;
 		min-width: unset;
 	}
@@ -1784,7 +1784,8 @@ fieldset input[type="radio"] {
 		width: 32px;
 		margin: 0;
 	}
-	.unread {
+	.unread, .servernoti:hover .unread {
+		height: 8px;
 		right: 0;
 		transform: translate(0, -20px);
 	}
