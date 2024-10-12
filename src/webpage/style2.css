@@ -1,7 +1,7 @@
 /* General */
 body {
 	margin: 0;
-	background: var(--secondary-bg, inherit) !important;
+	background: var(--secondary-bg);
 	font-family: var(--font);
 	color: var(--primary-text);
 	overflow: hidden;
