@@ -1734,14 +1734,14 @@ fieldset input[type="radio"] {
 		box-shadow: 0 0 14px var(--shadow);
 	}
 	#mainarea {
-		height: calc(100% - 138px);
+		height: calc(100svh - 138px);
 		transition: height .4s;
 	}
 	#page:has(#mobilecontrol:checked) #mainarea {
 		height: 176px;
 	}
 	#page:has(#mobilecontrol:checked) .channelflex {
-		height: calc(100% - 224px);
+		height: calc(100svh - 224px);
 	}
 	#mobilearrow {
 		flex: none;
@@ -1751,7 +1751,7 @@ fieldset input[type="radio"] {
 	#page:has(#mobilecontrol:checked) #mobilearrow {
 		rotate: 180deg;
 	}
-	#logindiv, #invitebody, .accountSwitcher, .savediv, .fileinputdiv, input[type="text"], input[type="password"], input[type="search"], input[type="date"], textarea {
+	#logindiv, #invitebody, .accountSwitcher, .nonimagecenter, .savediv, .fileinputdiv, input[type="text"], input[type="password"], input[type="search"], input[type="date"], textarea {
 		width: 100%;
 		min-width: unset;
 	}
@@ -1767,6 +1767,7 @@ fieldset input[type="radio"] {
 		gap: 8px;
 	}
 	.servericon, #sentdms .pfp, .pfprow .pfp {
+		flex: none;
 		height: 32px;
 		width: 32px;
 		margin: 0;
