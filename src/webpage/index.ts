@@ -233,27 +233,4 @@ import{ File }from"./file.js";
 
 		(document.getElementById("settings") as HTMLImageElement).onclick =
 		userSettings;
-
-		if(mobile){
-			const channelWrapper = document.getElementById(
-				"channelw"
-			) as HTMLDivElement;
-			channelWrapper.onclick = ()=>{
-				(
-		document.getElementById("channels")!.parentNode as HTMLElement
-				).classList.add("collapse");
-		document.getElementById("servertd")!.classList.add("collapse");
-		document.getElementById("servers")!.classList.add("collapse");
-			};
-
-			const mobileBack = document.getElementById("mobileback") as HTMLDivElement;
-			mobileBack.textContent = "#";
-			mobileBack.onclick = ()=>{
-				(
-		document.getElementById("channels")!.parentNode as HTMLElement
-				).classList.remove("collapse");
-		document.getElementById("servertd")!.classList.remove("collapse");
-		document.getElementById("servers")!.classList.remove("collapse");
-			};
-		}
 })();
