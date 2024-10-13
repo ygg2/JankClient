@@ -1834,7 +1834,7 @@ fieldset input[type="radio"] {
 		min-width: unset;
 	}
 	#logindiv, #invitebody, .savediv, .nonimagecenter, .accountSwitcher {
-		width: 90%;
+		width: 94%;
 		min-width: unset;
 	}
 	input[type="file"] {
