@@ -1423,6 +1423,9 @@ img.bigembedimg {
 	background: var(--primary-bg);
 	border-radius: 8px;
 }
+.nonimagecenter button {
+	height: 100%;
+}
 fieldset {
 	margin-bottom: 4px;
 	border-color: var(--primary-text-soft);
@@ -1825,9 +1828,13 @@ fieldset input[type="radio"] {
 		min-height: 350px;
 		border-radius: 8px;
 	}
-	input[type="text"], input[type="file"], input[type="search"], input[type="password"], input[type="date"], textarea, #logindiv, #invitebody, .savediv, .fileinputdiv, .inviteEmbed, .nonimagecenter, .accountSwitcher {
+	input[type="text"], input[type="file"], input[type="search"], input[type="password"], input[type="date"], textarea, .fileinputdiv, .inviteEmbed {
 		width: 100%;
 		max-width: 100%;
+		min-width: unset;
+	}
+	#logindiv, #invitebody, .savediv, .nonimagecenter, .accountSwitcher {
+		width: 90%;
 		min-width: unset;
 	}
 	input[type="file"] {
