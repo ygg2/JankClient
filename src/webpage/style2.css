@@ -1731,7 +1731,7 @@ fieldset input[type="radio"] {
 		right: -100svw;
 		height: calc(100svh - 50px);;
 		width: 100svw;
-		transition: right .4s;
+		transition: right .3s;
 	}
 	#mobilerighttoggleicon {
 		margin-left: auto;
@@ -1765,7 +1765,7 @@ fieldset input[type="radio"] {
 		left: 304px;
 		width: 100svw;
 		background: var(--primary-bg);
-		transition: left .4s;
+		transition: left .3s;
 	}
 	#page:has(#mobilelefttoggle:checked) #mainarea {
 		left: 0;
