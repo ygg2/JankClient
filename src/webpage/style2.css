@@ -1732,10 +1732,10 @@ fieldset input[type="radio"] {
 		right: -100svw;
 		height: calc(100svh - 50px);;
 		width: 100svw;
-		transition: right .5s;
+		transition: right .4s;
 	}
 	.channelnamediv {
-		padding: 0 8px;
+		padding: 0;
 	}
 	#mobilerighttoggleicon {
 		margin-left: auto;
@@ -1769,7 +1769,7 @@ fieldset input[type="radio"] {
 		left: 304px;
 		width: 100svw;
 		background: var(--primary-bg);
-		transition: left .5s;
+		transition: left .4s;
 	}
 	#page:has(#mobilelefttoggle:checked) #mainarea {
 		left: 0;
@@ -1782,5 +1782,58 @@ fieldset input[type="radio"] {
 	}
 	#page:has(#mobilerighttoggle:checked) #mobilerighttoggleicon span {
 		background: var(--primary-text-prominent);
+	}
+	.pfprow {
+		width: 32px;
+	}
+	.pfprow .pfp {
+		height: 32px;
+		width: 32px;
+	}
+	.messagediv, #realbox, #logindiv {
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+	.message {
+		padding-right: 12px;
+	}
+	.topMessage {
+		margin-top: 8px;
+	}
+	.reactiondiv {
+		margin-left: 44px;
+	}
+	input[type="text"], input[type="file"], input[type="search"], input[type="password"], input[type="date"], textarea, #logindiv, .savediv, .fileinputdiv, .inviteEmbed, .nonimagecenter, .accountSwitcher {
+		width: 100%;
+		max-width: 100%;
+		min-width: unset;
+	}
+	.Buttons, .flexspace {
+		flex-direction: column;
+	}
+	.settingbuttons {
+		height: 80px;
+		width: 100%;
+	}
+	.fileinputdiv {
+		flex-wrap: wrap;
+		gap: 4px;
+	}
+	.settingstitle {
+		font-size: 1.2rem;
+		height: auto;
+		padding: 8px 16px;
+		flex-wrap: wrap;
+	}
+	.contextmenu, .profile {
+		top: unset !important;
+		bottom: 0;
+		width: 100%;
+		box-sizing: border-box;
+		border-radius: 16px 16px 0 0;
+	}
+	.profile {
+		height: 75%;
+		box-shadow: 0 0 14px var(--shadow), 0 0 28px var(--shadow), inset 0 132px 64px var(--accent_color);
 	}
 }
