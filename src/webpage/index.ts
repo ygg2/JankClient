@@ -1,6 +1,6 @@
 import{ Localuser }from"./localuser.js";
 import{ Contextmenu }from"./contextmenu.js";
-import{ mobile, getBulkUsers, setTheme, Specialuser }from"./login.js";
+import{ getBulkUsers, setTheme, Specialuser }from"./login.js";
 import{ MarkDown }from"./markdown.js";
 import{ Message }from"./message.js";
 import{ File }from"./file.js";
