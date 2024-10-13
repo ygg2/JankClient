@@ -672,7 +672,6 @@ span.instanceStatus {
 /* Message Area */
 .channelnamediv {
 	background: var(--main-header-bg);
-	gap: 4px;
 }
 #channelname {
 	flex: none;
@@ -1734,9 +1733,6 @@ fieldset input[type="radio"] {
 		width: 100svw;
 		transition: right .4s;
 	}
-	.channelnamediv {
-		padding: 0;
-	}
 	#mobilerighttoggleicon {
 		margin-left: auto;
 	}
@@ -1783,6 +1779,18 @@ fieldset input[type="radio"] {
 	#page:has(#mobilerighttoggle:checked) #mobilerighttoggleicon span {
 		background: var(--primary-text-prominent);
 	}
+	.channelnamediv {
+		padding: 0;
+	}
+	.messagediv {
+		padding: 3px 12px 3px 10px;
+	}
+	.message {
+		padding-right: 4px;
+	}
+	.topMessage {
+		margin-top: 8px;
+	}
 	.pfprow {
 		width: 32px;
 	}
@@ -1790,40 +1798,12 @@ fieldset input[type="radio"] {
 		height: 32px;
 		width: 32px;
 	}
-	.messagediv, #realbox, #logindiv {
-		padding-left: 12px;
-		padding-right: 12px;
-	}
-	.message {
-		padding-right: 12px;
-	}
-	.topMessage {
-		margin-top: 8px;
-	}
 	.reactiondiv {
 		margin-left: 44px;
 	}
-	input[type="text"], input[type="file"], input[type="search"], input[type="password"], input[type="date"], textarea, #logindiv, .savediv, .fileinputdiv, .inviteEmbed, .nonimagecenter, .accountSwitcher {
-		width: 100%;
-		max-width: 100%;
-		min-width: unset;
-	}
-	.Buttons, .flexspace {
-		flex-direction: column;
-	}
-	.settingbuttons {
-		height: 80px;
-		width: 100%;
-	}
-	.fileinputdiv {
-		flex-wrap: wrap;
-		gap: 4px;
-	}
-	.settingstitle {
-		font-size: 1.2rem;
-		height: auto;
-		padding: 8px 16px;
-		flex-wrap: wrap;
+	#realbox, #logindiv {
+		padding-left: 12px;
+		padding-right: 12px;
 	}
 	.contextmenu, .profile {
 		top: unset !important;
@@ -1835,5 +1815,30 @@ fieldset input[type="radio"] {
 	.profile {
 		height: 75%;
 		box-shadow: 0 0 14px var(--shadow), 0 0 28px var(--shadow), inset 0 132px 64px var(--accent_color);
+	}
+	.hypoprofile {
+		min-height: 350px;
+		border-radius: 8px;
+	}
+	input[type="text"], input[type="file"], input[type="search"], input[type="password"], input[type="date"], textarea, #logindiv, #invitebody, .savediv, .fileinputdiv, .inviteEmbed, .nonimagecenter, .accountSwitcher {
+		width: 100%;
+		max-width: 100%;
+		min-width: unset;
+	}
+	input[type="file"] {
+		flex: 1 0;
+	}
+	.Buttons, .flexspace {
+		flex-direction: column;
+	}
+	.settingstitle {
+		font-size: 1.2rem;
+		height: auto;
+		padding: 8px 16px;
+		flex-wrap: wrap;
+	}
+	.settingbuttons {
+		height: 80px;
+		width: 100%;
 	}
 }
