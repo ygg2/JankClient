@@ -448,6 +448,7 @@ span.instanceStatus {
 	flex: 0 0 auto;
 	padding: 8px;
 	background: var(--servers-bg);
+	box-sizing: border-box;
 	overflow-y: auto;
 	user-select: none;
 }
@@ -671,7 +672,7 @@ span.instanceStatus {
 /* Message Area */
 .channelnamediv {
 	background: var(--main-header-bg);
-	gap: 8px;
+	gap: 4px;
 }
 #channelname {
 	flex: none;
@@ -1722,123 +1723,64 @@ fieldset input[type="radio"] {
 }
 
 /* Jank Mobile Temporary */
-#mobilecontrol, #mobilecollapse {
+#mobilelefttoggle, #mobilerighttoggle, #mobilelefttoggleicon, #mobilerighttoggleicon {
 	display: none;
 }
 @media screen and (max-width: 500px) {
-	#page {
-		display: block;
-	}
-	#mainarea, .titlediv:has(.settingstitle) {
-		height: 100%;
-		box-shadow: 0 0 14px var(--shadow);
-	}
-	#mainarea {
-		height: calc(100svh - 138px);
-		transition: height .4s;
-	}
-	#page:has(#mobilecontrol:checked) #mainarea {
-		height: 176px;
-	}
-	#page:has(#mobilecontrol:checked) .channelflex {
-		height: calc(100svh - 224px);
-	}
-	#mobilecollapse, .channelnamediv, .settingstitle {
-		height: 36px;
-	}
-	#mobilecollapse {
-		display: block;
-		width: 100%;
+	#sideDiv {
 		position: absolute;
-		left: 0;
-	}
-	#mobilecollapse span {
-		height: 14px;
-		width: 14px;
-		margin: 12px 16px;
+		right: -100svw;
+		height: calc(100svh - 50px);;
+		width: 100svw;
+		transition: right .5s;
 	}
 	.channelnamediv {
-		padding-left: 40px;
+		padding: 0 8px;
 	}
-	#page:has(#mobilecontrol:checked) #mobilecollapse span {
-		rotate: 180deg;
+	#mobilerighttoggleicon {
+		margin-left: auto;
 	}
-	#logindiv, #invitebody, .accountSwitcher, .nonimagecenter, .savediv, .fileinputdiv, input[type="text"], input[type="password"], input[type="search"], input[type="date"], textarea, .optionElement input[type="text"], .optionElement textarea {
-		width: 100%;
-		min-width: unset;
+	#mobilelefttoggleicon, #mobilerighttoggleicon {
+		display: block;
+		padding: 12px;
+		cursor: pointer;
 	}
-	#servertd, #sideDiv, .userflex, .lightbr, .serveropen .unread {
-		display: none;
+	#mobilelefttoggleicon span {
+		height: 14px;
+		width: 14px;
+		rotate: -90deg;
 	}
-	#userdock, .Buttons, .flexltr.flexspace {
-		flex-direction: column;
-		justify-content: start;
+	#mobilerighttoggleicon span {
+		height: 16px;
+		width: 16px;
 	}
-	#servers {
-		display: flex;
-		gap: 8px;
+	#page {
+		display: block;
+		position: fixed;
 	}
-	.servericon, #sentdms .pfp, .pfprow .pfp {
-		flex: none;
-		height: 32px;
-		width: 32px;
-		margin: 0;
-	}
-	.unread, .servernoti:hover .unread {
-		height: 8px;
-		right: 0;
-		transform: translate(0, -20px);
-	}
-	.notiunread {
-		transform: translate(0, 0);
-	}
-	.serveropen .servericon {
-		outline: 2px solid var(--primary-text);
+	#servers, .channelflex, #mainarea {
+		position: absolute;
+		height: 100svh;
 	}
 	.channelflex {
-		height: 90px;
-		width: auto;
-		flex-direction: row;
-		transition: height .4s;
+		left: 64px;
 	}
-	#replybox, .optionElement {
-		margin-left: 8px;
-		margin-right: 8px;
+	#mainarea {
+		left: 304px;
+		width: 100svw;
+		background: var(--primary-bg);
+		transition: left .5s;
 	}
-	.messagediv, #realbox {
-		padding-left: 8px;
-		padding-right: 8px;
+	#page:has(#mobilelefttoggle:checked) #mainarea {
+		left: 0;
 	}
-	.message {
-		padding-right: 4px;
+	#page:has(#mobilerighttoggle:checked) #sideDiv {
+		right: 0;
 	}
-	.topMessage {
-		margin-top: 8px;
+	#page:has(#mobilelefttoggle:checked) #mobilelefttoggleicon {
+		rotate: 180deg;
 	}
-	.pfprow {
-		width: 32px;
-		margin-right: 8px;
-	}
-	.inviteEmbed {
-		max-width: 100%;
-	}
-	.reactiondiv {
-		margin-left: 38px;
-	}
-	.emojiPicker {
-		height: 256px;
-		max-width: 100%;
-	}
-	.settingbuttons {
-		height: 90px;
-		width: auto;
-		border: none;
-	}
-	.fileinputdiv {
-		flex-wrap: wrap;
-		gap: 4px;
-	}
-	.savediv button, .capsflex {
-		margin: 0;
+	#page:has(#mobilerighttoggle:checked) #mobilerighttoggleicon span {
+		background: var(--primary-text-prominent);
 	}
 }

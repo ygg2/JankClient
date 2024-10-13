@@ -577,6 +577,8 @@ class Channel extends SnowFlake{
 			div.appendChild(myhtml);
 			div.onclick = _=>{
 				this.getHTML();
+				const toggle = document.getElementById("mobilelefttoggle") as HTMLInputElement;
+				toggle.checked = true;
 			};
 		}
 		return div;
