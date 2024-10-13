@@ -11,6 +11,7 @@ import{ SnowFlake }from"./snowflake.js";
 import{ memberjson, messagejson }from"./jsontypes.js";
 import{ Emoji }from"./emoji.js";
 import{ Dialog }from"./dialog.js";
+import{ mobile }from"./login.js";
 
 class Message extends SnowFlake{
 	static contextmenu = new Contextmenu<Message, undefined>("message menu");
@@ -547,6 +548,7 @@ class Message extends SnowFlake{
 		if(this.div){
 			let buttons: HTMLDivElement | undefined;
 			this.div.onmouseenter = _=>{
+				if(mobile)return;
 				if(buttons){
 					buttons.remove();
 					buttons = undefined;
