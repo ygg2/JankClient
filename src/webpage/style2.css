@@ -1840,4 +1840,10 @@ fieldset input[type="radio"] {
 		height: 100px;
 		width: 100%;
 	}
+	.exitsettings {
+		top: 10px;
+		right: 12px;
+		height: 22px;
+		width: 22px;
+	}
 }
