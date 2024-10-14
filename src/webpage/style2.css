@@ -710,7 +710,7 @@ span.instanceStatus {
 }
 .containedFile {
 	position: relative;
-	background: var(--secondary-bg);
+	background: var(--blank-bg);
 	border-radius: 8px;
 	flex: 0 0 192px;
 	overflow: hidden;
@@ -727,16 +727,6 @@ span.instanceStatus {
 }
 .attachments .messageimg {
 	border-radius: 4px;
-}
-.controls {
-	position: absolute;
-	top: 6px;
-	right: 6px;
-}
-.controls button {
-	height: 32px;
-	width: 32px;
-	border: none;
 }
 #replybox {
 	height: 32px;
@@ -821,32 +811,38 @@ span.instanceStatus {
 .messagediv:hover {
 	background: var(--primary-hover);
 }
-.messageButtons {
+.messageButtons, .controls {
 	position: absolute;
 	top: -16px;
 	right: 16px;
-	padding: 4px;
 	background: var(--secondary-bg);
-	box-shadow: 0 0 2px var(--shadow);
+	box-shadow: 0 0 4px var(--shadow), 0 0 2px var(--shadow);
 	border-radius: 4px;
 	gap: 4px;
+	overflow: hidden;
 }
-.messageButtons div {
-	padding: 4px;
-	border-radius: 4px;
+.messageButtons button, .controls button {
+	padding: 8px;
+	background: transparent;
+	border-radius: 0;
 	cursor: pointer;
 }
-.messageButtons div span {
+.messageButtons button span, .controls button span {
 	display: block;
 	height: 16px;
 	width: 16px;
 	background: var(--secondary-text-soft);
 }
-.messageButtons div:hover {
+.messageButtons button:hover, .controls button:hover {
 	background: var(--secondary-hover);
 }
-.messageButtons div:hover span {
+.messageButtons button:hover span, .controls button:hover span {
 	background: var(--secondary-text);
+}
+.controls {
+	top: 6px;
+	right: 6px;
+	box-shadow: 0 0 1.5px var(--primary-text-soft);
 }
 .message {
 	padding-right: 28px;
@@ -1724,7 +1720,7 @@ fieldset input[type="radio"] {
 	line-height: 32px;
 }
 
-/* Jank Mobile Temporary */
+/* Jank Mobile  */
 #mobilelefttoggle, #mobilerighttoggle, #mobilelefttoggleicon, #mobilerighttoggleicon {
 	display: none;
 }
@@ -1804,9 +1800,13 @@ fieldset input[type="radio"] {
 	.reactiondiv {
 		margin-left: 44px;
 	}
-	#realbox, #logindiv {
+	#realbox, #logindiv, #pasteimg {
 		padding-left: 12px;
 		padding-right: 12px;
+	}
+	#replybox {
+		margin-left: 12px;
+		margin-right: 12px;
 	}
 	.contextmenu, .profile, .emojiPicker {
 		top: unset !important;
