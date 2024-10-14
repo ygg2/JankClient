@@ -1548,10 +1548,11 @@ fieldset input[type="radio"] {
 }
 .settingbuttons {
 	flex: none;
-	width: 180px;
+	width: 192px;
 	padding: 8px;
 	background: var(--settings-panel-bg);
 	border-right: 2px solid var(--shadow);
+	box-sizing: border-box;
 	overflow-y: auto;
 }
 .SettingsButton {
@@ -1850,7 +1851,7 @@ fieldset input[type="radio"] {
 		flex-wrap: wrap;
 	}
 	.settingbuttons {
-		height: 80px;
+		height: 100px;
 		width: 100%;
 	}
 }
