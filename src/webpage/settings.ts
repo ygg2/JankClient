@@ -355,7 +355,7 @@ class SelectInput implements OptionsElement<number>{
 		select.selectedIndex = this.index;
 		selectSpan.append(select);
 		const selectArrow = document.createElement("span");
-		selectArrow.classList.add("svgtheme","svg-category","selectarrow");
+		selectArrow.classList.add("svgicon","svg-category","selectarrow");
 		selectSpan.append(selectArrow);
 		div.append(selectSpan);
 		return div;
@@ -1221,8 +1221,7 @@ class Settings extends Buttons{
 		background.append(this.generateHTML());
 
 		const exit = document.createElement("span");
-		exit.textContent = "✖";
-		exit.classList.add("exitsettings");
+		exit.classList.add("exitsettings","svgicon","svg-x");
 		background.append(exit);
 		exit.onclick = _=>{
 			this.hide();

@@ -723,7 +723,7 @@ class Localuser{
 		const div = document.createElement("div");
 		div.classList.add("home", "servericon");
 
-		home.classList.add("svgtheme", "svgicon", "svg-home");
+		home.classList.add("svgicon", "svg-home");
 		home.all = this.guildids.get("@me");
 		(this.guildids.get("@me") as Guild).html = outdiv;
 		const unread = document.createElement("div");
@@ -761,19 +761,17 @@ class Localuser{
 			br.id = "bottomseparator";
 
 			const div = document.createElement("div");
-			div.textContent = "+";
+			const plus = document.createElement("span");
+			plus.classList.add("svgicon", "svg-plus");
 			div.classList.add("home", "servericon");
+			div.appendChild(plus);
 			serverlist.appendChild(div);
 			div.onclick = _=>{
 				this.createGuild();
 			};
 			const guilddsdiv = document.createElement("div");
 			const guildDiscoveryContainer = document.createElement("span");
-			guildDiscoveryContainer.classList.add(
-				"svgtheme",
-				"svgicon",
-				"svg-explore"
-			);
+			guildDiscoveryContainer.classList.add("svgicon", "svg-explore");
 			guilddsdiv.classList.add("home", "servericon");
 			guilddsdiv.appendChild(guildDiscoveryContainer);
 			serverlist.appendChild(guilddsdiv);

@@ -130,7 +130,7 @@ class Channel extends SnowFlake{
 		const copycontainer = document.createElement("div");
 		copycontainer.classList.add("copycontainer");
 		const copy = document.createElement("span");
-		copy.classList.add("copybutton", "svgtheme", "svg-copy");
+		copy.classList.add("copybutton", "svgicon", "svg-copy");
 		copycontainer.append(copy);
 		copycontainer.onclick = _=>{
 			if(text.textContent){
@@ -488,7 +488,7 @@ class Channel extends SnowFlake{
 
 			const decdiv = document.createElement("div");
 			const decoration = document.createElement("span");
-			decoration.classList.add("svgtheme", "collapse-icon", "svg-category");
+			decoration.classList.add("svgicon", "collapse-icon", "svg-category");
 			decdiv.appendChild(decoration);
 
 			const myhtml = document.createElement("p2");
@@ -499,8 +499,7 @@ class Channel extends SnowFlake{
 			const childrendiv = document.createElement("div");
 			if(admin){
 				const addchannel = document.createElement("span");
-				addchannel.textContent = "+";
-				addchannel.classList.add("addchannel");
+				addchannel.classList.add("addchannel","svgicon","svg-plus");
 				caps.appendChild(addchannel);
 				addchannel.onclick = _=>{
 					this.guild.createchannels(this.createChannel.bind(this));
@@ -560,17 +559,17 @@ class Channel extends SnowFlake{
 			if(this.type === 0){
 				const decoration = document.createElement("span");
 				div.appendChild(decoration);
-				decoration.classList.add("space", "svgtheme", "svg-channel");
+				decoration.classList.add("space", "svgicon", "svg-channel");
 			}else if(this.type === 2){
 				//
 				const decoration = document.createElement("span");
 				div.appendChild(decoration);
-				decoration.classList.add("space", "svgtheme", "svg-voice");
+				decoration.classList.add("space", "svgicon", "svg-voice");
 			}else if(this.type === 5){
 				//
 				const decoration = document.createElement("span");
 				div.appendChild(decoration);
-				decoration.classList.add("space", "svgtheme", "svg-announce");
+				decoration.classList.add("space", "svgicon", "svg-announce");
 			}else{
 				console.log(this.type);
 			}
@@ -785,8 +784,7 @@ class Channel extends SnowFlake{
 				typebox.classList.remove("typeboxreplying");
 			};
 			replybox.classList.remove("hideReplyBox");
-			X.textContent = "⦻";
-			X.classList.add("cancelReply");
+			X.classList.add("cancelReply","svgicon","svg-x");
 			replybox.append(span);
 			replybox.append(X);
 			typebox.classList.add("typeboxreplying");

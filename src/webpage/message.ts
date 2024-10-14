@@ -559,7 +559,7 @@ class Message extends SnowFlake{
 					if(this.channel.hasPermission("SEND_MESSAGES")){
 						const container = document.createElement("button");
 						const reply = document.createElement("span");
-						reply.classList.add("svgtheme", "svg-reply", "svgicon");
+						reply.classList.add("svg-reply", "svgicon");
 						container.append(reply);
 						buttons.append(container);
 						container.onclick = _=>{
@@ -569,7 +569,7 @@ class Message extends SnowFlake{
 					if(this.author === this.localuser.user){
 						const container = document.createElement("button");
 						const edit = document.createElement("span");
-						edit.classList.add("svgtheme", "svg-edit", "svgicon");
+						edit.classList.add("svg-edit", "svgicon");
 						container.append(edit);
 						buttons.append(container);
 						container.onclick = _=>{
@@ -579,7 +579,7 @@ class Message extends SnowFlake{
 					if(this.canDelete()){
 						const container = document.createElement("button");
 						const reply = document.createElement("span");
-						reply.classList.add("svgtheme", "svg-delete", "svgicon");
+						reply.classList.add("svg-delete", "svgicon");
 						container.append(reply);
 						buttons.append(container);
 						container.onclick = _=>{

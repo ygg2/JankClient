@@ -84,7 +84,7 @@ class File{
 		const controls = document.createElement("div");
 		const garbage = document.createElement("button");
 		const icon = document.createElement("span");
-		icon.classList.add("svgtheme","svg-delete");
+		icon.classList.add("svgicon","svg-delete");
 		garbage.append(icon);
 		garbage.onclick = _=>{
 			div.remove();

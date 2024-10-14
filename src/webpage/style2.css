@@ -95,14 +95,6 @@ select {
 	padding-right: 32px;
 	margin-left: 4px;
 }
-.selectarrow {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	height: 12px;
-	width: 12px;
-	pointer-events: none;
-}
 input[type="file"] {
 	margin-top: 4px;
 }
@@ -194,10 +186,26 @@ textarea {
 .svg-voice {
 	mask: url(/icons/voice.svg);
 }
-.svgtheme {
+.svg-plus {
+	mask: url(/icons/plus.svg);
+}
+.svg-x {
+	mask: url(/icons/x.svg);
+}
+.svgicon {
 	display: block;
+	height: 100%;
+	width: 100%;
 	background: var(--primary-text-soft);
 	mask-repeat: no-repeat;
+}
+.selectarrow {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 12px;
+	width: 12px;
+	pointer-events: none;
 }
 
 /* Animations */
@@ -457,30 +465,27 @@ span.instanceStatus {
 	width: 48px;
 	margin-bottom: 6px;
 	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	cursor: pointer;
 	transition: border-radius .2s;
 }
 .servericon:hover, .serveropen .servericon, #sentdms .pfp:hover {
 	border-radius: 30%;
 }
-.svgicon {
-	height: 100%;
-	width: 100%;
-}
-.home.servericon {
-	background: var(--blank-bg);
-}
 .home .svgicon {
 	background: var(--icon);
+}
+.home .svg-plus {
+	height: 16px;
+	width: 16px;
 }
 .lightbr {
 	margin: 8px 4px;
 }
-.blankserver {
+.blankserver, .home {
 	background: var(--blank-bg);
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 .servernoti, .home {
 	position: relative;
@@ -597,6 +602,7 @@ span.instanceStatus {
 }
 .capsflex {
 	margin-top: 8px;
+	align-items: center;
 }
 .channeleffects {
 	min-width: 0;
@@ -614,6 +620,14 @@ span.instanceStatus {
 }
 .hiddencat {
 	rotate: -90deg;
+}
+.addchannel {
+	height: 10px;
+	width: 20px;
+	cursor: pointer;
+}
+.addchannel:hover {
+	background: var(--primary-text-prominent);
 }
 
 /* DM Channels */
@@ -740,6 +754,13 @@ span.instanceStatus {
 	align-items: center;
 	justify-content: space-between;
 	transition: height .2s;
+}
+.cancelReply {
+	height: 16px;
+	width: 16px;
+}
+.cancelReply:hover {
+	background: var(--primary-text-prominent);
 }
 #replybox.hideReplyBox {
 	height: 0;
@@ -1112,6 +1133,7 @@ img.bigembedimg {
 }
 .inviteEmbed {
 	width: 400px;
+	max-width: 100%;
 	padding: 0;
 	margin: 4px 0 0 0;
 	border-radius: 4px;
@@ -1675,50 +1697,14 @@ fieldset input[type="radio"] {
 }
 .exitsettings {
 	position: absolute;
-	top: 8px;
-	right: 8px;
-	height: 32px;
-	width: 32px;
-	background: var(--button-bg);
-	border-radius: 50%;
+	top: 12px;
+	right: 16px;
+	height: 24px;
+	width: 24px;
 	cursor: pointer;
 }
 .exitsettings:hover {
-	background: var(--button-hover);
-}
-
-/* TEMP: +, x */
-.addchannel {
-	width: 32px;
-	font-size: 18px;
-	line-height: 27px;
-	text-align: center;
-	color: var(--primary-text-soft);
-	cursor: pointer;
-}
-.addchannel:hover {
-	color: var(--primary-text-prominent);
-}
-.home.servericon {
-	font-size: 28px;
-	text-align: center;
-	line-height: 42px;
-	color: var(--icon);
-}
-.cancelReply {
-	width: 24px;
-	padding: 0;
-	text-align: center;
-	color: var(--red);
-	background: transparent;
-	border: none;
-}
-.cancelReply:hover {
-	background: var(--secondary-hover);
-}
-.exitsettings {
-	text-align: center;
-	line-height: 32px;
+	background: var(--primary-text-prominent);
 }
 
 /* Jank Mobile  */
@@ -1829,7 +1815,7 @@ fieldset input[type="radio"] {
 		min-height: 350px;
 		border-radius: 8px;
 	}
-	input[type="text"], input[type="file"], input[type="search"], input[type="password"], input[type="date"], textarea, .fileinputdiv, .inviteEmbed {
+	input[type="text"], input[type="file"], input[type="search"], input[type="password"], input[type="date"], textarea, .fileinputdiv {
 		width: 100%;
 		max-width: 100%;
 		min-width: unset;
