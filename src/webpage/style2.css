@@ -1841,6 +1841,13 @@ fieldset input[type="radio"] {
 		height: 32px;
 		width: 32px;
 	}
+	.replyflex:before {
+		left: 15px;
+		width: 24px;
+	}
+	.startreply {
+		margin-left: 12px;
+	}
 	.reactiondiv {
 		margin-left: 44px;
 	}
