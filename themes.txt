@@ -1,0 +1,46 @@
+About themes
+
+
+Making a theme:
+
+Each theme should have a color-scheme (light or dark, this determines the color of built-in browser UI like audio players).
+
+It also needs to define these variables:
+
+--primary-bg
+--primary-hover
+--primary-text
+--primary-text-soft
+
+--secondary-bg
+--secondary-hover
+
+--servers-bg
+--channels-bg
+--channel-selected
+--typebox-bg
+
+--button-bg
+--button-hover
+
+--spoiler
+--link
+
+Variables that end in "-bg" can be gradients or images.
+The theme can override any of the Optional Variables or Root Variables, but does not need to.
+
+
+When designing new elements:
+
+Please try to choose from basic variables for general theme colors, and only use element-based names if you want it to match an existing element specifically.
+
+For example, adding user Activity to the sidebar, you would want the text color to be --primary-text-soft. But adding a timestamp to non-top messages, you would use --timestamp.
+
+This way, if users are allowed to customize the variables later, colors will update as they expect (a user's timestamp color could be different from their general primary text color). If you want your element to match another element that does not have a variable associated with it, please add a new Optional Variable.
+
+Please do not to use -bg variables in color-mixing. You likely either want:
+1. to show the background that's underneath, in which case you use "transparent", or
+2. to give your element a new background color, in which case you define a new base background color. This will give users more flexibility and preserve the ability to use gradients and images.
+
+
+Thank you!

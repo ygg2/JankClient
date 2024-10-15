@@ -93,7 +93,7 @@
 	--spoiler-text: #e4e6ed;
 }
 
-/* Optional Var Defaults */
+/* Optional Variables */
 body {
 	--primary-text-prominent: var(--primary-text);
 	--secondary-text: var(--primary-text);
