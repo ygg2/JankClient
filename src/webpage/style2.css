@@ -150,6 +150,9 @@ textarea {
 }
 
 /* Icons */
+.pfpDiv {
+	position: relative;
+}
 .pfp, .replypfp {
 	display: block;
 	height: 32px;
@@ -848,7 +851,6 @@ span.instanceStatus {
 	background: var(--secondary-bg);
 	box-shadow: 0 0 4px var(--shadow), 0 0 2px var(--shadow);
 	border-radius: 4px;
-	gap: 4px;
 	overflow: hidden;
 }
 .messageButtons button, .controls button {
@@ -1216,19 +1218,15 @@ img.bigembedimg {
 	font-size: 1rem;
 }
 .memberList .flexltr {
-	position: relative;
-	height: 2em;
 	padding: 4px 8px;
 	border-radius: 4px;
 	align-items: center;
+	gap: 8px;
 	cursor: pointer;
 }
 .memberList .statusDiv {
 	right: -1px;
 	bottom: -1px;
-}
-.memberList .ellipsis {
-	margin-left: 40px;
 }
 .memberList .flexltr:hover {
 	background: var(--sidebar-hover);
@@ -1279,6 +1277,9 @@ img.bigembedimg {
 	position: relative;
 	min-height: 350px;
 	margin-bottom: 8px;
+}
+.profile .pfpDiv {
+	position: absolute;
 }
 .profile .pfp {
 	height: 48px;
