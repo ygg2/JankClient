@@ -5,6 +5,7 @@ body {
 	font-family: var(--font);
 	color: var(--primary-text);
 	overflow: hidden; /* avoid "bounce" */
+	-webkit-text-size-adjust: 100%;
 }
 #page {
 	height: 100svh;
