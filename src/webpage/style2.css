@@ -1748,7 +1748,7 @@ fieldset input[type="radio"] {
 		display: none;
 		position: absolute;
 		right: 0;
-		height: calc(100% - 50px);
+		height: calc(100svh - 50px);
 	}
 	#page:has(#memberlisttoggle:checked) #sideDiv {
 		display: block;
@@ -1795,6 +1795,7 @@ fieldset input[type="radio"] {
 		transition: left .3s;
 	}
 	#sideDiv {
+		display: block;
 		right: -100svw;
 		width: 100svw;
 		transition: right .3s;
