@@ -4,7 +4,7 @@ body {
 	background: var(--secondary-bg);
 	font-family: var(--font);
 	color: var(--primary-text);
-	overflow: hidden;
+	overflow: hidden; /* avoid "bounce" */
 }
 #page {
 	height: 100svh;
@@ -95,7 +95,12 @@ select {
 	padding-right: 32px;
 	margin-left: 4px;
 }
+.fileinputdiv {
+	width: 100%;
+	justify-content: space-between;
+}
 input[type="file"] {
+	flex: 1 0;
 	margin-top: 4px;
 }
 input[type="color"] {
@@ -122,7 +127,7 @@ input[type="date"],
 textarea {
 	display: block;
 	width: 100%;
-	min-width: 350px;
+	max-width: 100%;
 	padding: 8px 12px;
 	margin-top: 4px;
 	background: var(--text-input-bg);
@@ -538,7 +543,7 @@ span.instanceStatus {
 	background: var(--channels-bg);
 	user-select: none;
 }
-.header, .settingstitle {
+.header {
 	flex: none;
 	height: 48px;
 	padding: 0 16px;
@@ -1263,6 +1268,7 @@ img.bigembedimg {
 	position: absolute;
 	height: 350px;
 	width: 300px;
+	max-height: 100%;
 	background: var(--card-bg);
 	box-shadow: 0 0 8px var(--shadow), inset 0 132px 64px var(--accent_color);
 	border-radius: 8px;
@@ -1271,6 +1277,7 @@ img.bigembedimg {
 }
 .hypoprofile {
 	position: relative;
+	min-height: 350px;
 	margin-bottom: 8px;
 }
 .profile .pfp {
@@ -1310,6 +1317,7 @@ img.bigembedimg {
 	color: var(--secondary-text);
 	border-radius: 8px;
 	box-sizing: border-box;
+	overflow-y: auto;
 }
 .profile:has(.banner) .infosection {
 	margin-top: 8px;
@@ -1330,7 +1338,9 @@ img.bigembedimg {
 	color: var(--secondary-text-soft);
 }
 .rolesbox {
+	min-height: unset;
 	margin-top: auto;
+	padding-top: 6px;
 	gap: 2px;
 	flex-wrap: wrap;
 }
@@ -1565,9 +1575,16 @@ fieldset input[type="radio"] {
 	background: var(--settings-bg);
 }
 .settingstitle {
-	display: flex;
-	padding-left: 16px;
+	flex: none;
 	background: var(--settings-header-bg);
+	min-height: 48px;
+	padding: 8px 16px;
+	flex-wrap: wrap;
+	border-bottom: 2px solid var(--shadow);
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	user-select: none;
 }
 .Buttons {
 	flex: 1;
@@ -1614,12 +1631,10 @@ fieldset input[type="radio"] {
 	min-height: 0;
 	display: flex;
 }
-.optionElement input[type="text"], .optionElement textarea {
+.optionElement input[type="text"],
+.optionElement textarea,
+.optionElement .fileinputdiv {
 	width: 500px;
-}
-.fileinputdiv {
-	width: 500px;
-	justify-content: space-between;
 }
 #connection-container div {
 	margin-bottom: 16px;
@@ -1712,33 +1727,54 @@ fieldset input[type="radio"] {
 }
 
 /* Jank Mobile  */
-#mobilelefttoggle, #mobilerighttoggle, #mobilelefttoggleicon, #mobilerighttoggleicon {
+
+#maintoggle, #maintoggleicon, #memberlisttoggle, #memberlisttoggleicon {
 	display: none;
 }
-@media screen and (max-width: 500px) {
-	#sideDiv {
-		position: absolute;
-		right: -100svw;
-		height: calc(100svh - 50px);;
-		width: 100svw;
-		transition: right .3s;
-	}
-	#mobilerighttoggleicon {
+
+@media screen and (max-width: 1000px) {
+	#memberlisttoggleicon {
+		display: block;
+		padding: 12px 0;
 		margin-left: auto;
+		cursor: pointer;
 	}
-	#mobilelefttoggleicon, #mobilerighttoggleicon {
+	#memberlisttoggleicon span {
+		height: 16px;
+		width: 16px;
+	}
+	#sideDiv {
+		display: none;
+		position: absolute;
+		right: 0;
+		height: calc(100% - 50px);
+	}
+	#page:has(#memberlisttoggle:checked) #sideDiv {
+		display: block;
+	}
+	#page:has(#memberlisttoggle:checked) #memberlisttoggleicon span {
+		background: var(--primary-text-prominent);
+	}
+	.flexspace {
+		flex-direction: column;
+	}
+	.optionElement input[type="text"],
+	.optionElement textarea,
+	.optionElement .fileinputdiv {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	#maintoggleicon, #memberlisttoggleicon {
 		display: block;
 		padding: 12px;
 		cursor: pointer;
 	}
-	#mobilelefttoggleicon span {
+	#maintoggleicon span {
 		height: 14px;
 		width: 14px;
 		rotate: -90deg;
-	}
-	#mobilerighttoggleicon span {
-		height: 16px;
-		width: 16px;
 	}
 	#page {
 		display: block;
@@ -1757,17 +1793,25 @@ fieldset input[type="radio"] {
 		background: var(--primary-bg);
 		transition: left .3s;
 	}
-	#page:has(#mobilelefttoggle:checked) #mainarea {
+	#sideDiv {
+		right: -100svw;
+		width: 100svw;
+		transition: right .3s;
+	}
+	.scroller {
+		pointer-events: none;
+	}
+	#page:has(#maintoggle:checked) .scroller {
+		pointer-events: auto;
+	}
+	#page:has(#maintoggle:checked) #mainarea {
 		left: 0;
 	}
-	#page:has(#mobilerighttoggle:checked) #sideDiv {
+	#page:has(#memberlisttoggle:checked) #sideDiv {
 		right: 0;
 	}
-	#page:has(#mobilelefttoggle:checked) #mobilelefttoggleicon {
+	#page:has(#maintoggle:checked) #maintoggleicon {
 		rotate: 180deg;
-	}
-	#page:has(#mobilerighttoggle:checked) #mobilerighttoggleicon span {
-		background: var(--primary-text-prominent);
 	}
 	.channelnamediv {
 		padding: 0;
@@ -1812,33 +1856,21 @@ fieldset input[type="radio"] {
 		padding: 12px;
 	}
 	.profile {
-		height: 75%;
+		height: 65%;
 		box-shadow: 0 0 14px var(--shadow), 0 0 28px var(--shadow), inset 0 132px 64px var(--accent_color);
 	}
 	.hypoprofile {
-		min-height: 350px;
 		border-radius: 8px;
-	}
-	input[type="text"], input[type="file"], input[type="search"], input[type="password"], input[type="date"], textarea, .fileinputdiv {
-		width: 100%;
-		max-width: 100%;
-		min-width: unset;
 	}
 	#logindiv, #invitebody, .savediv, .nonimagecenter, .accountSwitcher {
 		width: 94%;
 		min-width: unset;
 	}
-	input[type="file"] {
-		flex: 1 0;
-	}
-	.Buttons, .flexspace {
+	.Buttons {
 		flex-direction: column;
 	}
 	.settingstitle {
 		font-size: 1.2rem;
-		height: auto;
-		padding: 8px 16px;
-		flex-wrap: wrap;
 	}
 	.settingbuttons {
 		height: 100px;

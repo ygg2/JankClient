@@ -237,8 +237,8 @@ import{ File }from"./file.js";
 		if(mobile){
 			const channelWrapper = document.getElementById("channelw") as HTMLDivElement;
 			channelWrapper.onclick = ()=>{
-				const mobileToggle = document.getElementById("mobilelefttoggle") as HTMLInputElement;
-				mobileToggle.checked = true;
+				const toggle = document.getElementById("maintoggle") as HTMLInputElement;
+				toggle.checked = true;
 			};
 		}
 })();
