@@ -62,7 +62,7 @@ pre, samp {
 	word-break: break-word;
 }
 video, iframe {
-	max-height: 50vh;
+	max-height: 50svh;
 	max-width: 100%;
 }
 audio::-webkit-media-controls-panel {
@@ -339,7 +339,7 @@ span.instanceStatus {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	max-height: 100vh;
+	max-height: 100svh;
 	min-width: 512px;
 	padding: 24px;
 	background: var(--primary-bg);
@@ -787,7 +787,7 @@ span.instanceStatus {
 	padding: 0 16px 28px 16px;
 }
 #typebox {
-	max-height: 50vh;
+	max-height: 50svh;
 	padding: 10px 14px;
 	background: var(--typebox-bg);
 	border-radius: 4px;
@@ -915,6 +915,7 @@ span.instanceStatus {
 	gap: 4px;
 }
 .username {
+	margin-top: auto;
 	font-weight: bold;
 	white-space: nowrap;
 	cursor: pointer;
@@ -1024,6 +1025,7 @@ span .quote:last-of-type .quoteline {
 	width: 20px;
 }
 .replytext {
+	margin-top: auto;
 	cursor: pointer;
 }
 .replytext a {
@@ -1431,8 +1433,8 @@ img.bigembedimg {
 	background: color-mix(in srgb, var(--black) 75%, transparent);
 }
 .imgfit {
-	max-height: 80vh;
-	max-width: 80vw;
+	max-height: 85svh;
+	max-width: 85svw;
 }
 .centeritem, .accountSwitcher {
 	position: absolute;
@@ -1441,7 +1443,7 @@ img.bigembedimg {
 	transform: translate(-50%, -50%);
 }
 .nonimagecenter, .accountSwitcher {
-	max-height: 80vh;
+	max-height: 80svh;
 	width: 500px;
 	padding: 12px;
 	margin: 0;
@@ -1535,8 +1537,8 @@ fieldset input[type="radio"] {
 	width: auto;
 }
 .guildy {
-	height: 80vh;
-	width: 80vw;
+	height: 80svh;
+	width: 80svw;
 	gap: 6px;
 }
 #discovery-guild-content {
@@ -1735,7 +1737,6 @@ fieldset input[type="radio"] {
 }
 
 /* Jank Mobile  */
-
 #maintoggle, #maintoggleicon, #memberlisttoggle, #memberlisttoggleicon {
 	display: none;
 }
