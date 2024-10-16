@@ -1209,6 +1209,7 @@ img.bigembedimg {
 
 /* Sidebar */
 #sideDiv {
+	display: none;
 	flex: none;
 	width: 240px;
 	padding: 16px 8px;
@@ -1241,6 +1242,25 @@ img.bigembedimg {
 }
 .memberList.offline .flexltr {
 	opacity: .5;
+}
+#memberlisttoggle {
+	display: none;
+}
+#memberlisttoggleicon {
+	display: block;
+	padding: 12px 0;
+	margin-left: auto;
+	cursor: pointer;
+}
+#memberlisttoggleicon span {
+	height: 16px;
+	width: 16px;
+}
+#page:has(#memberlisttoggle:checked) #sideDiv {
+	display: block;
+}
+#page:has(#memberlisttoggle:checked) #memberlisttoggleicon span {
+	background: var(--primary-text-prominent);
 }
 
 /* Context Menu */
@@ -1737,32 +1757,15 @@ fieldset input[type="radio"] {
 }
 
 /* Jank Mobile  */
-#maintoggle, #maintoggleicon, #memberlisttoggle, #memberlisttoggleicon {
+#maintoggle, #maintoggleicon {
 	display: none;
 }
 
 @media screen and (max-width: 1000px) {
-	#memberlisttoggleicon {
-		display: block;
-		padding: 12px 0;
-		margin-left: auto;
-		cursor: pointer;
-	}
-	#memberlisttoggleicon span {
-		height: 16px;
-		width: 16px;
-	}
 	#sideDiv {
-		display: none;
 		position: absolute;
 		right: 0;
 		height: calc(100svh - 50px);
-	}
-	#page:has(#memberlisttoggle:checked) #sideDiv {
-		display: block;
-	}
-	#page:has(#memberlisttoggle:checked) #memberlisttoggleicon span {
-		background: var(--primary-text-prominent);
 	}
 	.flexspace {
 		flex-direction: column;

@@ -240,5 +240,7 @@ import{ File }from"./file.js";
 				const toggle = document.getElementById("maintoggle") as HTMLInputElement;
 				toggle.checked = true;
 			};
+			const memberListToggle = document.getElementById("memberlisttoggle") as HTMLInputElement;
+			memberListToggle.checked = false;
 		}
 })();
