@@ -1174,6 +1174,7 @@ img.bigembedimg {
 	flex: 1;
 	padding: 4px 12px;
 	background: var(--primary-bg);
+	color: var(--primary-text);
 	border-radius: 4px;
 	justify-content: center;
 }
@@ -1666,18 +1667,12 @@ fieldset input[type="radio"] {
 .optionElement .fileinputdiv {
 	width: 500px;
 }
-#connection-container div {
-	margin-bottom: 16px;
-}
-#connection-container .disabled {
-	color: var(--primary-text-soft);
-	cursor: not-allowed;
-}
-#app-list-container div {
+#app-list-container div, #connection-container div {
 	max-width: 500px;
 	padding: 8px;
 	margin-top: 12px;
 	background: var(--secondary-bg);
+	color: var(--secondary-text);
 	border: 1.5px solid transparent;
 	border-radius: 4px;
 	display: flex;
@@ -1695,6 +1690,10 @@ fieldset input[type="radio"] {
 }
 #app-list-container h2 {
 	font-size: 1rem;
+}
+#connection-container .disabled {
+	color: var(--secondary-text-soft);
+	cursor: not-allowed;
 }
 .inlinelabel {
 	margin-right: 4px;
