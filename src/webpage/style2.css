@@ -31,7 +31,7 @@ p, h1, h2, h3, pre, form {
 	font-size: 1.5rem;
 	font-weight: bold;
 }
-.ellipsis {
+.ellipsis, .username {
 	display: -webkit-box;
 	word-break: break-all;
 	overflow: hidden;
@@ -917,7 +917,6 @@ span.instanceStatus {
 .username {
 	margin-top: auto;
 	font-weight: bold;
-	white-space: nowrap;
 	cursor: pointer;
 }
 .username:hover {
@@ -957,7 +956,8 @@ span.instanceStatus {
 	max-width: 100%;
 }
 .timestamp {
-	margin-left: 6px;
+	flex: none;
+	margin: auto 0 0 6px;
 	font-size: .75em;
 	color: var(--primary-text-soft);
 }
