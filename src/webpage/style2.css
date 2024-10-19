@@ -478,6 +478,7 @@ span.instanceStatus {
 	width: 48px;
 	margin-bottom: 6px;
 	border-radius: 50%;
+	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -741,9 +742,9 @@ span.instanceStatus {
 }
 .containedFile {
 	position: relative;
+	flex: 0 0 192px;
 	background: var(--blank-bg);
 	border-radius: 8px;
-	flex: 0 0 192px;
 	overflow: hidden;
 }
 .messageimgdiv {
@@ -912,6 +913,7 @@ span.instanceStatus {
 	width: 40px;
 }
 .commentrow {
+	word-break: break-word;
 	gap: 4px;
 }
 .username {
