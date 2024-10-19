@@ -1026,7 +1026,7 @@ span .quote:last-of-type .quoteline {
 }
 .replyflex .username {
 	flex: none;
-	max-width: 50%;
+	max-width: calc(100% - 75px);
 }
 .replytext {
 	margin-top: auto;
