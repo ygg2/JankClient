@@ -1025,6 +1025,10 @@ span .quote:last-of-type .quoteline {
 	height: 20px;
 	width: 20px;
 }
+.replyflex .username {
+	flex: none;
+	max-width: 50%;
+}
 .replytext {
 	margin-top: auto;
 	cursor: pointer;
