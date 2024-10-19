@@ -31,7 +31,7 @@ p, h1, h2, h3, pre, form {
 	font-size: 1.5rem;
 	font-weight: bold;
 }
-.ellipsis, .username {
+.ellipsis {
 	display: -webkit-box;
 	word-break: break-all;
 	overflow: hidden;
@@ -917,6 +917,7 @@ span.instanceStatus {
 .username {
 	margin-top: auto;
 	font-weight: bold;
+	word-break: break-all;
 	cursor: pointer;
 }
 .username:hover {
