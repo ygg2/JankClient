@@ -405,10 +405,8 @@ class Message extends SnowFlake{
 		}
 		if(this.message_reference){
 			const replyline = document.createElement("div");
-			const line = document.createElement("hr");
 			const minipfp = document.createElement("img");
 			minipfp.classList.add("replypfp");
-			replyline.appendChild(line);
 			replyline.appendChild(minipfp);
 			const username = document.createElement("span");
 			replyline.appendChild(username);
@@ -419,7 +417,6 @@ class Message extends SnowFlake{
 			const line2 = document.createElement("hr");
 			replyline.appendChild(line2);
 			line2.classList.add("reply");
-			line.classList.add("startreply");
 			replyline.classList.add("flexltr","replyflex");
 			// TODO: Fix this
 			this.channel.getmessage(this.message_reference.message_id).then(message=>{

@@ -999,6 +999,7 @@ span .quote:last-of-type .quoteline {
 }
 .replyflex {
 	position: relative;
+	padding-left: 52px;
 	margin-bottom: 4px;
 	font-size: .9em;
 	color: var(--reply-text);
@@ -1065,7 +1066,7 @@ span .quote:last-of-type .quoteline {
 	background: var(--mention);
 }
 .reactiondiv {
-	margin-left: 52px;
+	padding-left: 52px;
 	gap: 0 4px;
 	flex-wrap: wrap;
 	user-select: none;
@@ -1854,11 +1855,8 @@ fieldset input[type="radio"] {
 		left: 15px;
 		width: 24px;
 	}
-	.startreply {
-		margin-left: 12px;
-	}
-	.reactiondiv {
-		margin-left: 44px;
+	.replyflex, .reactiondiv {
+		padding-left: 44px;
 	}
 	#realbox, #logindiv, #pasteimg {
 		padding-left: 12px;
