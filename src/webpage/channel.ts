@@ -1,6 +1,6 @@
 "use strict";
 import{ Message }from"./message.js";
-import{ Voice }from"./audio.js";
+import{ AVoice }from"./audio.js";
 import{ Contextmenu }from"./contextmenu.js";
 import{ Dialog }from"./dialog.js";
 import{ Guild }from"./guild.js";
@@ -10,16 +10,11 @@ import{ Settings }from"./settings.js";
 import{ Role, RoleList }from"./role.js";
 import{ InfiniteScroller }from"./infiniteScroller.js";
 import{ SnowFlake }from"./snowflake.js";
-import{
-	channeljson,
-	embedjson,
-	messageCreateJson,
-	messagejson,
-	readyjson,
-	startTypingjson,
-}from"./jsontypes.js";
+import{channeljson,embedjson,messageCreateJson,messagejson,readyjson,startTypingjson}from"./jsontypes.js";
 import{ MarkDown }from"./markdown.js";
 import{ Member }from"./member.js";
+import { Voice } from "./voice.js";
+import { User } from "./user.js";
 
 declare global {
 interface NotificationOptions {
@@ -55,6 +50,8 @@ class Channel extends SnowFlake{
 	idToPrev: Map<string, string> = new Map();
 	idToNext: Map<string, string> = new Map();
 	messages: Map<string, Message> = new Map();
+	voice?:Voice;
+	bitrate:number=128000;
 	static setupcontextmenu(){
 		this.contextmenu.addbutton("Copy channel id", function(this: Channel){
 			navigator.clipboard.writeText(this.id);
@@ -337,6 +334,10 @@ class Channel extends SnowFlake{
 		}
 		this.setUpInfiniteScroller();
 		this.perminfo ??= {};
+		if(this.type===2&&this.localuser.voiceFactory){
+			this.voice=this.localuser.voiceFactory.makeVoice(this.guild.id,this.id,{bitrate:this.bitrate});
+			this.setUpVoice();
+		}
 	}
 	get perminfo(){
 		return this.guild.perminfo.channels[this.id];
@@ -458,6 +459,7 @@ class Channel extends SnowFlake{
 	get visable(){
 		return this.hasPermission("VIEW_CHANNEL");
 	}
+	voiceUsers=new WeakRef(document.createElement("div"));
 	createguildHTML(admin = false): HTMLDivElement{
 		const div = document.createElement("div");
 		this.html = new WeakRef(div);
@@ -579,8 +581,53 @@ class Channel extends SnowFlake{
 				const toggle = document.getElementById("maintoggle") as HTMLInputElement;
 				toggle.checked = true;
 			};
+			if(this.type===2){
+				const voiceUsers=document.createElement("div");
+				div.append(voiceUsers);
+				this.voiceUsers=new WeakRef(voiceUsers);
+				this.updateVoiceUsers();
+			}
 		}
 		return div;
+	}
+	async setUpVoice(){
+		if(!this.voice) return;
+		this.voice.onMemberChange=async (memb,joined)=>{
+			console.log(memb,joined);
+			if(typeof memb!=="string"){
+				await Member.new(memb,this.guild);
+			}
+			this.updateVoiceUsers();
+			if(this.voice===this.localuser.currentVoice){
+				AVoice.noises("join");
+			}
+		}
+	}
+	async updateVoiceUsers(){
+		const voiceUsers=this.voiceUsers.deref();
+		if(!voiceUsers||!this.voice) return;
+		console.warn(this.voice.userids)
+
+		const html=(await Promise.all(this.voice.userids.entries().toArray().map(async _=>{
+			const user=await User.resolve(_[0],this.localuser);
+			console.log(user);
+			const member=await Member.resolveMember(user,this.guild);
+			const array=[member,_[1]] as [Member, typeof _[1]];
+			return array;
+		}))).flatMap(([member,_obj])=>{
+			if(!member){
+				console.warn("This is weird, member doesn't exist :P");
+				return [];
+			}
+			const div=document.createElement("div");
+			const span=document.createElement("span");
+			span.textContent=member.name;
+			div.append(span);
+			return div;
+		});
+
+		voiceUsers.innerHTML="";
+		voiceUsers.append(...html);
 	}
 	get myhtml(){
 		if(this.html){
@@ -847,6 +894,9 @@ class Channel extends SnowFlake{
 		loading.classList.add("loading");
 		this.rendertyping();
 		this.localuser.getSidePannel();
+		if(this.voice){
+			this.localuser.joinVoice(this);
+		}
 		await this.putmessages();
 		await prom;
 		if(id !== Channel.genid){
@@ -1333,15 +1383,11 @@ class Channel extends SnowFlake{
 	}
 	notititle(message: Message): string{
 		return(
-			message.author.username +
-											" > " +
-											this.guild.properties.name +
-											" > " +
-											this.name
+			message.author.username + " > " + this.guild.properties.name + " > " + this.name
 		);
 	}
 	notify(message: Message, deep = 0){
-		Voice.noises(Voice.getNotificationSound());
+		AVoice.noises(AVoice.getNotificationSound());
 		if(!("Notification" in window)){
 		}else if(Notification.permission === "granted"){
 			let noticontent: string | undefined | null = message.content.textContent;

@@ -1,35 +1,23 @@
 import{ Guild }from"./guild.js";
 import{ Channel }from"./channel.js";
 import{ Direct }from"./direct.js";
-import{ Voice }from"./audio.js";
+import{ AVoice }from"./audio.js";
 import{ User }from"./user.js";
 import{ Dialog }from"./dialog.js";
 import{ getapiurls, getBulkInfo, setTheme, Specialuser }from"./login.js";
-import{
-	channeljson,
-	guildjson,
-	mainuserjson,
-	memberjson,
-	memberlistupdatejson,
-	messageCreateJson,
-	presencejson,
-	readyjson,
-	startTypingjson,
-	wsjson,
-}from"./jsontypes.js";
+import{channeljson,guildjson,mainuserjson,memberjson,memberlistupdatejson,messageCreateJson,presencejson,readyjson,startTypingjson,wsjson,}from"./jsontypes.js";
 import{ Member }from"./member.js";
 import{ Form, FormError, Options, Settings }from"./settings.js";
 import{ MarkDown }from"./markdown.js";
 import { Bot } from "./bot.js";
 import { Role } from "./role.js";
+import { VoiceFactory } from "./voice.js";
+import { I18n } from "./i18n.js";
 
 const wsCodesRetry = new Set([4000, 4003, 4005, 4007, 4008, 4009]);
 
 class Localuser{
-	badges: Map<
-    string,
-    { id: string; description: string; icon: string; link: string }
-  > = new Map();
+	badges: Map<string,{ id: string; description: string; icon: string; link: string }> = new Map();
 	lastSequence: number | null = null;
 	token!: string;
 	userinfo!: Specialuser;
@@ -52,6 +40,7 @@ class Localuser{
 	errorBackoff = 0;
 	channelids: Map<string, Channel> = new Map();
 	readonly userMap: Map<string, User> = new Map();
+	voiceFactory?:VoiceFactory;
 	instancePing = {
 		name: "Unknown",
 	};
@@ -76,14 +65,19 @@ class Localuser{
 			"Content-type": "application/json; charset=UTF-8",
 			Authorization: this.userinfo.token,
 		};
+		I18n.create("/translations/en.json","en")
 	}
-	gottenReady(ready: readyjson): void{
+	async gottenReady(ready: readyjson): Promise<void>{
+		await I18n.done;
 		this.initialized = true;
 		this.ready = ready;
 		this.guilds = [];
 		this.guildids = new Map();
 		this.user = new User(ready.d.user, this);
 		this.user.setstatus("online");
+
+		this.voiceFactory=new VoiceFactory({id:this.user.id});
+		this.handleVoice();
 		this.mfa_enabled = ready.d.user.mfa_enabled as boolean;
 		this.userinfo.username = this.user.username;
 		this.userinfo.pfpsrc = this.user.getpfpsrc();
@@ -127,6 +121,7 @@ class Localuser{
 
 		this.pingEndpoint();
 		this.userinfo.updateLocal();
+
 	}
 	outoffocus(): void{
 		const servers = document.getElementById("servers") as HTMLDivElement;
@@ -205,10 +200,10 @@ class Localuser{
 						try{
 							const temp = JSON.parse(build);
 							build = "";
+							await this.handleEvent(temp);
 							if(temp.op === 0 && temp.t === "READY"){
 								returny();
 							}
-							await this.handleEvent(temp);
 						}catch{}
 					}
 				})();
@@ -236,9 +231,9 @@ class Localuser{
 						if(
 							!(
 								array[len - 1] === 255 &&
-                array[len - 2] === 255 &&
-                array[len - 3] === 0 &&
-                array[len - 4] === 0
+								array[len - 2] === 255 &&
+								array[len - 3] === 0 &&
+								array[len - 4] === 0
 							)
 						){
 							return;
@@ -249,10 +244,11 @@ class Localuser{
 					}else{
 						temp = JSON.parse(event.data);
 					}
+
+					await this.handleEvent(temp as readyjson);
 					if(temp.op === 0 && temp.t === "READY"){
 						returny();
 					}
-					await this.handleEvent(temp as readyjson);
 				}catch(e){
 					console.error(e);
 				}finally{
@@ -372,7 +368,7 @@ class Localuser{
 				break;
 			}
 			case"READY":
-				this.gottenReady(temp as readyjson);
+				await this.gottenReady(temp as readyjson);
 				break;
 			case"MESSAGE_UPDATE": {
 				temp.d.guild_id ??= "@me";
@@ -486,7 +482,19 @@ class Localuser{
 				this.memberListUpdate(temp)
 				break;
 			}
+			case "VOICE_STATE_UPDATE":
+				if(this.voiceFactory){
+					this.voiceFactory.voiceStateUpdate(temp)
+				}
+
+				break;
+			case "VOICE_SERVER_UPDATE":
+				if(this.voiceFactory){
+					this.voiceFactory.voiceServerUpdate(temp)
+				}
+				break;
 			}
+
 
 		}else if(temp.op === 10){
 			if(!this.ws)return;
@@ -501,6 +509,30 @@ class Localuser{
 			}, this.heartbeat_interval);
 		}
 	}
+	get currentVoice(){
+		return this.voiceFactory?.currentVoice;
+	}
+	async joinVoice(channel:Channel){
+		if(!this.voiceFactory) return;
+		if(!this.ws) return;
+		this.ws.send(JSON.stringify(this.voiceFactory.joinVoice(channel.id,channel.guild.id)));
+		return undefined;
+	}
+	changeVCStatus(status:string){
+		const statuselm=document.getElementById("VoiceStatus");
+		if(!statuselm) throw new Error("Missing status element");
+		statuselm.textContent=status;
+	}
+	handleVoice(){
+		if(this.voiceFactory){
+			this.voiceFactory.onJoin=voice=>{
+				voice.onSatusChange=status=>{
+					this.changeVCStatus(status);
+				}
+			}
+		}
+	}
+
 	heartbeat_interval: number = 0;
 	updateChannel(json: channeljson): void{
 		const guild = this.guildids.get(json.guild_id);
@@ -1166,18 +1198,18 @@ class Localuser{
 				);
 			}
 			{
-				const sounds = Voice.sounds;
+				const sounds = AVoice.sounds;
 				tas
 					.addSelect(
 						"Notification sound:",
 						_=>{
-							Voice.setNotificationSound(sounds[_]);
+							AVoice.setNotificationSound(sounds[_]);
 						},
 						sounds,
-						{ defaultIndex: sounds.indexOf(Voice.getNotificationSound()) }
+						{ defaultIndex: sounds.indexOf(AVoice.getNotificationSound()) }
 					)
 					.watchForChange(_=>{
-						Voice.noises(sounds[_]);
+						AVoice.noises(sounds[_]);
 					});
 			}
 
@@ -1757,16 +1789,8 @@ class Localuser{
 		this.pageTitle("Loading...");
 	}
 	pageTitle(channelName = "", guildName = ""){
-		(document.getElementById("channelname") as HTMLSpanElement).textContent =
-      channelName;
-		(
-      document.getElementsByTagName("title")[0] as HTMLTitleElement
-		).textContent =
-      channelName +
-      (guildName ? " | " + guildName : "") +
-      " | " +
-      this.instancePing.name +
-      " | Jank Client";
+		(document.getElementById("channelname") as HTMLSpanElement).textContent = channelName;
+		(document.getElementsByTagName("title")[0] as HTMLTitleElement).textContent = channelName + (guildName ? " | " + guildName : "") + " | " + this.instancePing.name +" | Jank Client";
 	}
 	async instanceStats(){
 		const res = await fetch(this.info.api + "/policies/stats", {
