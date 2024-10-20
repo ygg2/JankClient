@@ -892,7 +892,7 @@ class Localuser{
 						[
 							"button",
 							"",
-							"submit",
+							"Submit",
 							()=>{
 								this.makeGuild(fields).then(_=>{
 									if(_.message){
