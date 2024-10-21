@@ -680,6 +680,17 @@ span.instanceStatus {
 }
 
 /* Dock */
+#VoiceBox {
+	margin: 2px 0;
+	background: var(--dock-bg);
+}
+#VoiceStatus {
+	padding: 8px;
+	font-weight: bold;
+}
+#VoiceStatus:empty {
+	padding: 0;
+}
 #userdock {
 	padding: 4px 6px;
 	background: var(--dock-bg);
