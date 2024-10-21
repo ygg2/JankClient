@@ -567,6 +567,7 @@ span.instanceStatus {
 #channels {
 	flex: 1;
 	padding-bottom: 12px;
+	color: var(--primary-text-soft);
 	overflow-y: auto;
 }
 .channels {
@@ -578,21 +579,24 @@ span.instanceStatus {
 }
 .channel {
 	flex: 1;
+	margin: 0 8px;
+	display: flex;
+	flex-direction: column;
+}
+.channelbutton {
 	height: 2em;
 	padding: 0 8px;
-	margin: 0 8px;
+	background: transparent;
 	color: var(--primary-text-soft);
 	display: flex;
-	border-radius: 4px;
 	align-items: center;
-	cursor: pointer;
 	transition: font-weight .1s;
 }
-.channel:hover {
+.channelbutton:hover {
 	background: var(--channel-hover);
 	color: var(--primary-text-prominent);
 }
-.viewChannel, .viewChannel:hover {
+.viewChannel .channelbutton, .viewChannel .channelbutton:hover {
 	background: var(--channel-selected);
 	font-weight: bold;
 	color: var(--primary-text-prominent);
@@ -623,11 +627,10 @@ span.instanceStatus {
 	align-items: center;
 }
 .channeleffects {
-	min-width: 0;
-	padding: 0;
-}
-.channeleffects:hover {
-	background: unset;
+	height: 2em;
+	flex-direction: row;
+	align-items: center;
+	cursor: pointer;
 }
 .collapse-icon {
 	flex: none;
@@ -648,14 +651,24 @@ span.instanceStatus {
 	background: var(--primary-text-prominent);
 }
 
-/* DM Channels */
-.channeleffects:has(.pfp) {
+/* Member Info (DM/Member List) */
+.memberinfo {
 	padding: 4px 8px;
+	border-radius: 4px;
 	align-items: center;
 	gap: 8px;
+	cursor: pointer;
 }
-.channeleffects:has(.pfp):hover {
+.memberinfo .statusDiv {
+	right: -1px;
+	bottom: -1px;
+}
+.memberinfo:hover {
 	background: var(--channel-hover);
+	color: var(--primary-text-prominent);
+}
+#channels .memberinfo {
+	margin: 0 8px;
 }
 
 /* Dock */
@@ -1233,22 +1246,10 @@ img.bigembedimg {
 	margin: 0 8px 4px 8px;
 	font-size: 1rem;
 }
-.memberList .flexltr {
-	padding: 4px 8px;
-	border-radius: 4px;
-	align-items: center;
-	gap: 8px;
-	cursor: pointer;
-}
-.memberList .statusDiv {
-	right: -1px;
-	bottom: -1px;
-}
-.memberList .flexltr:hover {
+.memberList .memberinfo:hover {
 	background: var(--sidebar-hover);
-	color: var(--primary-text-prominent);
 }
-.memberList.offline .flexltr {
+.memberList.offline .memberinfo {
 	opacity: .5;
 }
 #memberlisttoggle {
