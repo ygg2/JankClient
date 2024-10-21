@@ -623,6 +623,7 @@ class Channel extends SnowFlake{
 				return [];
 			}
 			const div=document.createElement("div");
+			div.classList.add("voiceuser");
 			const span=document.createElement("span");
 			span.textContent=member.name;
 			div.append(span);

@@ -578,7 +578,6 @@ span.instanceStatus {
 	margin-top: 8px;
 }
 .channel {
-	flex: 1;
 	margin: 0 8px;
 	display: flex;
 	flex-direction: column;
@@ -627,10 +626,14 @@ span.instanceStatus {
 	align-items: center;
 }
 .channeleffects {
+	flex: 1;
 	height: 2em;
 	flex-direction: row;
 	align-items: center;
 	cursor: pointer;
+}
+.channeleffects:hover {
+	color: var(--primary-text-prominent);
 }
 .collapse-icon {
 	flex: none;
@@ -649,6 +652,11 @@ span.instanceStatus {
 }
 .addchannel:hover {
 	background: var(--primary-text-prominent);
+}
+.voiceuser {
+	margin-left: 32px;
+	padding: 4px 0;
+	font-size: .9rem;
 }
 
 /* Member Info (DM/Member List) */
