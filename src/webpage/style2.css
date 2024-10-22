@@ -232,7 +232,7 @@ textarea {
 }
 @keyframes jumped {
 	0%, 100% {
-		background: none;
+		background: transparent;
 	}
 	50% {
 		background: var(--message-jump-bg);
@@ -245,7 +245,7 @@ textarea {
 	width: 10px;
 }
 ::-webkit-scrollbar-track {
-	background: none;
+	background: transparent;
 }
 ::-webkit-scrollbar-track:hover {
 	background: var(--channels-bg);
@@ -1659,7 +1659,7 @@ fieldset input[type="radio"] {
 .SettingsButton {
 	width: 100%;
 	padding: 8px 12px;
-	background: none;
+	background: transparent;
 	color: var(--primary-text-soft);
 	border: none;
 	transition: none;
