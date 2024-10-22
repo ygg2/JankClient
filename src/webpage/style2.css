@@ -997,7 +997,7 @@ span.instanceStatus {
 }
 .spoiler {
 	background: var(--spoiler-bg);
-	color: var(--spoiler-bg;
+	color: var(--spoiler-bg);
 	cursor: pointer;
 }
 .spoiler:hover {
