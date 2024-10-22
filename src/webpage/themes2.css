@@ -25,8 +25,7 @@
 
 	--button-bg: #4e5457;
 	--button-hover: #6b7174;
-
-	--spoiler: #000000;
+	--spoiler-bg: #000000;
 	--link: #5ca9ed;
 
 	--primary-text-prominent: #efefef;
@@ -51,8 +50,7 @@
 
 	--button-bg: #cacad8;
 	--button-hover: #b3b3c4;
-
-	--spoiler: #dadada;
+	--spoiler-bg: #dadada;
 	--link: #056cd9;
 
 	--black: #4b4b59;
@@ -82,8 +80,7 @@
 
 	--button-bg: #babdd2;
 	--button-hover: #9c9fbf;
-
-	--spoiler: #34333a;
+	--spoiler-bg: #34333a;
 	--link: #283c8b;
 
 	--black: #434392;
@@ -91,6 +88,35 @@
 	--secondary-text-soft: #211f2e;
 	--blank-bg: #494985;
 	--spoiler-text: #e4e6ed;
+}
+
+.Accent-theme {
+	color-scheme: dark;
+	
+	--primary-bg: color-mix(in srgb, #3f3f3f 65%, var(--accent-color));
+	--primary-hover: color-mix(in srgb, #373737 68%, var(--accent-color));
+	--primary-text: #ebebeb;
+	--primary-text-soft: #ebebebb8;
+
+	--secondary-bg: color-mix(in srgb, #222222 72%, var(--accent-color));
+	--secondary-hover: color-mix(in srgb, #222222 65%, var(--accent-color));
+
+	--servers-bg: color-mix(in srgb, #030303 70%, var(--accent-color));
+	--channels-bg: color-mix(in srgb, #292929 68%, var(--accent-color));
+	--channel-selected: color-mix(in srgb, #555555 65%, var(--accent-color));
+	--typebox-bg: color-mix(in srgb, #666666 60%, var(--accent-color));
+
+	--button-bg: color-mix(in srgb, #777777 56%, var(--accent-color));
+	--button-hover: color-mix(in srgb, #585858 58%, var(--accent-color));
+
+	--spoiler: color-mix(in srgb, #101010 72%, var(--accent-color));
+	--link: color-mix(in srgb, #99ccff 75%, var(--accent-color));
+	
+	--black: color-mix(in srgb, #000000 90%, var(--accent-color));
+	--icon: color-mix(in srgb, #ffffff, var(--accent-color));
+	--dock-bg: color-mix(in srgb, #161616 72%, var(--accent-color));
+	--spoiler-hover: color-mix(in srgb, #111111 80%, var(--accent-color));
+	--card-bg: color-mix(in srgb, #252525 68%, var(--accent-color));
 }
 
 /* Optional Variables */
@@ -121,7 +147,7 @@ body {
 	--code-bg: var(--secondary-bg);
 	--code-text: var(--secondary-text);
 	--spoiler-text: var(--primary-text);
-	--spoiler-hover: color-mix(in srgb, var(--spoiler), var(--primary-text-soft) 10%);
+	--spoiler-hover: color-mix(in srgb, var(--spoiler-bg), var(--primary-text-soft) 10%);
 	--quote-line: color-mix(in srgb, var(--primary-text-soft), transparent);
 	--reply-line: color-mix(in srgb, var(--primary-text-soft) 20%, transparent);
 	--reply-text: var(--primary-text-soft);

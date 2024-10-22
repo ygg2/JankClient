@@ -996,8 +996,8 @@ span.instanceStatus {
 	color: var(--primary-text-soft);
 }
 .spoiler {
-	background: var(--spoiler);
-	color: var(--spoiler);
+	background: var(--spoiler-bg);
+	color: var(--spoiler-bg;
 	cursor: pointer;
 }
 .spoiler:hover {
