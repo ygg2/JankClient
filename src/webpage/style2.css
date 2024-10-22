@@ -996,8 +996,8 @@ span.instanceStatus {
 	color: var(--primary-text-soft);
 }
 .spoiler {
-	background: var(--spoiler);
-	color: var(--spoiler);
+	background: var(--spoiler-bg);
+	color: var(--spoiler-bg;
 	cursor: pointer;
 }
 .spoiler:hover {
@@ -1302,9 +1302,10 @@ img.bigembedimg {
 .contextbutton {
 	width: 180px;
 	padding: 8px;
-	background: var(--secondary-bg);
+	background: transparent;
 	font-size: .9rem;
 	line-height: 1em;
+	color: var(--secondary-text);
 	border: none;
 }
 .contextbutton:enabled:hover {
@@ -1403,6 +1404,7 @@ img.bigembedimg {
 .rolediv {
 	padding: 4px 6px;
 	background: var(--role-bg);
+	color: var(--role-text);
 	font-size: .9em;
 	border: 1px solid var(--black);
 	border-radius: 4px;
