@@ -608,7 +608,7 @@ class Localuser{
 				member.bind(username)
 				member.user.bind(memberdiv,member.guild,false);
 				memberdiv.append(pfp,username);
-				memberdiv.classList.add("flexltr");
+				memberdiv.classList.add("flexltr","memberinfo");
 				membershtml.append(memberdiv);
 			}
 			category.append(membershtml);
@@ -860,7 +860,7 @@ class Localuser{
 						[
 							"button",
 							"",
-							"submit",
+							"Submit",
 							()=>{
 								this.makeGuild(fields).then(_=>{
 									if(_.message){

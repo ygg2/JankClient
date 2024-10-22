@@ -553,28 +553,31 @@ class Channel extends SnowFlake{
 			}
 			// @ts-ignore I dont wanna deal with this
 			div.all = this;
+			const button = document.createElement("button");
+			button.classList.add("channelbutton");
+			div.append(button);
 			const myhtml = document.createElement("span");
 			myhtml.classList.add("ellipsis");
 			myhtml.textContent = this.name;
 			if(this.type === 0){
 				const decoration = document.createElement("span");
-				div.appendChild(decoration);
+				button.appendChild(decoration);
 				decoration.classList.add("space", "svgicon", "svg-channel");
 			}else if(this.type === 2){
 				//
 				const decoration = document.createElement("span");
-				div.appendChild(decoration);
+				button.appendChild(decoration);
 				decoration.classList.add("space", "svgicon", "svg-voice");
 			}else if(this.type === 5){
 				//
 				const decoration = document.createElement("span");
-				div.appendChild(decoration);
+				button.appendChild(decoration);
 				decoration.classList.add("space", "svgicon", "svg-announce");
 			}else{
 				console.log(this.type);
 			}
-			div.appendChild(myhtml);
-			div.onclick = _=>{
+			button.appendChild(myhtml);
+			button.onclick = _=>{
 				this.getHTML();
 				const toggle = document.getElementById("maintoggle") as HTMLInputElement;
 				toggle.checked = true;
