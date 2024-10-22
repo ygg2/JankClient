@@ -137,6 +137,7 @@ body {
 	--sidebar-hover: var(--channel-hover);
 	--card-bg: var(--primary-bg);
 	--role-bg: var(--primary-bg);
+	--role-text: var(--primary-text);
 	--settings-bg: var(--primary-bg);
 	--settings-header-bg: var(--main-header-bg);
 	--settings-panel-bg: var(--channels-bg);
