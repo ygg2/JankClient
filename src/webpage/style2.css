@@ -896,6 +896,7 @@ span.instanceStatus {
 	background: transparent;
 	border-radius: 0;
 	cursor: pointer;
+	transition: none;
 }
 .messageButtons button span, .controls button span {
 	display: block;
