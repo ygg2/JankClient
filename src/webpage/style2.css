@@ -1308,6 +1308,7 @@ img.bigembedimg {
 	line-height: 1em;
 	color: var(--secondary-text);
 	border: none;
+	transition: none;
 }
 .contextbutton:enabled:hover {
 	background: var(--secondary-hover);
