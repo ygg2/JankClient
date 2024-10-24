@@ -271,10 +271,12 @@ textarea {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 28px;
+	flex-wrap: wrap;
+	gap: 0 28px;
 }
-.TitleButtons h1 {
+.TitleButtons {
 	font-size: 1.5em;
+	font-weight: bold;
 }
 #homePage {
 	max-width: 80%;
@@ -296,6 +298,7 @@ h1.pagehead {
 	margin-bottom: 12px;
 }
 .pagebox ul {
+	margin-bottom: 0;
 	line-height: 1.5em;
 }
 #instancebox {
@@ -1808,6 +1811,10 @@ fieldset input[type="radio"] {
 }
 
 @media screen and (max-width: 500px) {
+	#homePage {
+		max-width: unset;
+		width: 94%;
+	}
 	#page {
 		display: block;
 		position: fixed;
