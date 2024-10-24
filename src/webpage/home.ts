@@ -37,7 +37,7 @@ login?: string;
 					div.append(img);
 				}
 				const statbox = document.createElement("div");
-				statbox.classList.add("flexttb");
+				statbox.classList.add("flexttb","flexgrow");
 
 				{
 					const textbox = document.createElement("div");
