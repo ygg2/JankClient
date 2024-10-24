@@ -127,6 +127,7 @@ body {
 	--secondary-text-soft: var(--primary-text-soft);
 	--text-input-bg: var(--secondary-bg);
 	--button-text: var(--primary-text);
+	--button-disabled-text: color-mix(in srgb, var(--button-text), transparent);
 
 	--icon: var(--accent-color);
 	--focus: var(--accent-color);

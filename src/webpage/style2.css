@@ -89,6 +89,10 @@ button:hover, input::file-selector-button:hover {
 button:active:enabled, input::file-selector-button:active {
 	border: none;
 }
+button:disabled {
+	color: var(--button-disabled-text);
+	cursor: not-allowed;
+}
 .selectspan {
 	display: inline-block;
 	position: relative;
@@ -1318,8 +1322,6 @@ img.bigembedimg {
 }
 .contextbutton:disabled {
 	background: var(--secondary-bg);
-	color: var(--secondary-text-soft);
-	cursor: not-allowed;
 }
 
 /* Profile */
@@ -1726,7 +1728,7 @@ fieldset input[type="radio"] {
 	font-size: 1rem;
 }
 #connection-container .disabled {
-	color: var(--secondary-text-soft);
+	color: var(--button-disabled-text);
 	cursor: not-allowed;
 }
 .inlinelabel {
