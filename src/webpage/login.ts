@@ -96,7 +96,7 @@ function setDefaults(){
 		userinfos.users = {};
 	}
 	if(userinfos.accent_color === undefined){
-		userinfos.accent_color = "#3096f7";
+		userinfos.accent_color = "#19c2a6";
 	}
 	document.documentElement.style.setProperty(
 		"--accent-color",
@@ -207,7 +207,7 @@ function adduser(user: typeof Specialuser.prototype.json){
 	return user;
 }
 const instancein = document.getElementById("instancein") as HTMLInputElement;
-let timeout: ReturnType<typeof setTimeout> | string | number | undefined | null = null;
+//let timeout: ReturnType<typeof setTimeout> | string | number | undefined | null = null;
 // let instanceinfo;
 const stringURLMap = new Map<string, string>();
 
@@ -369,7 +369,7 @@ async function checkInstance(instance?: string){
 		verify!.textContent = "Invalid Instance, try again";
 	}
 }
-
+/*
 if(instancein){
 	console.log(instancein);
 	instancein.addEventListener("keydown", ()=>{
@@ -391,7 +391,7 @@ if(instancein){
 		checkInstance("https://spacebar.chat/");
 	}
 }
-
+*/
 async function login(username: string, password: string, captcha: string){
 	if(captcha === ""){
 		captcha = "";

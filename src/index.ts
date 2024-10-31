@@ -27,7 +27,7 @@ for(const instance of instances){
 }
 
 app.use(compression());
-
+//@ts-ignore
 async function updateInstances(): Promise<void>{
 	try{
 		const response = await fetch(
@@ -54,7 +54,7 @@ async function updateInstances(): Promise<void>{
 	}
 }
 
-updateInstances();
+//updateInstances();
 
 app.use("/getupdates", async (_req: Request, res: Response)=>{
 	try{
@@ -89,7 +89,7 @@ app.use("/", async (req: Request, res: Response)=>{
 	}
 
 	if(req.path === "/"){
-		res.sendFile(path.join(__dirname, "webpage", "home.html"));
+		res.sendFile(path.join(__dirname, "webpage", "index.html"));
 		return;
 	}
 
