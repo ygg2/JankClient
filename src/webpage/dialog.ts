@@ -11,13 +11,7 @@ type dialogjson =
 | ["title", string]
 | ["radio", string, string[], (this: unknown, e: string) => unknown, number]
 | ["html", HTMLElement]
-| [
-"select",
-string,
-string[],
-(this: HTMLSelectElement, e: Event) => unknown,
-number
-]
+| ["select", string, string[], (this: HTMLSelectElement, e: Event) => unknown, number]
 | ["tabs", [string, dialogjson][]];
 class Dialog{
 	layout: dialogjson;
@@ -201,7 +195,7 @@ class Dialog{
 			selectSpan.classList.add("selectspan");
 			const select = document.createElement("select");
 			const selectArrow = document.createElement("span");
-			selectArrow.classList.add("svgtheme","svg-category","selectarrow");
+			selectArrow.classList.add("svgicon","svg-category","selectarrow");
 
 			label.textContent = array[1];
 			selectSpan.append(select);

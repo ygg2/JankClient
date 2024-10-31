@@ -4,7 +4,7 @@ interface OptionsElement<x> {
 	submit: () => void;
 	readonly watchForChange: (func: (arg1: x) => void) => void;
 	value: x;
-	}
+}
 	//future me stuff
 class Buttons implements OptionsElement<unknown>{
 	readonly name: string;
@@ -30,6 +30,15 @@ class Buttons implements OptionsElement<unknown>{
 		this.buttonList = buttonList;
 		const htmlarea = document.createElement("div");
 		htmlarea.classList.add("flexgrow");
+		const buttonTable = this.generateButtons(htmlarea);
+		if(this.buttons[0]){
+			this.generateHTMLArea(this.buttons[0][1], htmlarea);
+		}
+		buttonList.append(buttonTable);
+		buttonList.append(htmlarea);
+		return buttonList;
+	}
+	generateButtons(optionsArea:HTMLElement){
 		const buttonTable = document.createElement("div");
 		buttonTable.classList.add("settingbuttons");
 		for(const thing of this.buttons){
@@ -37,24 +46,21 @@ class Buttons implements OptionsElement<unknown>{
 			button.classList.add("SettingsButton");
 			button.textContent = thing[0];
 			button.onclick = _=>{
-				this.generateHTMLArea(thing[1], htmlarea);
+				this.generateHTMLArea(thing[1], optionsArea);
 				if(this.warndiv){
 					this.warndiv.remove();
 				}
 			};
 			buttonTable.append(button);
 		}
-		this.generateHTMLArea(this.buttons[0][1], htmlarea);
-		buttonList.append(buttonTable);
-		buttonList.append(htmlarea);
-		return buttonList;
+		return buttonTable;
 	}
 	handleString(str: string): HTMLElement{
 		const div = document.createElement("span");
 		div.textContent = str;
 		return div;
 	}
-	private generateHTMLArea(
+	generateHTMLArea(
 		buttonInfo: Options | string,
 		htmlarea: HTMLElement
 	){
@@ -202,8 +208,8 @@ class CheckboxInput implements OptionsElement<boolean>{
 		const input = this.input.deref();
 		if(input){
 			const value = input.checked as boolean;
-			this.onchange(value);
 			this.value = value;
+			this.onchange(value);
 		}
 	}
 	setState(state:boolean){
@@ -355,7 +361,7 @@ class SelectInput implements OptionsElement<number>{
 		select.selectedIndex = this.index;
 		selectSpan.append(select);
 		const selectArrow = document.createElement("span");
-		selectArrow.classList.add("svgtheme","svg-category","selectarrow");
+		selectArrow.classList.add("svgicon","svg-category","selectarrow");
 		selectSpan.append(selectArrow);
 		div.append(selectSpan);
 		return div;
@@ -1066,6 +1072,10 @@ class Form implements OptionsElement<object>{
 			this.owner.changed();
 		}
 	}
+	preprocessor:(obj:Object)=>void=()=>{};
+	addPreprocessor(func:(obj:Object)=>void){
+		this.preprocessor=func;
+	}
 	async submit(){
 		if(this.options.subOptions){
 			this.options.subOptions.submit();
@@ -1130,6 +1140,7 @@ class Form implements OptionsElement<object>{
 		}
 		console.log("middle2");
 		await Promise.allSettled(promises);
+		this.preprocessor(build);
 		if(this.fetchURL !== ""){
 			fetch(this.fetchURL, {
 				method: this.method,
@@ -1221,8 +1232,7 @@ class Settings extends Buttons{
 		background.append(this.generateHTML());
 
 		const exit = document.createElement("span");
-		exit.textContent = "✖";
-		exit.classList.add("exitsettings");
+		exit.classList.add("exitsettings","svgicon","svg-x");
 		background.append(exit);
 		exit.onclick = _=>{
 			this.hide();

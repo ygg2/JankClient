@@ -11,6 +11,8 @@ import{ SnowFlake }from"./snowflake.js";
 import{ memberjson, messagejson }from"./jsontypes.js";
 import{ Emoji }from"./emoji.js";
 import{ Dialog }from"./dialog.js";
+import{ mobile }from"./login.js";
+import { I18n } from "./i18n.js";
 
 class Message extends SnowFlake{
 	static contextmenu = new Contextmenu<Message, undefined>("message menu");
@@ -44,9 +46,7 @@ class Message extends SnowFlake{
 			return this.weakdiv?.deref();
 			}
 			//*/
-	div:
-			| (HTMLDivElement & { pfpparent?: Message | undefined; txt?: HTMLElement })
-			| undefined;
+	div:(HTMLDivElement & { pfpparent?: Message | undefined; txt?: HTMLElement })| undefined;
 	member: Member | undefined;
 	reactions!: messagejson["reactions"];
 	static setup(){
@@ -56,13 +56,13 @@ class Message extends SnowFlake{
 		Message.setupcmenu();
 	}
 	static setupcmenu(){
-		Message.contextmenu.addbutton("Copy raw text", function(this: Message){
+		Message.contextmenu.addbutton(I18n.getTranslation.bind(I18n,"copyrawtext"), function(this: Message){
 			navigator.clipboard.writeText(this.content.rawString);
 		});
-		Message.contextmenu.addbutton("Reply", function(this: Message){
+		Message.contextmenu.addbutton(I18n.getTranslation.bind(I18n,"reply"), function(this: Message){
 			this.channel.setReplying(this);
 		});
-		Message.contextmenu.addbutton("Copy message id", function(this: Message){
+		Message.contextmenu.addbutton(I18n.getTranslation.bind(I18n,"copymessageid"), function(this: Message){
 			navigator.clipboard.writeText(this.id);
 		});
 		Message.contextmenu.addsubmenu(
@@ -404,10 +404,8 @@ class Message extends SnowFlake{
 		}
 		if(this.message_reference){
 			const replyline = document.createElement("div");
-			const line = document.createElement("hr");
 			const minipfp = document.createElement("img");
 			minipfp.classList.add("replypfp");
-			replyline.appendChild(line);
 			replyline.appendChild(minipfp);
 			const username = document.createElement("span");
 			replyline.appendChild(username);
@@ -418,7 +416,6 @@ class Message extends SnowFlake{
 			const line2 = document.createElement("hr");
 			replyline.appendChild(line2);
 			line2.classList.add("reply");
-			line.classList.add("startreply");
 			replyline.classList.add("flexltr","replyflex");
 			// TODO: Fix this
 			this.channel.getmessage(this.message_reference.message_id).then(message=>{
@@ -432,6 +429,11 @@ class Message extends SnowFlake{
 				author.bind(minipfp, this.guild);
 				username.textContent = author.username;
 				author.bind(username, this.guild);
+				Member.resolveMember(author, this.guild).then(_=>{
+					if(_){
+						username.textContent=_.name;
+					}
+				})
 			});
 			reply.onclick = _=>{
 				// TODO: FIX this
@@ -470,6 +472,11 @@ class Message extends SnowFlake{
 				const username = document.createElement("span");
 				username.classList.add("username");
 				this.author.bind(username, this.guild);
+				Member.resolveMember(this.author, this.guild).then(_=>{
+					if(_){
+						username.textContent=_.name;
+					}
+				})
 				div.classList.add("topMessage");
 				username.textContent = this.author.username;
 				const userwrap = document.createElement("div");
@@ -547,6 +554,7 @@ class Message extends SnowFlake{
 		if(this.div){
 			let buttons: HTMLDivElement | undefined;
 			this.div.onmouseenter = _=>{
+				if(mobile)return;
 				if(buttons){
 					buttons.remove();
 					buttons = undefined;
@@ -555,9 +563,9 @@ class Message extends SnowFlake{
 					buttons = document.createElement("div");
 					buttons.classList.add("messageButtons", "flexltr");
 					if(this.channel.hasPermission("SEND_MESSAGES")){
-						const container = document.createElement("div");
+						const container = document.createElement("button");
 						const reply = document.createElement("span");
-						reply.classList.add("svgtheme", "svg-reply", "svgicon");
+						reply.classList.add("svg-reply", "svgicon");
 						container.append(reply);
 						buttons.append(container);
 						container.onclick = _=>{
@@ -565,9 +573,9 @@ class Message extends SnowFlake{
 						};
 					}
 					if(this.author === this.localuser.user){
-						const container = document.createElement("div");
+						const container = document.createElement("button");
 						const edit = document.createElement("span");
-						edit.classList.add("svgtheme", "svg-edit", "svgicon");
+						edit.classList.add("svg-edit", "svgicon");
 						container.append(edit);
 						buttons.append(container);
 						container.onclick = _=>{
@@ -575,9 +583,9 @@ class Message extends SnowFlake{
 						};
 					}
 					if(this.canDelete()){
-						const container = document.createElement("div");
+						const container = document.createElement("button");
 						const reply = document.createElement("span");
-						reply.classList.add("svgtheme", "svg-delete", "svgicon");
+						reply.classList.add("svg-delete", "svgicon");
 						container.append(reply);
 						buttons.append(container);
 						container.onclick = _=>{

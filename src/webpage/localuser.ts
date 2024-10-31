@@ -1,35 +1,23 @@
 import{ Guild }from"./guild.js";
 import{ Channel }from"./channel.js";
 import{ Direct }from"./direct.js";
-import{ Voice }from"./audio.js";
+import{ AVoice }from"./audio.js";
 import{ User }from"./user.js";
 import{ Dialog }from"./dialog.js";
-import{ getapiurls, getBulkInfo, setTheme, Specialuser }from"./login.js";
-import{
-	channeljson,
-	guildjson,
-	mainuserjson,
-	memberjson,
-	memberlistupdatejson,
-	messageCreateJson,
-	presencejson,
-	readyjson,
-	startTypingjson,
-	wsjson,
-}from"./jsontypes.js";
+import{ getapiurls, getBulkInfo, setTheme, Specialuser, SW }from"./login.js";
+import{channeljson,guildjson,mainuserjson,memberjson,memberlistupdatejson,messageCreateJson,presencejson,readyjson,startTypingjson,wsjson,}from"./jsontypes.js";
 import{ Member }from"./member.js";
 import{ Form, FormError, Options, Settings }from"./settings.js";
 import{ MarkDown }from"./markdown.js";
 import { Bot } from "./bot.js";
 import { Role } from "./role.js";
+import { VoiceFactory } from "./voice.js";
+import { I18n } from "./i18n.js";
 
 const wsCodesRetry = new Set([4000, 4003, 4005, 4007, 4008, 4009]);
 
 class Localuser{
-	badges: Map<
-    string,
-    { id: string; description: string; icon: string; link: string }
-  > = new Map();
+	badges: Map<string,{ id: string; description: string; icon: string; link: string }> = new Map();
 	lastSequence: number | null = null;
 	token!: string;
 	userinfo!: Specialuser;
@@ -52,6 +40,7 @@ class Localuser{
 	errorBackoff = 0;
 	channelids: Map<string, Channel> = new Map();
 	readonly userMap: Map<string, User> = new Map();
+	voiceFactory?:VoiceFactory;
 	instancePing = {
 		name: "Unknown",
 	};
@@ -76,26 +65,33 @@ class Localuser{
 			"Content-type": "application/json; charset=UTF-8",
 			Authorization: this.userinfo.token,
 		};
+		I18n.create("/translations/en.json","en")
 	}
-	gottenReady(ready: readyjson): void{
+	async gottenReady(ready: readyjson): Promise<void>{
+		await I18n.done;
 		this.initialized = true;
 		this.ready = ready;
 		this.guilds = [];
 		this.guildids = new Map();
 		this.user = new User(ready.d.user, this);
 		this.user.setstatus("online");
+
+		this.voiceFactory=new VoiceFactory({id:this.user.id});
+		this.handleVoice();
 		this.mfa_enabled = ready.d.user.mfa_enabled as boolean;
 		this.userinfo.username = this.user.username;
+		this.userinfo.id = this.user.id;
 		this.userinfo.pfpsrc = this.user.getpfpsrc();
 		this.status = this.ready.d.user_settings.status;
 		this.channelfocus = undefined;
 		this.lookingguild = undefined;
 		this.guildhtml = new Map();
 		const members: { [key: string]: memberjson } = {};
-		for(const thing of ready.d.merged_members){
-			members[thing[0].guild_id] = thing[0];
+		if(ready.d.merged_members){
+			for(const thing of ready.d.merged_members){
+				members[thing[0].guild_id] = thing[0];
+			}
 		}
-
 		for(const thing of ready.d.guilds){
 			const temp = new Guild(thing, this, members[thing.id]);
 			this.guilds.push(temp);
@@ -127,6 +123,7 @@ class Localuser{
 
 		this.pingEndpoint();
 		this.userinfo.updateLocal();
+
 	}
 	outoffocus(): void{
 		const servers = document.getElementById("servers") as HTMLDivElement;
@@ -205,10 +202,10 @@ class Localuser{
 						try{
 							const temp = JSON.parse(build);
 							build = "";
+							await this.handleEvent(temp);
 							if(temp.op === 0 && temp.t === "READY"){
 								returny();
 							}
-							await this.handleEvent(temp);
 						}catch{}
 					}
 				})();
@@ -236,9 +233,9 @@ class Localuser{
 						if(
 							!(
 								array[len - 1] === 255 &&
-                array[len - 2] === 255 &&
-                array[len - 3] === 0 &&
-                array[len - 4] === 0
+								array[len - 2] === 255 &&
+								array[len - 3] === 0 &&
+								array[len - 4] === 0
 							)
 						){
 							return;
@@ -249,10 +246,11 @@ class Localuser{
 					}else{
 						temp = JSON.parse(event.data);
 					}
+
+					await this.handleEvent(temp as readyjson);
 					if(temp.op === 0 && temp.t === "READY"){
 						returny();
 					}
-					await this.handleEvent(temp as readyjson);
 				}catch(e){
 					console.error(e);
 				}finally{
@@ -357,136 +355,173 @@ class Localuser{
 		if(temp.s)this.lastSequence = temp.s;
 		if(temp.op == 0){
 			switch(temp.t){
-			case"MESSAGE_CREATE":
-				if(this.initialized){
-					this.messageCreate(temp);
-				}
-				break;
-			case"MESSAGE_DELETE": {
-				temp.d.guild_id ??= "@me";
-				const channel = this.channelids.get(temp.d.channel_id);
-				if(!channel)break;
-				const message = channel.messages.get(temp.d.id);
-				if(!message)break;
-				message.deleteEvent();
-				break;
-			}
-			case"READY":
-				this.gottenReady(temp as readyjson);
-				break;
-			case"MESSAGE_UPDATE": {
-				temp.d.guild_id ??= "@me";
-				const channel = this.channelids.get(temp.d.channel_id);
-				if(!channel)break;
-				const message = channel.messages.get(temp.d.id);
-				if(!message)break;
-				message.giveData(temp.d);
-				break;
-			}
-			case"TYPING_START":
-				if(this.initialized){
-					this.typingStart(temp);
-				}
-				break;
-			case"USER_UPDATE":
-				if(this.initialized){
-					const users = this.userMap.get(temp.d.id);
-					if(users){
-						users.userupdate(temp.d);
+				case"MESSAGE_CREATE":
+					if(this.initialized){
+						this.messageCreate(temp);
 					}
-				}
-				break;
-			case"CHANNEL_UPDATE":
-				if(this.initialized){
-					this.updateChannel(temp.d);
-				}
-				break;
-			case"CHANNEL_CREATE":
-				if(this.initialized){
-					this.createChannel(temp.d);
-				}
-				break;
-			case"CHANNEL_DELETE":
-				if(this.initialized){
-					this.delChannel(temp.d);
-				}
-				break;
-			case"GUILD_DELETE": {
-				const guildy = this.guildids.get(temp.d.id);
-				if(guildy){
-					this.guildids.delete(temp.d.id);
-					this.guilds.splice(this.guilds.indexOf(guildy), 1);
-					guildy.html.remove();
-				}
-				break;
-			}
-			case"GUILD_CREATE": {
-				const guildy = new Guild(temp.d, this, this.user);
-				this.guilds.push(guildy);
-				this.guildids.set(guildy.id, guildy);
-				(document.getElementById("servers") as HTMLDivElement).insertBefore(
-					guildy.generateGuildIcon(),
-					document.getElementById("bottomseparator")
-				);
-				break;
-			}
-			case"MESSAGE_REACTION_ADD":
-				{
+					break;
+				case"MESSAGE_DELETE": {
 					temp.d.guild_id ??= "@me";
-					const guild = this.guildids.get(temp.d.guild_id);
-					if(!guild)break;
 					const channel = this.channelids.get(temp.d.channel_id);
 					if(!channel)break;
-					const message = channel.messages.get(temp.d.message_id);
+					const message = channel.messages.get(temp.d.id);
 					if(!message)break;
-					let thing: Member | { id: string };
-					if(temp.d.member){
-						thing = (await Member.new(temp.d.member, guild)) as Member;
-					}else{
-						thing = { id: temp.d.user_id };
+					message.deleteEvent();
+					break;
+				}
+				case"READY":
+					await this.gottenReady(temp as readyjson);
+					break;
+				case"MESSAGE_UPDATE": {
+					temp.d.guild_id ??= "@me";
+					const channel = this.channelids.get(temp.d.channel_id);
+					if(!channel)break;
+					const message = channel.messages.get(temp.d.id);
+					if(!message)break;
+					message.giveData(temp.d);
+					break;
+				}
+				case"TYPING_START":
+					if(this.initialized){
+						this.typingStart(temp);
 					}
-					message.reactionAdd(temp.d.emoji, thing);
+					break;
+				case"USER_UPDATE":
+					if(this.initialized){
+						const users = this.userMap.get(temp.d.id);
+						if(users){
+							users.userupdate(temp.d);
+						}
+					}
+					break;
+				case"CHANNEL_UPDATE":
+					if(this.initialized){
+						this.updateChannel(temp.d);
+					}
+					break;
+				case"CHANNEL_CREATE":
+					if(this.initialized){
+						this.createChannel(temp.d);
+					}
+					break;
+				case"CHANNEL_DELETE":
+					if(this.initialized){
+						this.delChannel(temp.d);
+					}
+					break;
+				case"GUILD_DELETE": {
+					const guildy = this.guildids.get(temp.d.id);
+					if(guildy){
+						this.guildids.delete(temp.d.id);
+						this.guilds.splice(this.guilds.indexOf(guildy), 1);
+						guildy.html.remove();
+					}
+					break;
 				}
-				break;
-			case"MESSAGE_REACTION_REMOVE":
+				case"GUILD_CREATE": {
+					const guildy = new Guild(temp.d, this, this.user);
+					this.guilds.push(guildy);
+					this.guildids.set(guildy.id, guildy);
+					(document.getElementById("servers") as HTMLDivElement).insertBefore(
+						guildy.generateGuildIcon(),
+						document.getElementById("bottomseparator")
+					);
+					break;
+				}
+				case"MESSAGE_REACTION_ADD":
+					{
+						temp.d.guild_id ??= "@me";
+						const guild = this.guildids.get(temp.d.guild_id);
+						if(!guild)break;
+						const channel = this.channelids.get(temp.d.channel_id);
+						if(!channel)break;
+						const message = channel.messages.get(temp.d.message_id);
+						if(!message)break;
+						let thing: Member | { id: string };
+						if(temp.d.member){
+							thing = (await Member.new(temp.d.member, guild)) as Member;
+						}else{
+							thing = { id: temp.d.user_id };
+						}
+						message.reactionAdd(temp.d.emoji, thing);
+					}
+					break;
+				case"MESSAGE_REACTION_REMOVE":
+					{
+						temp.d.guild_id ??= "@me";
+						const channel = this.channelids.get(temp.d.channel_id);
+						if(!channel)break;
+						const message = channel.messages.get(temp.d.message_id);
+						if(!message)break;
+						message.reactionRemove(temp.d.emoji, temp.d.user_id);
+					}
+					break;
+				case"MESSAGE_REACTION_REMOVE_ALL":
+					{
+						temp.d.guild_id ??= "@me";
+						const channel = this.channelids.get(temp.d.channel_id);
+						if(!channel)break;
+						const message = channel.messages.get(temp.d.message_id);
+						if(!message)break;
+						message.reactionRemoveAll();
+					}
+					break;
+				case"MESSAGE_REACTION_REMOVE_EMOJI":
+					{
+						temp.d.guild_id ??= "@me";
+						const channel = this.channelids.get(temp.d.channel_id);
+						if(!channel)break;
+						const message = channel.messages.get(temp.d.message_id);
+						if(!message)break;
+						message.reactionRemoveEmoji(temp.d.emoji);
+					}
+					break;
+				case"GUILD_MEMBERS_CHUNK":
+					this.gotChunk(temp.d);
+					break;
+				case"GUILD_MEMBER_LIST_UPDATE":
 				{
-					temp.d.guild_id ??= "@me";
-					const channel = this.channelids.get(temp.d.channel_id);
-					if(!channel)break;
-					const message = channel.messages.get(temp.d.message_id);
-					if(!message)break;
-					message.reactionRemove(temp.d.emoji, temp.d.user_id);
+					this.memberListUpdate(temp)
+					break;
 				}
-				break;
-			case"MESSAGE_REACTION_REMOVE_ALL":
-				{
-					temp.d.guild_id ??= "@me";
-					const channel = this.channelids.get(temp.d.channel_id);
-					if(!channel)break;
-					const message = channel.messages.get(temp.d.message_id);
-					if(!message)break;
-					message.reactionRemoveAll();
+				case "VOICE_STATE_UPDATE":
+					if(this.voiceFactory){
+						this.voiceFactory.voiceStateUpdate(temp)
+					}
+
+					break;
+				case "VOICE_SERVER_UPDATE":
+					if(this.voiceFactory){
+						this.voiceFactory.voiceServerUpdate(temp)
+					}
+					break;
+				case "GUILD_ROLE_CREATE":{
+					const guild=this.guildids.get(temp.d.guild_id);
+					if(!guild) break;
+					guild.newRole(temp.d.role);
+					break;
 				}
-				break;
-			case"MESSAGE_REACTION_REMOVE_EMOJI":
-				{
-					temp.d.guild_id ??= "@me";
-					const channel = this.channelids.get(temp.d.channel_id);
-					if(!channel)break;
-					const message = channel.messages.get(temp.d.message_id);
-					if(!message)break;
-					message.reactionRemoveEmoji(temp.d.emoji);
+				case "GUILD_ROLE_UPDATE":{
+					const guild=this.guildids.get(temp.d.guild_id);
+					if(!guild) break;
+					guild.updateRole(temp.d.role);
+					break;
 				}
-				break;
-			case"GUILD_MEMBERS_CHUNK":
-				this.gotChunk(temp.d);
-				break;
-			case"GUILD_MEMBER_LIST_UPDATE":
-			{
-				this.memberListUpdate(temp)
-				break;
+				case "GUILD_ROLE_DELETE":{
+					const guild=this.guildids.get(temp.d.guild_id);
+					if(!guild) break;
+					guild.deleteRole(temp.d.role_id);
+					break;
+				}
+				case "GUILD_MEMBER_UPDATE":{
+					const guild=this.guildids.get(temp.d.guild_id);
+					if(!guild) break;
+					guild.memberupdate(temp.d)
+					break
+				}
 			}
-			}
+
+
 
 		}else if(temp.op === 10){
 			if(!this.ws)return;
@@ -501,6 +536,30 @@ class Localuser{
 			}, this.heartbeat_interval);
 		}
 	}
+	get currentVoice(){
+		return this.voiceFactory?.currentVoice;
+	}
+	async joinVoice(channel:Channel){
+		if(!this.voiceFactory) return;
+		if(!this.ws) return;
+		this.ws.send(JSON.stringify(this.voiceFactory.joinVoice(channel.id,channel.guild.id)));
+		return undefined;
+	}
+	changeVCStatus(status:string){
+		const statuselm=document.getElementById("VoiceStatus");
+		if(!statuselm) throw new Error("Missing status element");
+		statuselm.textContent=status;
+	}
+	handleVoice(){
+		if(this.voiceFactory){
+			this.voiceFactory.onJoin=voice=>{
+				voice.onSatusChange=status=>{
+					this.changeVCStatus(status);
+				}
+			}
+		}
+	}
+
 	heartbeat_interval: number = 0;
 	updateChannel(json: channeljson): void{
 		const guild = this.guildids.get(json.guild_id);
@@ -543,13 +602,14 @@ class Localuser{
 			}
 		}
 
-		const elms:Map<Role|"offline"|"online",Member[]>=new Map([["offline",[]],["online",[]]]);
+		const elms:Map<Role|"offline"|"online",Member[]>=new Map([]);
 		for(const role of guild.roles){
-			console.log(guild.roles);
 			if(role.hoist){
 				elms.set(role,[]);
 			}
 		}
+		elms.set("online",[]);
+		elms.set("offline",[])
 		const members=new Set(guild.members);
 		members.forEach((member)=>{
 			if(!channel.hasPermission("VIEW_CHANNEL",member)){
@@ -565,6 +625,9 @@ class Localuser{
 						list.push(member);
 						members.delete(member);
 					}
+					return;
+				}
+				if(member.user.status === "offline"){
 					return;
 				}
 				if(role !== "online"&&member.hasRole(role.id)){
@@ -608,11 +671,11 @@ class Localuser{
 				member.bind(username)
 				member.user.bind(memberdiv,member.guild,false);
 				memberdiv.append(pfp,username);
-				memberdiv.classList.add("flexltr");
+				memberdiv.classList.add("flexltr","liststyle");
 				membershtml.append(memberdiv);
 			}
 			category.append(membershtml);
-			div.prepend(category);
+			div.append(category);
 		}
 
 		console.log(elms);
@@ -723,7 +786,7 @@ class Localuser{
 		const div = document.createElement("div");
 		div.classList.add("home", "servericon");
 
-		home.classList.add("svgtheme", "svgicon", "svg-home");
+		home.classList.add("svgicon", "svg-home");
 		home.all = this.guildids.get("@me");
 		(this.guildids.get("@me") as Guild).html = outdiv;
 		const unread = document.createElement("div");
@@ -761,19 +824,17 @@ class Localuser{
 			br.id = "bottomseparator";
 
 			const div = document.createElement("div");
-			div.textContent = "+";
+			const plus = document.createElement("span");
+			plus.classList.add("svgicon", "svg-plus");
 			div.classList.add("home", "servericon");
+			div.appendChild(plus);
 			serverlist.appendChild(div);
 			div.onclick = _=>{
 				this.createGuild();
 			};
 			const guilddsdiv = document.createElement("div");
 			const guildDiscoveryContainer = document.createElement("span");
-			guildDiscoveryContainer.classList.add(
-				"svgtheme",
-				"svgicon",
-				"svg-explore"
-			);
+			guildDiscoveryContainer.classList.add("svgicon", "svg-explore");
 			guilddsdiv.classList.add("home", "servericon");
 			guilddsdiv.appendChild(guildDiscoveryContainer);
 			serverlist.appendChild(guilddsdiv);
@@ -862,7 +923,7 @@ class Localuser{
 						[
 							"button",
 							"",
-							"submit",
+							"Submit",
 							()=>{
 								this.makeGuild(fields).then(_=>{
 									if(_.message){
@@ -1150,9 +1211,9 @@ class Localuser{
 			});
 		}
 		{
-			const tas = settings.addButton("Themes & sounds");
+			const tas = settings.addButton("Themes & Sounds");
 			{
-				const themes = ["Dark", "WHITE", "Light"];
+				const themes = ["Dark", "WHITE", "Light", "Dark-Accent"];
 				tas.addSelect(
 					"Theme:",
 					_=>{
@@ -1168,18 +1229,18 @@ class Localuser{
 				);
 			}
 			{
-				const sounds = Voice.sounds;
+				const sounds = AVoice.sounds;
 				tas
 					.addSelect(
 						"Notification sound:",
 						_=>{
-							Voice.setNotificationSound(sounds[_]);
+							AVoice.setNotificationSound(sounds[_]);
 						},
 						sounds,
-						{ defaultIndex: sounds.indexOf(Voice.getNotificationSound()) }
+						{ defaultIndex: sounds.indexOf(AVoice.getNotificationSound()) }
 					)
 					.watchForChange(_=>{
-						Voice.noises(sounds[_]);
+						AVoice.noises(sounds[_]);
 					});
 			}
 
@@ -1198,6 +1259,40 @@ class Localuser{
 					{ initColor: userinfos.accent_color }
 				);
 			}
+			{
+				const box=tas.addCheckboxInput("Enable experimental Voice support",()=>{},{initState:Boolean(localStorage.getItem("Voice enabled"))});
+				box.onchange=(e)=>{
+					if(e){
+						if(confirm("Are you sure you want to enable this, this is very experimental and is likely to cause issues. (this feature is for devs, please don't enable if you don't know what you're doing)")){
+							localStorage.setItem("Voice enabled","true")
+
+						}else{
+							box.value=true;
+							const checkbox=box.input.deref();
+							if(checkbox){
+								checkbox.checked=false;
+							}
+						}
+					}else{
+						localStorage.removeItem("Voice enabled");
+					}
+				}
+			}
+		}
+		{
+			const update=settings.addButton("Update settings")
+			const sw=update.addSelect("Service Worker setting",()=>{},["False","Offline only","True"],{
+				defaultIndex:["false","offlineOnly","true"].indexOf(localStorage.getItem("SWMode") as string)
+			});
+			sw.onchange=(e)=>{
+				SW.setMode(["false","offlineOnly","true"][e] as "false"|"offlineOnly"|"true")
+			}
+			update.addButtonInput("","Check for update",()=>{
+				SW.checkUpdate();
+			});
+			update.addButtonInput("","Clear cache",()=>{
+				SW.forceClear();
+			});
 		}
 		{
 			const security = settings.addButton("Account Settings");
@@ -1759,16 +1854,8 @@ class Localuser{
 		this.pageTitle("Loading...");
 	}
 	pageTitle(channelName = "", guildName = ""){
-		(document.getElementById("channelname") as HTMLSpanElement).textContent =
-      channelName;
-		(
-      document.getElementsByTagName("title")[0] as HTMLTitleElement
-		).textContent =
-      channelName +
-      (guildName ? " | " + guildName : "") +
-      " | " +
-      this.instancePing.name +
-      " | Jank Client";
+		(document.getElementById("channelname") as HTMLSpanElement).textContent = channelName;
+		(document.getElementsByTagName("title")[0] as HTMLTitleElement).textContent = channelName + (guildName ? " | " + guildName : "") + " | " + this.instancePing.name +" | Jank Client";
 	}
 	async instanceStats(){
 		const res = await fetch(this.info.api + "/policies/stats", {

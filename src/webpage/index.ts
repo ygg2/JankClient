@@ -235,25 +235,12 @@ import{ File }from"./file.js";
 		userSettings;
 
 		if(mobile){
-			const channelWrapper = document.getElementById(
-				"channelw"
-			) as HTMLDivElement;
+			const channelWrapper = document.getElementById("channelw") as HTMLDivElement;
 			channelWrapper.onclick = ()=>{
-				(
-		document.getElementById("channels")!.parentNode as HTMLElement
-				).classList.add("collapse");
-		document.getElementById("servertd")!.classList.add("collapse");
-		document.getElementById("servers")!.classList.add("collapse");
+				const toggle = document.getElementById("maintoggle") as HTMLInputElement;
+				toggle.checked = true;
 			};
-
-			const mobileBack = document.getElementById("mobileback") as HTMLDivElement;
-			mobileBack.textContent = "#";
-			mobileBack.onclick = ()=>{
-				(
-		document.getElementById("channels")!.parentNode as HTMLElement
-				).classList.remove("collapse");
-		document.getElementById("servertd")!.classList.remove("collapse");
-		document.getElementById("servers")!.classList.remove("collapse");
-			};
+			const memberListToggle = document.getElementById("memberlisttoggle") as HTMLInputElement;
+			memberListToggle.checked = false;
 		}
 })();
