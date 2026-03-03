@@ -32,7 +32,7 @@ export class UserPreferences {
 	animateGifs: AnimateTristateValue = AnimateTristateValue.OnlyOnHover;
 	renderJoinAvatars: boolean = true;
 	theme: ThemeOption = ThemeOption.Dark;
-	accentColor: string = "#5865F2";
+	accentColor: string = "#3096f7";
 	emojiFont?: string;
 
 	constructor(init?: Partial<UserPreferences>) {
