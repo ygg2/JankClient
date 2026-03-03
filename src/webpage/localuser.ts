@@ -109,12 +109,12 @@ class Localuser {
 		this.userinfo.localuserStore = e;
 	}
 	static users = getBulkUsers();
-	static async showAccountSwitcher(thisUser: Localuser) {
+	static async showAccountSwitcher(thisUser?: Localuser) {
 		const specialUser = await new AccountSwitcher().show();
 
-		const onswap = thisUser.onswap;
-		thisUser.unload();
-		thisUser.swapped = true;
+		const onswap = thisUser?.onswap;
+		thisUser?.unload();
+		if (thisUser) thisUser.swapped = true;
 		const loading = document.getElementById("loading") as HTMLDivElement;
 		loading.classList.remove("doneloading");
 		loading.classList.add("loading");
@@ -425,8 +425,6 @@ class Localuser {
 		}
 
 		this.pingEndpoint();
-
-		this.generateFavicon();
 	}
 	inrelation = new Set<User>();
 	outoffocus(): void {
@@ -537,7 +535,11 @@ class Localuser {
 								console.log("in here?");
 								returny();
 							}
-						} catch {}
+						} catch (e) {
+							if (!(e instanceof SyntaxError)) {
+								console.error(e);
+							}
+						}
 					}
 				})();
 			}
@@ -1557,6 +1559,7 @@ class Localuser {
 	async init() {
 		const location = window.location.href.split("/");
 		this.buildservers();
+		this.generateFavicon();
 		if (location[3] === "channels") {
 			const guild = this.loadGuild(location[4]);
 			if (!guild) {

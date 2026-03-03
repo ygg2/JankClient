@@ -1659,7 +1659,8 @@ class Guild extends SnowFlake {
 	get mentions() {
 		let mentions = 0;
 		for (const thing of this.channels) {
-			mentions += thing.mentions;
+			if (thing.visible) mentions += thing.mentions;
+			else if (thing.mentions) console.error("Hidden Channel has pings:", thing);
 		}
 		return mentions;
 	}
@@ -1700,12 +1701,17 @@ class Guild extends SnowFlake {
 				await fetch(this.info.api + "/channels/" + threadId, {
 					headers: this.headers,
 				})
-			).json()) as channeljson;
-			const channel = new Channel(channelJson, this);
-			this.localuser.channelids.set(channel.id, channel);
-			channel.resolveparent(this);
-			const par = this.localuser.channelids.get(channel.parent_id as string);
-			par?.createguildHTML();
+			).json());
+            if(channelJson.code == 200){
+                const channel = new Channel(channelJson as channeljson, this);
+                this.localuser.channelids.set(channel.id, channel);
+                channel.resolveparent(this);
+                const par = this.localuser.channelids.get(channel.parent_id as string);
+                par?.createguildHTML();
+            } else {
+                this.loadChannel();
+            }
+			
 		}
 		this.localuser.goToChannel(threadId);
 	}
