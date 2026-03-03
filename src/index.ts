@@ -164,7 +164,7 @@ for (const instance of instances) {
 	instanceNames.set(instance.name, instance);
 }
 
-async function updateInstances(): Promise<void> {
+/*async function updateInstances(): Promise<void> {
 	try {
 		const response = await fetch(
 			"https://raw.githubusercontent.com/spacebarchat/spacebarchat/master/instances/instances.json",
@@ -190,7 +190,7 @@ async function updateInstances(): Promise<void> {
 	}
 }
 
-updateInstances();
+updateInstances();*/
 /*
 app.set("trust proxy", (ip: unknown) => {
 	if (typeof ip !== "string") return false;

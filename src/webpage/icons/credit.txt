@@ -1,0 +1,2 @@
+Thank you to RUvald1 for icons: https://github.com/RUvlad1/JankClient/
+Due to outside circumstances, the full set was not able to be completed and as such it was not merged into the main project. In this fork, the icons are mixed in.
