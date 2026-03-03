@@ -1078,8 +1078,8 @@ textarea {
 }
 .svg-friends {
 	mask: url(./icons/friends.svg);
-	width: 24px !important;
-	height: 24px !important;
+	width: 20px !important;
+	height: 20px !important;
 	margin-right: 0 !important;
 	mask-size: contain !important;
 }
@@ -1278,8 +1278,8 @@ textarea {
 	cursor: pointer;
 }
 #pinnedM {
-	width: 0.25in;
-	height: 0.25in;
+	width: 20px;
+	height: 20px;
 	cursor: pointer;
 }
 .unreadPin {
@@ -1980,8 +1980,8 @@ span.instanceStatus {
 }
 .collapse-icon {
 	flex: none;
-	height: 12px;
-	width: 12px;
+	height: 1em;
+	width: 1em;
 	margin-right: 6px;
 	transition: rotate 0.2s;
 }
@@ -2005,7 +2005,7 @@ span.instanceStatus {
 	}
 }
 .addchannel {
-	height: 10px;
+	height: 1em;
 	width: 20px;
 	cursor: pointer;
 }
@@ -4203,11 +4203,11 @@ fieldset input[type="radio"] {
 	}
 	#searchX {
 		position: absolute;
-		width: 24px;
-		height: 24px;
+		width: 20px;
+		height: 20px;
 		margin: 0;
 		cursor: pointer;
-		top: 5px;
+		top: 6px;
 		right: 2px;
 		transition: height 0.2s;
 	}
@@ -4274,8 +4274,8 @@ fieldset input[type="radio"] {
 		padding: 6px;
 	}
 	#maintoggleicon span {
-		height: 14px;
-		width: 14px;
+		height: 24px;
+		width: 24px;
 		rotate: -90deg;
 	}
 	.scroller {
