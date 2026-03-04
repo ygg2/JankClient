@@ -676,7 +676,7 @@ class Message extends SnowFlake {
 		div.style.setProperty(
 			"--time-text",
 			JSON.stringify(
-				new Date(this.getUnixTime()).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"}),
+				new Date(this.getUnixTime()).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"}),
 			),
 		);
 
@@ -1483,7 +1483,7 @@ function formatTime(date: Date) {
 	updateTimes();
 	const datestring = date.toLocaleDateString();
 	const formatTime = (date: Date) =>
-		date.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"});
+		date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"});
 
 	if (datestring === now) {
 		return I18n.todayAt(formatTime(date));
