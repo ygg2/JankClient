@@ -4301,6 +4301,9 @@ fieldset input[type="radio"] {
 	.messagediv {
 		padding: 3px 12px 3px 10px;
 	}
+	.messagediv:not(.topMessage):hover::after {
+		left: 2px;
+	}
 	.message {
 		padding-right: 4px;
 	}
@@ -4321,6 +4324,9 @@ fieldset input[type="radio"] {
 	.replyflex,
 	.reactiondiv {
 		padding-left: 44px;
+	}
+	.dateline {
+		padding: 0 12px
 	}
 	#realbox,
 	#logindiv,
