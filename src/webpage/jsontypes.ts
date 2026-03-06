@@ -406,6 +406,10 @@ type userjson = {
 	badge_ids: string[];
 	webhook?: webhookInfo;
 	uid?: string;
+	avatar_decoration_data?: {
+		asset: string;
+		sku_id: string;
+	} | null;
 };
 type memberjson = {
 	index?: number;
@@ -501,7 +505,9 @@ type guildjson = {
 		max_stage_video_channel_users: number;
 		nsfw: boolean;
 		safety_alerts_channel_id: string;
+		welcome_screen?: welcomeScreen;
 	};
+	//TODO implement onboarding too
 	roles: rolesjson[];
 	stage_instances: [];
 	stickers: stickerJson[];
@@ -509,6 +515,16 @@ type guildjson = {
 	guild_hashes: {};
 	joined_at: string;
 };
+export interface welcomeScreen {
+	enabled: boolean;
+	description: string;
+	welcome_channels: {
+		description: string;
+		emoji_id?: string;
+		emoji_name?: string;
+		channel_id: string;
+	}[];
+}
 interface stickerJson {
 	id: string;
 	name: string;
@@ -858,6 +874,12 @@ type embedjson = {
 		icon_url?: string;
 		text?: string;
 		thumbnail?: string;
+	};
+	image?: {
+		proxy_url?: string;
+		url: string;
+		width?: number;
+		height?: number;
 	};
 	timestamp?: string;
 	thumbnail: {

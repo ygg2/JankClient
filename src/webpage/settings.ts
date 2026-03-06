@@ -926,6 +926,8 @@ class InstancePicker implements OptionsElement<InstanceInfo | null> {
 		div.append(verify);
 
 		const input = this.input;
+		input.readOnly = !!new URLSearchParams(window.location.search).get("instance");
+		console.log("read only", input.readOnly, window.location.search);
 		input.type = "search";
 		input.setAttribute("list", "instances");
 		div.append(input);
@@ -1436,6 +1438,7 @@ class Options implements OptionsElement<void> {
 			};
 		}
 	}
+	afterSubmit = () => {};
 	submit() {
 		this.haschanged = false;
 		if (this.subOptions) {
@@ -1446,6 +1449,7 @@ class Options implements OptionsElement<void> {
 		for (const thing of this.options) {
 			thing.submit();
 		}
+		this.afterSubmit();
 	}
 }
 class Captcha implements OptionsElement<string> {
@@ -1954,13 +1958,13 @@ class Form implements OptionsElement<object> {
 					console.log(input.value);
 					if (input.value) {
 						const reader = new FileReader();
-						reader.readAsDataURL(input.value[0]);
 						const promise = new Promise<void>((res) => {
 							reader.onload = () => {
 								(build as any)[thing] = reader.result;
 								res();
 							};
 						});
+						reader.readAsDataURL(input.value[0]);
 						promises.push(promise);
 						continue;
 					}
@@ -2103,10 +2107,12 @@ class Form implements OptionsElement<object> {
 			div.classList.add("suberror", "suberrora");
 			e.append(div);
 			element = div;
+			element.focus();
 		} else {
 			element.classList.remove("suberror");
 			setTimeout((_) => {
 				element.classList.add("suberror");
+				element.focus();
 			}, 100);
 		}
 		element.textContent = message;

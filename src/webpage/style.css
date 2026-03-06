@@ -2668,9 +2668,29 @@ span.instanceStatus {
 .message img {
 	max-width: 100%;
 }
+.profile .avDec {
+	width: 110%;
+	height: 110%;
+	top: 1px;
+	left: 1px;
+}
+input[type="search"]:read-only {
+	cursor: not-allowed;
+	color: var(--secondary-text-soft);
+}
+.avDec {
+	position: absolute;
+	cursor: pointer;
+	width: 125%;
+	height: 125%;
+	top: -5px;
+	left: -5px;
+	max-width: 150% !important;
+}
 .timestamp {
 	flex: none;
 	margin-left: 6px;
+	margin-bottom: 1px;
 	font-size: 0.75em;
 	color: var(--primary-text-soft);
 }
@@ -3282,7 +3302,6 @@ img.bigembedimg {
 	background: var(--primary-bg);
 }
 .banner {
-	background: yellow;
 	height: 100px;
 	width: 100%;
 	object-fit: cover;
@@ -4325,6 +4344,10 @@ fieldset input[type="radio"] {
 	.dateline {
 		padding: 0 12px
 	}
+	.sticker {
+		height: auto;
+		max-width: 100%;
+	}
 	#realbox,
 	#logindiv,
 	#pasteimg {
@@ -4909,4 +4932,9 @@ img.error::after {
 		color: var(--link);
 		margin-left: auto;
 	}
+}
+.embedImg {
+	max-width: 400px;
+	max-height: 400px;
+	border-radius: 3px;
 }
