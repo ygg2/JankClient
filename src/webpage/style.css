@@ -3147,13 +3147,10 @@ img.bigembedimg {
 	border: none;
 	transition: none;
 	display: flex;
-	flex-direction: row;
+	justify-content: space-between;
 	.svgicon {
-		height: 0.2in;
-		width: 0.2in;
-		position: absolute;
-		right: 6px;
-		top: 6px;
+		height: 1rem;
+		width: 1rem;
 	}
 }
 .contextbutton:enabled:hover {
@@ -4364,10 +4361,6 @@ fieldset input[type="radio"] {
 	.contextbutton {
 		width: 100%;
 		padding: 12px;
-		.svgicon {
-			top: 10px;
-			right: 12px;
-		}
 	}
 	.profile {
 		height: 65%;
