@@ -1,7 +1,6 @@
 import http from "http";
 import fs from "node:fs/promises";
 import path from "node:path";
-import {observe} from "./stats.js";
 import {getApiUrls} from "./utils.js";
 import {fileURLToPath} from "node:url";
 import {readFileSync} from "fs";
