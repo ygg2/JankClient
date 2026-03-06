@@ -1771,8 +1771,8 @@ span.instanceStatus {
 	background: var(--icon);
 }
 .home .svg-plus {
-	height: 16px;
-	width: 16px;
+	height: 22px;
+	width: 22px;
 }
 .home .svg-explore {
 	height: 44px;
@@ -3917,8 +3917,8 @@ fieldset input[type="radio"] {
 	background: color-mix(in srgb, var(--secondary-bg) 40%, transparent);
 }
 .addrole {
-	height: 10px;
-	width: 10px;
+	height: 1em;
+	width: 1em;
 	margin-left: auto;
 	align-self: center;
 	cursor: pointer;
