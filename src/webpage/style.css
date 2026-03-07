@@ -4652,7 +4652,7 @@ fieldset input[type="radio"] {
 	background: var(--black);
 }
 .vr-message {
-	border-right: 1px solid var(--black) !important;
+	border-right: 1px solid color-mix(in srgb, var(--divider) 25%, transparent);
 }
 .gifmenu .title {
 	display: flex;
