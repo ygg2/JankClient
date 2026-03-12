@@ -2977,7 +2977,7 @@ img.authorEmbedImg {
 }
 img.bigembedimg {
 	margin-top: 8px;
-	height: auto !important
+	height: auto !important;
 	border-radius: 4px;
 	cursor: pointer;
 }
