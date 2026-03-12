@@ -1064,7 +1064,8 @@ textarea {
 .svg-upload {
 	mask: url(./icons/upload.svg);
 	mask-size: contain !important;
-	width: 0.2in !important;
+	height: 20px !important;
+	width: 20px !important;
 	cursor: pointer;
 }
 .svg-x {
@@ -1300,25 +1301,24 @@ textarea {
 	border-radius: 1in;
 }
 #stickerTB {
-	width: 0.2in;
-	height: 0.2in;
+	width: 20px;
+	height: 20px;
 	cursor: pointer;
 	flex-shrink: 0;
 	margin-left: 8px;
 }
 #emojiTB {
-	width: 0.2in;
-	height: 0.2in;
+	width: 20px;
+	height: 20px;
 	cursor: pointer;
 	flex-shrink: 0;
 	margin-left: 8px;
 }
 #gifTB {
-	width: 0.2in;
-	height: 0.2in;
+	width: 20px;
+	height: 20px;
 	cursor: pointer;
 	flex-shrink: 0;
-	mask-size: 0.2in 0.2in;
 }
 .selectarrow {
 	position: absolute;
@@ -2977,6 +2977,7 @@ img.authorEmbedImg {
 }
 img.bigembedimg {
 	margin-top: 8px;
+	height: auto !important
 	border-radius: 4px;
 	cursor: pointer;
 }
@@ -4225,11 +4226,11 @@ fieldset input[type="radio"] {
 	}
 	#searchX {
 		position: absolute;
-		width: 20px;
-		height: 20px;
+		width: 19px;
+		height: 19px;
 		margin: 0;
 		cursor: pointer;
-		top: 6px;
+		top: 7px;
 		right: 2px;
 		transition: height 0.2s;
 	}
@@ -4292,8 +4293,11 @@ fieldset input[type="radio"] {
 		padding: 12px;
 		cursor: pointer;
 	}
+	#pinnedMDiv {
+		margin-right: 4px;
+	}
 	#memberlisttoggleicon {
-		padding: 6px;
+		padding: 12px;
 	}
 	#maintoggleicon span {
 		height: 24px;
