@@ -121,6 +121,10 @@
 	--primary-text-prominent: #23436f;
 	--red: #dd417c;
 	--button-text: #23436f;
+
+	.searchBox, .forumHead {
+		background: var(--channel-selected);
+	}
 }
 
 .Dark-Accent-theme {
