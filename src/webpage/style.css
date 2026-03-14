@@ -3831,7 +3831,7 @@ fieldset input[type="radio"] {
 	border-radius: 0.04in;
 	.SettingsButton {
 		width: auto;
-		border-radius: 3px 3px 1px 1px;
+		border-radius: 4px 4px 0 0;
 	}
 }
 .reportMenu {
@@ -3900,6 +3900,7 @@ fieldset input[type="radio"] {
 .SettingsButton {
 	width: 100%;
 	padding: 8px 12px;
+	margin-bottom: 2px;
 	background: transparent;
 	color: var(--primary-text-soft);
 	border: none;
@@ -3907,19 +3908,21 @@ fieldset input[type="radio"] {
 	position: relative;
 }
 .infosection {
-	.activeSetting {
-		border-bottom: white solid 1px;
+	.SettingsButton, .SettingsButton:active {
+		margin-bottom: 0;
+		border-bottom: transparent solid 1px;
 	}
-}
-.activeSetting {
-	background: var(--secondary-hover);
+	.activeSetting {
+		border-bottom: var(--primary-text-prominent) solid 1px;
+	}
 }
 .SettingsButton:hover {
 	background: var(--settings-panel-hover);
 	color: var(--primary-text-prominent);
 }
-.activeSetting:hover {
-	background: color-mix(in srgb, var(--secondary-bg) 40%, transparent);
+.activeSetting, .activeSetting:hover {
+	background: var(--settings-panel-selected);
+	color: var(--primary-text-prominent);
 }
 .addrole {
 	height: 1em;
