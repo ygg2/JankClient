@@ -773,7 +773,6 @@ textarea {
 }
 :focus-visible {
 	outline: 2px solid var(--focus);
-	outline-offset: 0;
 }
 #typebox:focus-visible {
 	outline: none;
@@ -4061,7 +4060,6 @@ fieldset input[type="radio"] {
 .FormSettings > button {
 	margin: 16px 16px 0 16px;
 	word-break: break-word;
-	overflow: hidden;
 	flex-shrink: 0;
 }
 .permbox {
