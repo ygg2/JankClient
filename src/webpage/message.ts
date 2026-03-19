@@ -498,22 +498,31 @@ class Message extends SnowFlake {
 			this,
 			undefined,
 			(x) => {
-				//console.log(x,y);
+				//console.log(x);
+				if (x < -20) {
+					obj.style.translate = x + 20 + "px 0px";
+				} else obj.style.translate = 0 + "px";
+
 				if (!drag && x < 20) {
 					return;
 				}
+
 				drag = true;
 				this.channel.moveForDrag(Math.max(x, 0));
 			},
 			(x, y) => {
 				drag = false;
 				console.log(x, y);
+				obj.style.translate = 0 + "px";
 				this.channel.moveForDrag(-1);
 				if (x > 60) {
 					console.log("In here?");
 					const toggle = document.getElementById("maintoggle") as HTMLInputElement;
 					toggle.checked = false;
 					console.log(toggle);
+				}
+				if (x < -40) {
+					this.channel.setReplying(this);
 				}
 			},
 		);
@@ -834,6 +843,9 @@ class Message extends SnowFlake {
 			div.appendChild(replyline);
 		}
 		div.appendChild(build);
+		const text = document.createElement("div");
+		text.classList.add("commentrow", "flexttb");
+
 		const messageTypes = new Set([0, 19, 20]);
 		if (messageTypes.has(this.type) || this.attachments.length !== 0) {
 			const pfpRow = document.createElement("div");
@@ -856,8 +868,7 @@ class Message extends SnowFlake {
 			}
 			pfpRow.classList.add("pfprow");
 			build.appendChild(pfpRow);
-			const text = document.createElement("div");
-			text.classList.add("commentrow", "flexttb");
+
 			if (combine) {
 				const username = document.createElement("span");
 				username.classList.add("username", "ellipsis");
@@ -973,12 +984,12 @@ class Message extends SnowFlake {
 						edit.textContent = I18n.message.edited();
 						const hover = new Hover(new Date(this.edited_timestamp).toString());
 						hover.addEvent(edit);
-						messagedwrap.append(edit);
+						messaged.append(edit);
 					}
 				}
 			}
 			text.appendChild(messagedwrap);
-			build.appendChild(text);
+
 			if (this.attachments.length) {
 				const attach = document.createElement("div");
 				attach.classList.add("flexltr", "attachments");
@@ -1119,6 +1130,7 @@ class Message extends SnowFlake {
 			text.append(time);
 			div.classList.add("topMessage");
 		}
+		build.appendChild(text);
 		const stickerArea = document.createElement("div");
 		stickerArea.classList.add("flexltr", "stickerMArea");
 		for (const sticker of this.stickers) {
@@ -1129,12 +1141,12 @@ class Message extends SnowFlake {
 			if (this.components && this.components.components.length) {
 				const cdiv = this.components.getHTML();
 				cdiv.classList.add("messageComps");
-				div.append(cdiv);
+				text.append(cdiv);
 
 				const ndiv = document.createElement("div");
 				ndiv.classList.add("compAppStatus");
 				this.interactionDiv = ndiv;
-				div.append(ndiv);
+				text.append(ndiv);
 			}
 			const reactions = document.createElement("div");
 			reactions.classList.add("flexltr", "reactiondiv");
