@@ -24,7 +24,7 @@ import {
 import {MarkDown, saveCaretPosition} from "./markdown.js";
 import {Member} from "./member.js";
 import {Voice} from "./voice.js";
-import {User} from "./user.js";
+import {User, userVolMenu} from "./user.js";
 import {I18n} from "./i18n.js";
 import {mobile, createImg, safeImg} from "./utils/utils.js";
 import {webhookMenu} from "./webhooks.js";
@@ -796,7 +796,7 @@ class Channel extends SnowFlake {
 		}
 		if (this.pinnedMessages.length === 0) {
 			const b = document.createElement("b");
-			b.classList.add('noPins');
+			b.classList.add("noPins");
 			b.textContent = I18n.noPins();
 			div.append(b);
 			return;
@@ -1155,6 +1155,9 @@ class Channel extends SnowFlake {
 	}
 	async setUpVoice() {
 		if (!this.voice) return;
+		this.voice.onUserVol = (u) => {
+			u.volume = this.localuser.getUserAudio(u.id) / 100;
+		};
 		this.voice.onMemberChange = async (memb, joined) => {
 			console.log(memb, joined);
 			if (typeof memb !== "string") {
@@ -1172,7 +1175,7 @@ class Channel extends SnowFlake {
 			}
 
 			this.updateVoiceUsers();
-			if (this.voice === this.localuser.currentVoice) {
+			if (this.voice === this.localuser.currentVoice && this.voice?.open) {
 				this.localuser.play?.play("join", this.localuser.getNotiVolume());
 			}
 		};
@@ -1192,7 +1195,8 @@ class Channel extends SnowFlake {
 			console.log("tray! :3");
 			if (tray && tray.parentElement) {
 				const parent = tray.parentElement;
-				const pfp = Array.from(parent.children)[0];
+				const pfp = parent.children[0].getElementsByClassName("pfp")[0];
+				if (!pfp) return;
 				if (speaking) {
 					pfp.classList.add("speaking");
 				} else {
@@ -1226,6 +1230,7 @@ class Channel extends SnowFlake {
 				return [];
 			}
 			const div = document.createElement("div");
+			userVolMenu.bindContextmenu(div, this.localuser, member.id);
 			div.classList.add("voiceuser", "flexltr");
 			const span = document.createElement("span");
 			span.textContent = member.name;
@@ -1702,6 +1707,7 @@ class Channel extends SnowFlake {
 	async makeUserBox(user: User, users: HTMLElement) {
 		const memb = Member.resolveMember(user, this.guild);
 		const box = document.createElement("div");
+		userVolMenu.bindContextmenu(box, this.localuser, user.id);
 		box.onclick = () => {
 			this.makeBig(box);
 		};
@@ -1760,6 +1766,35 @@ class Channel extends SnowFlake {
 			this.localuser.updateMic();
 		};
 		mute.classList.add("muteVoiceIcon");
+
+		const muteOpt = document.createElement("div");
+		muteOpt.classList.add("muteOptDiv");
+		const mOptSpan = document.createElement("span");
+		mOptSpan.classList.add("svg-category");
+		muteOpt.append(mOptSpan);
+		mute.append(muteOpt);
+		muteOpt.onclick = async (e) => {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			const menu = new Contextmenu<void, void>("");
+			const mics = await this.localuser.getAudioDeviceList();
+			for (const mic of mics) {
+				menu.addButton(
+					mic.label,
+					() => {
+						this.localuser.setNewDefualtDevice(mic.deviceId);
+					},
+					{
+						icon: {
+							css:
+								mic.deviceId === this.localuser.getDefaultAudio() ? "svg-select" : "svg-noSelect",
+						},
+					},
+				);
+			}
+			const box = muteOpt.getBoundingClientRect();
+			menu.makemenu(box.left, box.top - 34 - window.innerHeight);
+		};
 
 		const updateCallIcon = () => {
 			cspan.classList.remove("svg-call", "svg-hangup");
@@ -2605,7 +2640,7 @@ class Channel extends SnowFlake {
 
 		const voiceArea = document.getElementById("voiceArea") as HTMLElement;
 		voiceArea.innerHTML = "";
-		if (getMessages) {
+		if (getMessages && this.type !== 2) {
 			chatArea.style.removeProperty("display");
 		} else {
 			if (this.voiceMode === "VoiceOnly") {
@@ -2615,6 +2650,7 @@ class Channel extends SnowFlake {
 				getMessages = true;
 			}
 			this.setUpVoiceArea();
+			this.localuser.memberListUpdate();
 		}
 
 		const pinnedM = document.getElementById("pinnedMDiv");

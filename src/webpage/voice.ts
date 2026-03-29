@@ -8,6 +8,9 @@ import {
 	webRTCSocket,
 } from "./jsontypes.js";
 function forceVideo(video: HTMLVideoElement) {
+	video.controls = false;
+	//TODO loading?
+	video.classList.add("media-engine-video");
 	video.addEventListener("pause", () => {
 		video.play();
 	});
@@ -57,45 +60,48 @@ class VoiceFactory {
 	set mute(s) {
 		const changed = this.imute !== s;
 		this.imute = s;
+		this.sendVoiceStateIfNeeded();
 		if (this.currentVoice && changed) {
 			this.currentVoice.updateMute();
-			this.updateSelf();
 		}
 	}
 	disconect() {
 		if (!this.curChan) return;
 		this.curChan = null;
 		this.curGuild = null;
-		this.handleGateway({
+		this.sendVoiceState();
+	}
+
+	updateSelf() {
+		if (this.currentVoice && this.currentVoice.open) {
+			this.sendVoiceState();
+		}
+	}
+	curGuild: string | null = null;
+	curChan: string | null = null;
+	lastSentState = "";
+	sendVoiceStateIfNeeded() {
+		const state = this.calcState;
+		if (JSON.stringify(state) !== this.lastSentState) this.sendVoiceState();
+	}
+	get calcState() {
+		return {
 			op: 4,
 			d: {
 				guild_id: this.curGuild,
 				channel_id: this.curChan,
 				self_mute: this.imute,
 				self_deaf: false,
-				self_video: false,
+				self_video: (this.curGuild ?? false) && this.video,
 				flags: 3,
 			},
-		});
+		} as const;
 	}
-
-	updateSelf() {
-		if (this.currentVoice && this.currentVoice.open) {
-			this.handleGateway({
-				op: 4,
-				d: {
-					guild_id: this.curGuild,
-					channel_id: this.curChan,
-					self_mute: this.imute,
-					self_deaf: false,
-					self_video: this.video,
-					flags: 3,
-				},
-			});
-		}
+	sendVoiceState() {
+		const send = this.calcState;
+		this.lastSentState = JSON.stringify(send);
+		this.handleGateway(send);
 	}
-	curGuild: string | null = null;
-	curChan: string | null = null;
 	joinVoice(channelId: string, guildId: string, self_mute = false) {
 		const voice = this.voiceChannels.get(channelId);
 		this.mute = self_mute;
@@ -108,17 +114,8 @@ class VoiceFactory {
 		voice.join();
 		this.currentVoice = voice;
 		this.onJoin(voice);
-		return {
-			d: {
-				guild_id: guildId,
-				channel_id: channelId,
-				self_mute,
-				self_deaf: false, //todo
-				self_video: false,
-				flags: 2, //?????
-			},
-			op: 4,
-		};
+		this.sendVoiceState();
+		return voice;
 	}
 	leaveLive() {
 		const userid = this.settings.id;
@@ -296,6 +293,28 @@ export type voiceStatusStr =
 	| "wsOpen"
 	| "wsAuth"
 	| "left";
+class UserVolume {
+	gain!: GainNode;
+	id: string;
+	set volume(vol: number) {
+		this.gain.gain.value = vol;
+	}
+	constructor(media: MediaStream, id: string) {
+		this.startAudio(media);
+		this.id = id;
+	}
+	async startAudio(media: MediaStream) {
+		const context = new AudioContext();
+		this.gain = context.createGain();
+		console.log(context);
+		await context.resume();
+		const ss = context.createMediaStreamSource(media);
+		console.log(media, ss);
+		new Audio().srcObject = media; //weird I know, but it's for chromium/webkit bug
+		ss.connect(this.gain);
+		this.gain.connect(context.destination);
+	}
+}
 class Voice {
 	private pstatus: voiceStatusStr = "notconnected";
 	public onSatusChange: (e: voiceStatusStr) => unknown = () => {};
@@ -745,14 +764,16 @@ a=rtcp-mux\r`;
 		}
 		return {video_ssrc, rtx_ssrc};
 	}
-	async makeOp12(
-		sender: RTCRtpSender | undefined | [RTCRtpSender, number] = this.ssrcMap.entries().next().value,
-	) {
+	async makeOp12(sender: RTCRtpSender | undefined | [RTCRtpSender, number] = this.mic?.sender) {
+		//debugger;
+		//await new Promise((res) => setTimeout(res, 500));
+		this.owner.sendVoiceStateIfNeeded();
 		console.warn("making 12?");
 		if (!this.ws) return;
 		if (sender instanceof Array) {
 			sender = sender[0];
 		}
+		//console.trace(sender === this.mic?.sender);
 
 		let max_framerate = 20;
 		let width = 1280;
@@ -766,12 +787,40 @@ a=rtcp-mux\r`;
 		console.log(this.ssrcMap);
 		try {
 			console.error("start 12");
+			if (!video_ssrc)
+				this.ws.send(
+					JSON.stringify({
+						op: 12,
+						d: {
+							audio_ssrc: 0,
+							video_ssrc: 0,
+							rtx_ssrc: 0,
+							streams: [
+								{
+									type: "video",
+									rid: "100",
+									ssrc: video_ssrc,
+									active: !!video_ssrc,
+									quality: 100,
+									rtx_ssrc: rtx_ssrc,
+									max_bitrate: 2500000, //TODO
+									max_framerate, //TODO
+									max_resolution: {type: "fixed", width, height},
+								},
+							],
+						},
+					}),
+				);
 			this.ws.send(
 				JSON.stringify({
 					op: 12,
 					d: {
 						audio_ssrc:
-							sender?.track?.kind === "audio" ? this.ssrcMap.get(sender as RTCRtpSender) : 0,
+							sender?.track?.kind === "audio"
+								? this.owner.mute
+									? 0
+									: this.ssrcMap.get(sender as RTCRtpSender)
+								: 0,
 						video_ssrc,
 						rtx_ssrc,
 						streams: [
@@ -796,26 +845,48 @@ a=rtcp-mux\r`;
 			console.error(e);
 		}
 	}
+	micContext = new AudioContext();
+	streamDest?: MediaStreamAudioDestinationNode;
+	micNode = this.micContext.createGain();
+	makeMicOuts() {
+		//if (this.streamDest) this.streamDest.disconnect(this.micNode);
+		this.streamDest = this.micContext.createMediaStreamDestination();
+		this.micNode.gain.setValueAtTime(1, this.micContext.currentTime);
+
+		if (!this.owner.mute) this.micNode.connect(this.streamDest);
+
+		return this.streamDest.stream;
+	}
+	async giveMicTrack(stream: MediaStream) {
+		/*
+		const audioStream = await ;
+
+		*/
+		if (this.micTrack) this.micTrack.stop();
+		this.micContext.resume();
+		const microphone = this.micContext.createMediaStreamSource(stream);
+		microphone.connect(this.micNode);
+		const [track] = stream.getAudioTracks();
+		this.micTrack = track;
+		track.enabled = true;
+	}
 	senders: Set<RTCRtpSender> = new Set();
 	recivers = new Set<RTCRtpReceiver>();
 	ssrcMap: Map<RTCRtpSender, number> = new Map();
 	speaking = false;
-	async setupMic(audioStream: MediaStream) {
-		const audioContext = new AudioContext();
-		const analyser = audioContext.createAnalyser();
-		const microphone = audioContext.createMediaStreamSource(audioStream);
-
+	async setupMic() {
+		const analyser = this.micContext.createAnalyser();
 		analyser.smoothingTimeConstant = 0;
 		analyser.fftSize = 32;
 
-		microphone.connect(analyser);
+		this.micNode.connect(analyser);
 		const array = new Float32Array(1);
 		const interval = setInterval(() => {
 			if (!this.ws) {
 				clearInterval(interval);
 			}
-			analyser.getFloatFrequencyData(array);
-			const value = array[0] + 65;
+			if (!this.owner.mute) analyser.getFloatFrequencyData(array);
+			const value = this.owner.mute ? -Infinity : array[0] + 65;
 			if (value < 0) {
 				if (this.speaking) {
 					this.speaking = false;
@@ -882,10 +953,15 @@ a=rtcp-mux\r`;
 		console.log(this.reciverMap);
 	}
 	updateMute() {
-		if (!this.micTrack) return;
-		this.micTrack.enabled = !this.owner.mute;
+		if (this.owner.mute) {
+			if (this.streamDest) this.micNode.disconnect(this.streamDest);
+		} else {
+			if (this.streamDest) this.micNode.connect(this.streamDest);
+		}
+		//this.pc?.setLocalDescription();
+		this.makeOp12();
 	}
-	mic?: RTCRtpSender;
+	mic?: RTCRtpTransceiver;
 	micTrack?: MediaStreamTrack;
 	onVideo = (_video: HTMLVideoElement, _id: string) => {};
 	videos = new Map<string, HTMLVideoElement>();
@@ -978,14 +1054,15 @@ a=rtcp-mux\r`;
 
 		console.warn("replaced track", cam);
 		this.pc?.setLocalDescription((await this.pc?.createOffer()) || {});
+		this.owner.updateSelf();
 		if (this.settings.stream) {
 			this.makeOp12();
-		} else {
-			this.owner.updateSelf();
 		}
 	}
 	onconnect = () => {};
 	streams = new Set<MediaStreamTrack>();
+	uVolMap = new Map<string, UserVolume>();
+	onUserVol: (uv: UserVolume) => unknown = () => {};
 	async startWebRTC() {
 		this.status = "makingOffer";
 		const pc = new RTCPeerConnection({
@@ -1016,8 +1093,15 @@ a=rtcp-mux\r`;
 				console.log(video);
 
 				video.autoplay = true;
+				const settings = e.track.getConstraints();
 
-				console.log("gotVideo?", media);
+				console.log("gotVideo?", media, settings);
+				settings.height = 300;
+				settings.width = 300;
+				e.track.applyConstraints(settings);
+				//e.track
+
+				//if ("resizeMode" in settings)
 				return;
 			}
 
@@ -1025,27 +1109,21 @@ a=rtcp-mux\r`;
 			for (const track of media.getTracks()) {
 				console.log(track);
 			}
+			const a = new UserVolume(media, userId);
+			this.uVolMap.set(userId, a);
+			this.onUserVol(a);
 
-			const context = new AudioContext();
-			console.log(context);
-			await context.resume();
-			const ss = context.createMediaStreamSource(media);
-			console.log(media, ss);
-			new Audio().srcObject = media; //weird I know, but it's for chromium/webkit bug
-			ss.connect(context.destination);
 			this.recivers.add(e.receiver);
 			console.log(this.recivers);
 		};
 		if (!this.settings.stream) {
-			const audioStream = await navigator.mediaDevices.getUserMedia({video: false, audio: true});
-			const [track] = audioStream.getAudioTracks();
-			this.setupMic(audioStream);
-			const sender = pc.addTrack(track);
+			const outStream = this.makeMicOuts();
+			/*
 
+			*/
+			const sender = pc.addTransceiver(outStream.getTracks()[0]);
 			this.mic = sender;
-			this.micTrack = track;
-			track.enabled = !this.owner.mute;
-			this.senders.add(sender);
+			this.senders.add(sender.sender);
 			console.log(sender);
 		} else {
 			pc.addTransceiver("audio", {
@@ -1078,7 +1156,6 @@ a=rtcp-mux\r`;
 				],
 			});
 			await this.startVideo(this.settings.live);
-			this.makeOp12();
 		} else {
 			for (let i = 0; i < count; i++) {
 				pc.addTransceiver("video", {
@@ -1088,8 +1165,10 @@ a=rtcp-mux\r`;
 				});
 			}
 		}
+		//this.makeOp12();
 
 		this.pc = pc;
+		await this.makeOp12(this.mic?.sender);
 		this.negotationneeded();
 		await new Promise((res) => setTimeout(res, 100));
 		let sdp = this.offer;
@@ -1319,6 +1398,7 @@ a=rtcp-mux\r`;
 			((this.owner.secure ? "wss://" : "ws://") + this.urlobj.url) as string,
 		);
 		this.ws = ws;
+		this.setupMic();
 		ws.onclose = () => {
 			this.leave();
 		};
