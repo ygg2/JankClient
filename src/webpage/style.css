@@ -2654,7 +2654,6 @@ span.instanceStatus {
 	bottom: 1px;
 }
 .bot {
-	flex: none;
 	padding: 2px 5px;
 	margin-left: 4px;
 	background: color-mix(in srgb, var(--accent-color) 75%, transparent) !important;
