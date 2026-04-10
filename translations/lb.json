@@ -240,7 +240,7 @@
 		"status": "Status",
 		"trace": "Spueren",
 		"updateSettings": "Astellungen aktualiséieren",
-		"userSettings": "Benotzerastellungen"
+		"userSettings": "Äert ëffentlecht Profil"
 	},
 	"login": {
 		"login": "Aloggen",
@@ -332,6 +332,7 @@
 		},
 		"delete": "Roll läschen",
 		"deleting": "Roll gëtt geläscht …",
+		"displaySettings": "Affichageastellungen",
 		"perms": "Berechtegungen",
 		"roles": "Rollen"
 	},

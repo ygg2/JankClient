@@ -42,7 +42,7 @@ body {
 	user-select: none;
 	cursor: pointer;
 
-	.pfp {
+	.pfpDiv {
 		width: 0.5in !important;
 		height: 0.5in !important;
 		margin-right: 0.15in !important;
@@ -101,7 +101,7 @@ body {
 	margin-bottom: 6px;
 	border-radius: 10px;
 	cursor: pointer;
-	img {
+	.pfpDiv {
 		width: 48px;
 		height: 48px;
 	}
@@ -260,12 +260,9 @@ body {
 	margin-right: 4px;
 }
 .reactionUserList {
-	div {
-		margin: 3px;
-		.pfp {
-			width: 32px;
-			height: 32px;
-		}
+	.pfpDiv {
+		width: 32px;
+		height: 32px;
 	}
 	border-left: solid var(--secondary-bg) 2px;
 	padding-left: 6px;
@@ -1775,12 +1772,11 @@ span.instanceStatus {
 	user-select: none;
 }
 .servericon,
-#sentdms .pfp {
+#sentdms .pfpDiv {
 	height: 48px;
 	width: 48px;
 	margin-bottom: 8px;
 	border-radius: 50%;
-	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -4361,7 +4357,7 @@ fieldset input[type="radio"] {
 	.pfprow {
 		width: 32px;
 	}
-	.pfprow .pfpDiv, .pfprow .pfp {
+	.pfprow .pfpDiv {
 		height: 32px;
 		width: 32px;
 	}
@@ -4852,7 +4848,7 @@ img.error::after {
 		padding: 6px;
 		display: flex;
 		align-items: center;
-		img {
+		.pfpDiv {
 			margin-right: 12px;
 			width: 40px;
 			height: 40px;
