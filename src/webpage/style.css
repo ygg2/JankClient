@@ -3145,8 +3145,7 @@ img.bigembedimg {
 	background: var(--secondary-bg);
 	border-radius: 4px;
 	box-shadow: 0 0 8px var(--shadow);
-	z-index: 102;
-
+	z-index: 300;
 	animation-duration: 0.2s;
 	animation-name: context-fade-in;
 	animation-timing-function: ease-out;
