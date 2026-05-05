@@ -3512,7 +3512,7 @@ ul {
 .emojiBody {
 	flex: 1;
 	padding: 6px;
-	background: var(--card-bg);
+	background: var(--primary-bg);
 	border-radius: 8px;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
@@ -3522,7 +3522,7 @@ ul {
 .stickerBody {
 	flex: 1;
 	padding: 8px;
-	background: var(--card-bg);
+	background: var(--primary-bg);
 	border-radius: 8px;
 	display: flex;
 	overflow-y: auto;
