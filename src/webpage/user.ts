@@ -308,6 +308,9 @@ class User extends SnowFlake {
 		await relChange;
 	}
 	static setUpContextMenu(): void {
+		this.contextmenu.addGroup("dm");
+		this.contextmenu.addSeperator();
+
 		this.contextmenu.addButton(
 			() => I18n.user.message(),
 			function (this: User) {
@@ -317,6 +320,7 @@ class User extends SnowFlake {
 				icon: {
 					css: "svg-frmessage",
 				},
+				group: "dmPerson",
 			},
 		);
 
@@ -578,6 +582,7 @@ class User extends SnowFlake {
 				navigator.clipboard.writeText(this.id);
 			},
 		);
+		this.contextmenu.addGroup("id");
 
 		this.contextmenu.addSeperator();
 
