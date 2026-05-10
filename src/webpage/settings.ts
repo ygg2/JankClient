@@ -137,17 +137,19 @@ class TextInput implements OptionsElement<string> {
 	value: string;
 	input!: WeakRef<HTMLInputElement>;
 	password: boolean;
+	spaceReplace: string;
 	constructor(
 		label: string,
 		onSubmit: (str: string) => void,
 		owner: Options,
-		{initText = "", password = false} = {},
+		{initText = "", password = false, spaceReplace = " "} = {},
 	) {
 		this.label = label;
 		this.value = initText;
 		this.owner = owner;
 		this.onSubmit = onSubmit;
 		this.password = password;
+		this.spaceReplace = spaceReplace;
 	}
 	generateHTML(): HTMLDivElement {
 		const div = document.createElement("div");
@@ -158,6 +160,11 @@ class TextInput implements OptionsElement<string> {
 		input.value = this.value;
 		input.type = this.password ? "password" : "text";
 		input.oninput = this.onChange.bind(this);
+		input.onkeyup = () => {
+			let textValue = input.value;
+			textValue = textValue.replace(/ /g, this.spaceReplace);
+			input.value = textValue;
+		};
 		this.input = new WeakRef(input);
 		div.append(input);
 		return div;
@@ -1197,11 +1204,12 @@ class Options implements OptionsElement<void> {
 	addTextInput(
 		label: string,
 		onSubmit: (str: string) => void,
-		{initText = "", password = false} = {},
+		{initText = "", password = false, spaceReplace = " "} = {},
 	) {
 		const textInput = new TextInput(label, onSubmit, this, {
 			initText,
 			password,
+			spaceReplace,
 		});
 		this.options.push(textInput);
 		this.generate(textInput);
@@ -1808,11 +1816,12 @@ class Form implements OptionsElement<object> {
 	addTextInput(
 		label: string,
 		formName: string,
-		{initText = "", required = false, password = false} = {},
+		{initText = "", required = false, password = false, spaceReplace = " "} = {},
 	) {
 		const textInput = this.options.addTextInput(label, (_) => {}, {
 			initText,
 			password,
+			spaceReplace,
 		});
 		this.names.set(formName, textInput);
 		if (required) {
