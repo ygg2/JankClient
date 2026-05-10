@@ -391,8 +391,6 @@
 	"htmlPages": {
 		"addBot": "Add to guild",
 		"alreadyHave": "Already have an account?",
-		"box1Items": "Direct Messaging|Reactions support|Invites|Account switching|User settings|Developer portal|Bot invites|Translation support",
-		"box1title": "Fermi is a Harmony-compatible client seeking to be as good as it can be with many features including:",
 		"box3description": "We always appreciate some help, whether that be in the form of bug reports, or code, or even just pointing out some typos.",
 		"box3title": "Contribute to Fermi",
 		"compatableInstances": "Harmony-compatible instances:",
@@ -405,7 +403,6 @@
 		"loadingText": "Fermi is loading",
 		"loginButton": "Login",
 		"noAccount": "Don't have an account?",
-		"openClient": "Open client",
 		"pw2Field": "Enter password again:",
 		"pwField": "Password:",
 		"switchaccounts": "Switch accounts",

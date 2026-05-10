@@ -7,18 +7,7 @@ if (window.location.pathname === "/" || window.location.pathname.startsWith("/in
 
 	(async () => {
 		await I18n.done;
-		const box1Items = document.getElementById("box1Items");
 		I18n.translatePage();
-
-		if (box1Items) {
-			const items = I18n.htmlPages.box1Items().split("|");
-			let i = 0;
-			//@ts-ignore ts is being dumb here
-			for (const item of box1Items.children) {
-				(item as HTMLElement).textContent = items[i];
-				i++;
-			}
-		}
 	})();
 	const recent = document.getElementById("recentBlog");
 	if (recent) {
@@ -194,5 +183,9 @@ if (window.location.pathname === "/" || window.location.pathname.startsWith("/in
 			index = (index + 1) % images.length;
 			slideShow();
 		};
+	}
+	const joinButton = document.getElementById("jumpIn");
+	if (joinButton) {
+		joinButton.onclick = () => (window.location.href = "/channels/@me");
 	}
 }
