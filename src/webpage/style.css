@@ -1133,7 +1133,16 @@ textarea {
 	mask: url(./icons/addfriend.svg);
 	mask-size: contain !important;
 }
-
+.svg-waitfriend {
+	mask: url(./icons/waitfriend.svg);
+	mask-size: contain !important;
+	opacity: 0.6;
+}
+.svg-hasfriend {
+	mask: url(./icons/hasfriend.svg);
+	mask-size: contain !important;
+	opacity: 0.6;
+}
 .svg-channelnsfw {
 	mask: url(./icons/channelnsfw.svg);
 	mask-size: contain !important;
@@ -1159,6 +1168,17 @@ textarea {
 	&[hidden] {
 		display: none;
 	}
+}
+.friendProf {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	background: #0000009e;
+	padding: 6px;
+	border-radius: 100%;
+	cursor: pointer;
 }
 .forumIcon {
 	width: 28px;
