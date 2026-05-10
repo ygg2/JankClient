@@ -1593,7 +1593,7 @@ class User extends SnowFlake {
 				} else if (this.relationshipType === 4) {
 					//nothing
 				} else {
-					await this.changeRelationship(4);
+					//also nothing
 				}
 			};
 		}
