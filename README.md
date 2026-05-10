@@ -11,7 +11,7 @@ Both [Bun](https://bun.sh) and [Node.js](https://nodejs.org) are supported, and 
 
 To access Fermi after starting, simply go to http://localhost:8080/login and either register a new account, or log in with your email and password.
 
-If there are any issues please report them either here, or to me dirrectly on spacebar
+If there are any issues please report them either here, or to me dirrectly on Harmony
 ## Adding instances to the dropdown
 Please see [this](https://github.com/MathMan05/Fermi/blob/main/InstanceInfo.md) for how to add an instance to the dropdown picker.
 ## How to statically host Fermi
@@ -22,7 +22,7 @@ You can view the current roadmap on https://github.com/users/MathMan05/projects/
 AI code due to not being GPLv3 compatable is not allowed in this repo. I thought this didn't need to be said, but it does.
 And to be clear, *any* use of AI is not allowed in Fermi.
 ## Link
-The official Spacebar server for Fermi: https://redir.fermi.chat/invite
+The official Harmony server for Fermi: https://redir.fermi.chat/invite
 
 The current hosted instance of Fermi: https://fermi.chat/
 
