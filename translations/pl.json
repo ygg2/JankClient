@@ -326,8 +326,6 @@
 	"htmlPages": {
 		"addBot": "Dodaj do gildii",
 		"alreadyHave": "Posiadasz już konto?",
-		"box1Items": "Wiadomości|Obsługa reakcji|Zaproszenia|Zmiana kont|Ustawienia użytkownika|Portal programisty|Zaproszenia botów|Obsługa tłumaczeń",
-		"box1title": "Fermi to klient kompatybilny z Spacebar, który stara się być tak dobry, jak to tylko możliwe, oferując wiele funkcji, w tym:",
 		"box3description": "Zawsze doceniamy pomoc, niezależnie czy jest ona w postaci zgłoszeń błędów, kodu, czy nawet wskazania literówek.",
 		"box3title": "Współtwórz Fermi",
 		"compatableInstances": "Instancje kompatybilne z Spacebarem:",
@@ -340,7 +338,6 @@
 		"loadingText": "Fermi się ładuje",
 		"loginButton": "Zaloguj się",
 		"noAccount": "Nie masz konta?",
-		"openClient": "Otwórz klient",
 		"pw2Field": "Wprowadź hasło ponownie:",
 		"pwField": "Hasło:",
 		"switchaccounts": "Przełącz konta",

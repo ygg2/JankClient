@@ -393,8 +393,6 @@
 	"htmlPages": {
 		"addBot": "Toevoegen aan gilde",
 		"alreadyHave": "Heeft u al een account?",
-		"box1Items": "Directe berichten|Ondersteuning voor reacties|Uitnodigingen|Van account wisselen|Gebruikersinstellingen|Ontwikkelaarsportaal|Robot-uitnodigingen|Ondersteuning voor vertaling",
-		"box1title": "Fermi is een Harmony-compatibele client die ernaar streeft om zo goed mogelijk te zijn met veel functies, waaronder:",
 		"box3description": "We stellen hulp altijd op prijs, of het nu gaat om het melden van bugs, het bijdragen van code of het verbeteren van typefouten.",
 		"box3title": "Aan Fermi bijdragen",
 		"compatableInstances": "Harmony-compatibele servers:",
@@ -407,7 +405,6 @@
 		"loadingText": "Fermi wordt geladen",
 		"loginButton": "Aanmelden",
 		"noAccount": "Nog geen account?",
-		"openClient": "Cliënt openen",
 		"pw2Field": "Voer het wachtwoord opnieuw in:",
 		"pwField": "Wachtwoord:",
 		"switchaccounts": "Van account wisselen",
@@ -923,7 +920,8 @@
 		"timeout": "Time-out voor lid",
 		"unTimeout": "Time-out voor lid verwijderen",
 		"unban": "$1 ontbannen",
-		"unblock": "Gebruiker deblokkeren"
+		"unblock": "Gebruiker deblokkeren",
+		"viewProfile": "Profiel bekijken"
 	},
 	"userping": {
 		"resolving": "gebruiken aan het opzoeken",

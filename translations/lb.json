@@ -387,7 +387,8 @@
 		"offline": "Offline",
 		"online": "Online",
 		"remove": "Benotzer ewechhuelen",
-		"unblock": "Benotzer entspären"
+		"unblock": "Benotzer entspären",
+		"viewProfile": "Profil weisen"
 	},
 	"vc": {
 		"joinstream": "Stream kucken"

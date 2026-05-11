@@ -160,8 +160,6 @@
 	"htmlPages": {
 		"addBot": "Kulübe ekle",
 		"alreadyHave": "Zaten bir hesabınız var mı?",
-		"box1Items": "Doğrudan Mesajlaşma|Tepkiler desteği|Davetler|Hesap değiştirme|Kullanıcı ayarları|Geliştirici portalı|Bot davetleri|Çeviri desteği",
-		"box1title": "Jank Client, birçok özellikle mümkün olduğunca iyi olmaya çalışan bir Spacebar uyumlu istemcidir, bunlar arasında:",
 		"box3description": "Her zaman yardımı takdir ederiz, ister hata raporları, ister kod şeklinde olsun, hatta sadece bazı yazım hatalarını işaret etseniz bile.",
 		"box3title": "Jank Client'a Katkıda Bulunun",
 		"compatableInstances": "Spacebar Uyumlu Örnekler:",
@@ -174,7 +172,6 @@
 		"loadingText": "Jank Client yükleniyor",
 		"loginButton": "Giriş Yap",
 		"noAccount": "Hesabınız yok mu?",
-		"openClient": "İstemciyi Aç",
 		"pw2Field": "Parolayı tekrar girin:",
 		"pwField": "Parola:",
 		"switchaccounts": "Hesapları Değiştir",
