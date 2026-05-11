@@ -849,6 +849,8 @@ class MarkDown {
 					}
 
 					const timeElem = document.createElement("span");
+					timeElem.setAttribute("real", build.join(""));
+					timeElem.contentEditable = "false";
 					timeElem.classList.add("markdown-timestamp");
 					timeElem.textContent = time;
 					span.appendChild(timeElem);
