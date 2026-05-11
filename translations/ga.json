@@ -390,8 +390,6 @@
 	"htmlPages": {
 		"addBot": "Cuir leis an gild",
 		"alreadyHave": "An bhfuil cuntas agat cheana féin?",
-		"box1Items": "Teachtaireachtaí Díreacha|Tacaíocht imoibrithe|Cuirí|Athrú cuntais|Socruithe úsáideora|Tairseach forbróra|Cuirí bota|Tacaíocht aistriúcháin",
-		"box1title": "Is cliant atá comhoiriúnach le Harmony é Fermi atá ag iarraidh a bheith chomh maith agus is féidir le go leor gnéithe lena n-áirítear:",
 		"box3description": "Cuirimid fáilte i gcónaí roimh chabhair, bíodh sé sin i bhfoirm tuairiscí fabht, nó cód, nó fiú trí roinnt clóscríobh a thabhairt ar aird.",
 		"box3title": "Cuir le Fermi",
 		"compatableInstances": "Cásanna atá comhoiriúnach le Harmony:",
@@ -404,7 +402,6 @@
 		"loadingText": "Tá Fermi ag luchtú",
 		"loginButton": "Logáil Isteach",
 		"noAccount": "Nach bhfuil cuntas agat?",
-		"openClient": "Oscail cliant",
 		"pw2Field": "Cuir isteach an focal faire arís:",
 		"pwField": "Pasfhocal:",
 		"switchaccounts": "Athraigh cuntais",

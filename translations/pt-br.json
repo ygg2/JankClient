@@ -394,8 +394,6 @@
 	"htmlPages": {
 		"addBot": "Adicionar à guilda",
 		"alreadyHave": "Já tem uma conta?",
-		"box1Items": "Mensagens diretas|Suporte a reações|Convites|Troca de contas|Configurações de usuário|Portal do Desenvolvedor|Convites de bot|Suporte a traduções",
-		"box1title": "Fermi é um cliente compatível com o Spacebar que busca ser o melhor possível com muitas funções, incluindo:",
 		"box3description": "Nós sempre apreciamos ajuda, tanto denúncias de bugs ou código, e até apontando erros gramáticos.",
 		"box3title": "Contribua ao Fermi",
 		"compatableInstances": "Instâncias compatíveis com o Spacebar:",
@@ -408,7 +406,6 @@
 		"loadingText": "Fermi está carregando",
 		"loginButton": "Entrar",
 		"noAccount": "Não possui uma conta?",
-		"openClient": "Abrir Cliente",
 		"pw2Field": "Digite a senha novamente:",
 		"pwField": "Senha:",
 		"switchaccounts": "Trocar Contas",

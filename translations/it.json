@@ -362,7 +362,6 @@
 	"htmlPages": {
 		"addBot": "Aggiungi alla gilda",
 		"alreadyHave": "Hai già un'utenza?",
-		"box1title": "Fermi è un client compatibile con Harmony che punta a essere il migliore possibile grazie a numerose funzionalità, tra cui:",
 		"box3description": "Apprezziamo sempre un po' di aiuto, che si tratti di segnalazioni di bug, di codice o anche solo di segnalazioni di errori di battitura.",
 		"box3title": "Contribuisci a Fermi",
 		"compatableInstances": "Istanze compatibili con Harmony:",
@@ -375,7 +374,6 @@
 		"loadingText": "Fermi sta caricando",
 		"loginButton": "Accedi",
 		"noAccount": "Non hai un'utenza?",
-		"openClient": "Apri client",
 		"pw2Field": "Inserisci nuovamente la password:",
 		"pwField": "Password:",
 		"switchaccounts": "Cambia utenza",
@@ -664,7 +662,8 @@
 		"reportApp": "Segnala applicazione",
 		"editServerProfile": "Modifica il profilo della gilda",
 		"remove": "Rimuovi utente",
-		"unblock": "Sblocca utente"
+		"unblock": "Sblocca utente",
+		"viewProfile": "Visualizza profilo"
 	},
 	"userping": {
 		"unknown": "@utente-sconosciuto"
