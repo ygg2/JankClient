@@ -4,7 +4,14 @@ import {Contextmenu} from "./contextmenu.js";
 import {Localuser} from "./localuser.js";
 import {Guild} from "./guild.js";
 import {SnowFlake} from "./snowflake.js";
-import {highMemberJSON, presencejson, relationJson, userjson, webhookInfo} from "./jsontypes.js";
+import {
+	ConnectionJson,
+	highMemberJSON,
+	presencejson,
+	relationJson,
+	userjson,
+	webhookInfo,
+} from "./jsontypes.js";
 import {Role} from "./role.js";
 import {Search} from "./search.js";
 import {I18n} from "./i18n.js";
@@ -283,6 +290,7 @@ class User extends SnowFlake {
 		return;
 	}
 	async changeRelationship(type: 0 | 1 | 2 | 3 | 4 | 5) {
+		const relChange = this.localuser.relationChange(this.id);
 		if (type !== 0) {
 			await fetch(`${this.info.api}/users/@me/relationships/${this.id}`, {
 				method: "PUT",
@@ -297,9 +305,12 @@ class User extends SnowFlake {
 				headers: this.owner.headers,
 			});
 		}
-		this.relationshipType = type;
+		await relChange;
 	}
 	static setUpContextMenu(): void {
+		this.contextmenu.addGroup("dm");
+		this.contextmenu.addSeperator();
+
 		this.contextmenu.addButton(
 			() => I18n.user.message(),
 			function (this: User) {
@@ -309,6 +320,7 @@ class User extends SnowFlake {
 				icon: {
 					css: "svg-frmessage",
 				},
+				group: "dmPerson",
 			},
 		);
 
@@ -388,6 +400,12 @@ class User extends SnowFlake {
 				visible: function () {
 					return new Set([1, 2, 3, 4]).has(this.relationshipType);
 				},
+			},
+		);
+		this.contextmenu.addButton(
+			() => I18n.user.viewProfile(),
+			function (this: User, m, e) {
+				this.buildprofile(e.clientX, e.clientY, m, 100000);
 			},
 		);
 
@@ -570,6 +588,7 @@ class User extends SnowFlake {
 				navigator.clipboard.writeText(this.id);
 			},
 		);
+		this.contextmenu.addGroup("id");
 
 		this.contextmenu.addSeperator();
 
@@ -877,7 +896,7 @@ class User extends SnowFlake {
 		return has;
 	}
 	buildstatuspfp(guild: Guild | void | Member | null | Channel): HTMLDivElement {
-		const isChannel = !!(guild && "guild" in guild);
+		const isChannel = !!(guild && "guild" in guild && !(guild instanceof Member));
 		const div = this.buildpfp(isChannel ? guild.guild : guild);
 
 		const status = document.createElement("div");
@@ -1147,6 +1166,13 @@ class User extends SnowFlake {
 			this.nameChange();
 		}
 	}
+	static getLink(con: ConnectionJson): string | void {
+		switch (con.type) {
+			case "steam": {
+				return `https://steamcommunity.com/profiles/${con.external_id}`;
+			}
+		}
+	}
 	async fullProfile(guild: Guild | null | Member = null) {
 		console.log(guild);
 		const membres = (async () => {
@@ -1264,11 +1290,12 @@ class User extends SnowFlake {
 		const rule = document.createElement("hr");
 		userbody.appendChild(rule);
 		const float = new Float("");
+		const infoDiv = document.createElement("div");
+		infoDiv.classList.add("flexttb");
 		const buttons = float.options.addButtons("", {top: true, titles: false});
 		{
 			const info = buttons.add(I18n.profile.userInfo());
-			const infoDiv = document.createElement("div");
-			infoDiv.classList.add("flexttb");
+
 			infoDiv.append(I18n.profile.bio(), document.createElement("hr"));
 			const biohtml = this.bio.makeHTML();
 			infoDiv.appendChild(biohtml);
@@ -1401,6 +1428,46 @@ class User extends SnowFlake {
 				);
 				friends.addHTMLArea(div);
 			}
+			if (high.connected_accounts.length) {
+				const cons = await this.localuser.getConnections();
+
+				for (const con of high.connected_accounts) {
+					const conic = cons[con.type];
+					if (!conic) continue;
+					const conDiv = document.createElement("div");
+					conDiv.classList.add("flexltr", "conProfDiv");
+					const url = User.getLink(con);
+					if (url) {
+						MarkDown.safeLink(conDiv, url);
+						conDiv.style.cursor = "pointer";
+					}
+
+					if (conic.icon_url) {
+						const span = document.createElement("span");
+						span.classList.add("conImg", "svgicon", "conProfImg");
+						span.style.setProperty("mask", `url("${conic.icon_url}")`);
+						//span.alt = key;
+						conDiv.append(span);
+					} else {
+						conDiv.textContent = con.type.charAt(0).toUpperCase() + con.type.slice(1);
+					}
+
+					const nameDateBox = document.createElement("div");
+					nameDateBox.classList.add("flexttb");
+					const username = document.createElement("span");
+					username.textContent = con.name;
+					nameDateBox.append(username);
+					if (con.metadata && con.metadata.created_at) {
+						const len = document.createElement("span");
+						len.textContent = I18n.connections.since(
+							new Date(con.metadata.created_at).toDateString(),
+						);
+						nameDateBox.append(len);
+					}
+					conDiv.append(nameDateBox);
+					infoDiv.append(conDiv);
+				}
+			}
 		})();
 		return background;
 	}
@@ -1491,6 +1558,7 @@ class User extends SnowFlake {
 		})();
 		const pfp = this.buildstatuspfp(guild);
 		pfp.onclick = (e) => {
+			if (this.id.includes("clone")) return;
 			this.fullProfile(guild);
 			div.remove();
 			e.stopImmediatePropagation();
@@ -1502,6 +1570,44 @@ class User extends SnowFlake {
 		div.appendChild(userbody);
 		const usernamehtml = document.createElement("h2");
 		usernamehtml.textContent = this.username;
+
+		const friendDiv = document.createElement("div");
+		friendDiv.classList.add("friendProf");
+
+		const friendSpan = document.createElement("span");
+		friendSpan.classList.add("svgicon");
+		const updateIcon = () => {
+			friendSpan.classList.remove("svg-addfriend", "svg-waitfriend");
+			console.log(this.relationshipType);
+			if (this.relationshipType === 0 || this.relationshipType === 3) {
+				friendSpan.classList.add("svg-addfriend");
+			} else if (this.relationshipType === 4) {
+				friendSpan.classList.add("svg-waitfriend");
+			} else {
+				friendSpan.classList.add("svg-hasfriend");
+			}
+		};
+		if (this !== this.localuser.user && !this.bot) {
+			friendDiv.append(friendSpan);
+			div.append(friendDiv);
+			updateIcon();
+			const queForUpdates = async () => {
+				while (document.body.contains(friendDiv)) {
+					updateIcon();
+					await this.localuser.relationChange(this.id);
+				}
+			};
+			setTimeout(queForUpdates, 100);
+			friendDiv.onclick = async () => {
+				if (this.relationshipType === 0 || this.relationshipType === 3) {
+					await this.changeRelationship(1);
+				} else if (this.relationshipType === 4) {
+					//nothing
+				} else {
+					//also nothing
+				}
+			};
+		}
 
 		userbody.appendChild(usernamehtml);
 		if (this.bot) {

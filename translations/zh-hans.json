@@ -399,8 +399,6 @@
 	"htmlPages": {
 		"addBot": "添加到公会",
 		"alreadyHave": "已经拥有账号？",
-		"box1Items": "私信|反应支持|邀请|账号切换|用户设置|开发者门户|机器人邀请|翻译支持",
-		"box1title": "Fermi 是一款与 Spacebar 兼容的客户端，致力于尽所能提供多项功能，包括：",
 		"box3description": "我们始终感谢大家的帮助，无论是提交错误报告、代码，还是指出拼写错误。",
 		"box3title": "为 Fermi 做出贡献",
 		"compatableInstances": "Spacebar 相容实例：",
@@ -413,7 +411,6 @@
 		"loadingText": "Fermi 正在加载",
 		"loginButton": "登录",
 		"noAccount": "还没有账号？",
-		"openClient": "打开客户端",
 		"pw2Field": "再次输入密码：",
 		"pwField": "密码：",
 		"switchaccounts": "切换账号",

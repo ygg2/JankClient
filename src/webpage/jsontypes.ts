@@ -440,6 +440,7 @@ export type highMemberJSON = mainuserjson & {
 	}[];
 	//Only reason this is optional is due to the fact that this is really new and I want to make sure the type checker checks this for me :3
 	mutual_friends?: userjson[];
+	connected_accounts: ConnectionJson[];
 };
 type emojijson = {
 	name: string;
@@ -990,6 +991,12 @@ type wsjson =
 	  }
 	| {
 			op: 0;
+			d: ConnectionJson;
+			s: number;
+			t: "USER_CONNECTIONS_UPDATE";
+	  }
+	| {
+			op: 0;
 			t: "THREAD_MEMBERS_UPDATE";
 			d: {
 				guild_id: string;
@@ -1380,6 +1387,23 @@ type opRTC12 = {
 		];
 	};
 };
+export interface ConnectionJson {
+	id: string;
+	external_id: string;
+	friend_sync: boolean;
+	name: string;
+	revoked: boolean;
+	show_activity: number;
+	type: string; //While it is kinda an enum, we must act like it's just a generic "type"
+	verified: boolean;
+	visibility: number;
+	integrations: []; //idk
+	metadata_visibility: number;
+	two_way_link: boolean;
+	metadata?: {
+		created_at: "2020-09-10T23:37:05.000+00:00";
+	};
+}
 
 export {
 	readyjson,

@@ -772,13 +772,12 @@ class MarkDown {
 						break;
 					}
 				}
+				const parts = build.join("").match(/^<t:([0-9]{1,16})(:([tTdDfFRS]))?>$/);
 
-				if (found) {
+				if (found && parts) {
 					appendcurrent();
 					i = j;
-					const parts = build
-						.join("")
-						.match(/^<t:([0-9]{1,16})(:([tTdDfFR]))?>$/) as RegExpMatchArray;
+
 					const dateInput = new Date(Number.parseInt(parts[1]) * 1000);
 					let time = "";
 					if (Number.isNaN(dateInput.getTime())) time = build.join("");
@@ -834,9 +833,24 @@ class MarkDown {
 						else if (parts[3] === "R")
 							//TODO make this a little less bad
 							time = MarkDown.relTime(new Date(Number.parseInt(parts[1]) * 1000));
+						else if (parts[3] === "S")
+							time =
+								dateInput.toLocaleString(void 0, {
+									day: "numeric",
+									month: "numeric",
+									year: "numeric",
+								}) +
+								" " +
+								dateInput.toLocaleString(void 0, {
+									hour: "2-digit",
+									minute: "2-digit",
+									second: "2-digit",
+								});
 					}
 
 					const timeElem = document.createElement("span");
+					timeElem.setAttribute("real", build.join(""));
+					timeElem.contentEditable = "false";
 					timeElem.classList.add("markdown-timestamp");
 					timeElem.textContent = time;
 					span.appendChild(timeElem);
@@ -991,8 +1005,8 @@ class MarkDown {
 		}
 	}
 	static unspoil(e: any): void {
-		e.target.classList.remove("spoiler");
-		e.target.classList.add("unspoiled");
+		e.currentTarget.classList.remove("spoiler");
+		e.currentTarget.classList.add("unspoiled");
 	}
 	onUpdate: (upto: string, pre: boolean) => unknown = () => {};
 	box = new WeakRef(document.createElement("div"));
@@ -1207,7 +1221,8 @@ class MarkDown {
 				if (channel) {
 					const message = isNaN(+path[2]) ? undefined : path[2];
 					elm.onmouseup = (_) => {
-						channel.getHTML(true, true, message);
+						if (message) channel.focus(message);
+						else channel.goToBottom();
 					};
 					if (message) {
 						return I18n.messageLink(channel.name);
@@ -1256,6 +1271,7 @@ class MarkDown {
 						this.saveTrusted();
 					});
 					full.show();
+					full.background.deref()!.style.zIndex = "300";
 				}
 			};
 		} else {

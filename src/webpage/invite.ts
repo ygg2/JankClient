@@ -1,11 +1,17 @@
 import {I18n} from "./i18n.js";
 import {AccountSwitcher} from "./utils/switcher.js";
-import {createImg, getapiurls} from "./utils/utils.js";
+import {createImg, getapiurls, getInstanceInfo, getStringURLMapPair} from "./utils/utils.js";
 import {getBulkUsers, Specialuser} from "./utils/utils.js";
 if (window.location.pathname.startsWith("/invite"))
 	(async () => {
 		const users = getBulkUsers();
-		const well = new URLSearchParams(window.location.search).get("instance") || "Spacebar";
+		let well = new URLSearchParams(window.location.search).get("instance") || "harmony";
+		const m = getStringURLMapPair()[0];
+		while (m.size === 0) {
+			await new Promise<void>((res) => setInterval(res, 10));
+		}
+		console.log(m);
+		well = m.get(well.toLowerCase()) || (await getInstanceInfo(well))?.api || well;
 		const joinable: Specialuser[] = [];
 
 		for (const key in users.users) {
@@ -19,7 +25,6 @@ if (window.location.pathname.startsWith("/invite"))
 		}
 
 		let urls: {api: string; cdn: string} | undefined;
-
 		if (!joinable.length && well) {
 			const out = await getapiurls(well);
 			if (out) {

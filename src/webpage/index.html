@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Fermi: A Spacebar Client</title>
+		<title>Fermi: A Harmony Client</title>
 		<meta content="Fermi" property="og:title" />
 		<meta content="Join a community of people and start chatting!" property="og:description" />
 		<meta content="Join a community of people and start chatting!" name="description" />
@@ -24,19 +24,17 @@
 	</head>
 
 	<body class="no-theme" style="overflow-y: scroll">
-		<div id="titleDiv">
-			<img src="/logo.svg" width="40" alt="Fermi icon" />
-			<h2 id="pageTitle">Fermi</h2>
-			<a href="/invite/USgYJo?instance=https%3A%2F%2Fspacebar.chat" class="TitleButtons">
-				Spacebar Guild
-			</a>
+		<header id="titleDiv">
+			<div class="flexltr center">
+				<img src="/logo.svg" width="40" alt="Fermi icon" />
+				<h2 id="pageTitle">Fermi</h2>
+			</div>
+			<a href="/invite/oPhe5g?instance=harmony" class="TitleButtons"> Harmony Guild </a>
 			<a href="https://github.com/MathMan05/Fermi" class="TitleButtons"> Github </a>
-			<a href="/channels/@me" class="TitleButtons" id="openClient" i18n="htmlPages.openClient">
-				Open client
-			</a>
-		</div>
+		</header>
 		<div id="homePage">
 			<h1 class="pagehead" id="welcomeJank" i18n="htmlPages.welcomeJank">Welcome to Fermi</h1>
+			<button id="jumpIn">Join today!</button>
 			<div class="pagebox" id="ScreenshotSlides">
 				<span class="rightArrow svg-intoMenu"></span>
 				<span class="leftArrow svg-leftArrow"></span>
@@ -47,25 +45,9 @@
 			</div>
 			<div class="pagebox">
 				<h2 id="compatableInstances" i18n="htmlPages.compatableInstances">
-					Spacebar-Compatible Instances:
+					Harmony-Compatible Instances:
 				</h2>
 				<div id="instancebox"></div>
-			</div>
-			<div class="pagebox">
-				<p id="box1title" i18n="htmlPages.box1title">
-					Fermi is a Spacebar-compatible client seeking to be as good as it can be with many
-					features including:
-				</p>
-				<ul id="box1Items">
-					<li>Direct Messaging</li>
-					<li>Reactions support</li>
-					<li>Invites</li>
-					<li>Account switching</li>
-					<li>User settings</li>
-					<li>Developer portal</li>
-					<li>Bot invites</li>
-					<li>Translation support</li>
-				</ul>
 			</div>
 
 			<div class="pagebox">
@@ -85,7 +67,7 @@
 				</p>
 				<br />
 				<a
-					href="https://translatewiki.net/wiki/Translating:Fermi"
+					href="https://redir.fermi.chat/translate"
 					class="TitleButtons"
 					id="translate"
 					i18n="htmlPages.trans"

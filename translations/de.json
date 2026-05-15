@@ -403,8 +403,6 @@
 	"htmlPages": {
 		"addBot": "Zum Server hinzufügen",
 		"alreadyHave": "Hast du bereits ein Benutzerkonto?",
-		"box1Items": "Direktnachrichten|Reaktionen auf Nachrichten|Einladungen|Benutzerkontowechsel|Benutzereinstellungen|Entwicklerportal|Bot-Einladungen|Übersetzungen",
-		"box1title": "Fermi ist ein Spacebar-kompatibler Client, welcher versucht, so gut wie möglich zu sein, durch viele Funktionen wie:",
 		"box3description": "Wir freuen uns immer über Hilfe, sei es in Form von Fehlerberichten, Programmierung oder einfach nur das Hinweisen auf Tippfehler.",
 		"box3title": "Unterstützung bei der Entwicklung von Fermi",
 		"compatableInstances": "Einige Spacebar-Instanzen:",
@@ -417,7 +415,6 @@
 		"loadingText": "Fermi lädt",
 		"loginButton": "Anmelden",
 		"noAccount": "Du hast noch kein Benutzerkonto?",
-		"openClient": "Client öffnen",
 		"pw2Field": "Passwort erneut eingeben:",
 		"pwField": "Passwort:",
 		"switchaccounts": "Benutzerkonto wechseln",

@@ -7,6 +7,7 @@ import {isLoopback, trimTrailingSlashes} from "./netUtils";
 import {getLocalSettings, ServiceWorkerMode, setLocalSettings} from "./storage/localSettings";
 import {getPreferences} from "./storage/userPreferences";
 import {getDeveloperSettings} from "./storage/devSettings";
+import {Versions} from "../versions.js";
 
 fix();
 const apiDoms = new Set<string>();
@@ -371,8 +372,12 @@ class Directory {
 
 export {Directory};
 
-const mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
-const iOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const mobile =
+	/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+	(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+const iOS =
+	/iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+	(navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 export {mobile, iOS};
 
 const datalist = document.getElementById("instances");
@@ -451,7 +456,7 @@ export async function getapiurls(str: string): Promise<InstanceUrls | null> {
 //region Instance list
 export async function getInstanceInfo(str: string): Promise<InstanceInfo | null> {
 	// wait for it to be loaded...? Where is this even comming from?
-	if (stringURLMap.size == 0) {
+	if (stringURLMap.size === 0) {
 		await new Promise<void>((res, _) => {
 			let intervalId = setInterval(() => {
 				if (stringURLMap.size !== 0) {
@@ -467,19 +472,19 @@ export async function getInstanceInfo(str: string): Promise<InstanceInfo | null>
 		stringURLsMap,
 	});
 
-	if (stringURLMap.has(str)) {
+	if (stringURLMap.has(str.toLowerCase())) {
 		console.error("OOH WE GOT STRING->URL MAP ENTRY FOR", str, "!!!!", stringURLMap.get(str));
-		return (await getapiurls(stringURLMap.get(str)!)) as InstanceInfo;
+		return (await getapiurls(stringURLMap.get(str.toLowerCase())!)) as InstanceInfo;
 	}
 
-	if (stringURLsMap.has(str)) {
+	if (stringURLsMap.has(str.toLowerCase())) {
 		console.error(
 			"WE GOT URL->INSTANCE MAP ENTRY FOR ",
 			str,
 			"!!!!!!!!!!11",
-			stringURLsMap.get(str),
+			stringURLsMap.get(str.toLowerCase()),
 		);
-		return stringURLsMap.get(str) as InstanceInfo;
+		return stringURLsMap.get(str.toLowerCase()) as InstanceInfo;
 	}
 
 	return null;
@@ -854,6 +859,7 @@ const checkInstance = Object.assign(
 					console.log(verify!.textContent);
 					verify!.textContent = "";
 				}, 3000);
+				Versions.makeVersion(instanceinfo.api, "regi");
 				return instanceinfo;
 			} else {
 				verify!.textContent = I18n.login.invalid();

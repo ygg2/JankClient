@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aquasen",
 			"Asteralee",
 			"Bananax47",
 			"Codeurluce",
@@ -410,8 +411,6 @@
 	"htmlPages": {
 		"addBot": "Ajouter à la guilde",
 		"alreadyHave": "Vous avez déjà un compte ?",
-		"box1Items": "Messagerie en direct|Prise en charge des réactions|Invitations|Changement de compte|Paramètres utilisateur|Portail des développeurs|Invitations de bots|Prise en charge des traductions",
-		"box1title": "Le client Fermi est un client compatible avec Spacebar qui cherche à être aussi bon que possible avec de nombreuses fonctionnalités, notamment :",
 		"box3description": "Nous apprécierons toujours votre aide, que ce soit sous forme de rapports de bugs, de code ou même simplement en signalant des fautes de frappe.",
 		"box3title": "Contribuer au client Fermi",
 		"compatableInstances": "Instances compatibles avec Spacebar :",
@@ -424,7 +423,6 @@
 		"loadingText": "Le client Fermi est en cours de chargement",
 		"loginButton": "Se connecter",
 		"noAccount": "Vous n'avez pas de compte ?",
-		"openClient": "Ouvrir le client",
 		"pw2Field": "Entrez à nouveau le mot de passe :",
 		"pwField": "Mot de passe :",
 		"switchaccounts": "Changer de compte",
@@ -929,7 +927,8 @@
 		"timeout": "Exclure temporairement le membre",
 		"unTimeout": "Révoquer l'exclusion du membre",
 		"unban": "Lever le bannissement de $1",
-		"unblock": "Débloquer"
+		"unblock": "Débloquer",
+		"viewProfile": "Afficher le profil"
 	},
 	"userping": {
 		"resolving": "résolution de l'utilisateur",

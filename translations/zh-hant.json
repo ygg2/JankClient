@@ -391,8 +391,6 @@
 	"htmlPages": {
 		"addBot": "新增到公會",
 		"alreadyHave": "已經有帳號了嗎？",
-		"box1Items": "直接訊息傳遞|反應支援|邀請|帳號切換|使用者設定|開發者入口網站|機器人邀請|翻譯支援",
-		"box1title": "Fermi 是一款與 Spacebar 相容的客戶端，致力於盡所能提供多項功能，包括：",
 		"box3description": "我們一向感謝任何協助，無論是錯誤報告、程式碼，或是指出一些拼字錯誤。",
 		"box3title": "為 Fermi 做出貢獻",
 		"compatableInstances": "Spacebar 相容實例：",
@@ -405,7 +403,6 @@
 		"loadingText": "Fermi 載入中",
 		"loginButton": "登入",
 		"noAccount": "還沒有帳號？",
-		"openClient": "開啟客戶端",
 		"pw2Field": "再次輸入密碼：",
 		"pwField": "密碼：",
 		"switchaccounts": "切換帳號",
