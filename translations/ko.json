@@ -145,6 +145,9 @@
 		"title": "이모티콘",
 		"upload": "이모티콘 업로드"
 	},
+	"folder": {
+		"name": "폴더 이름:"
+	},
 	"friends": {
 		"addfriend": "친구 추가",
 		"addfriendpromt": "사용자 이름으로 친구 추가:",
@@ -470,6 +473,7 @@
 		}
 	},
 	"sticker": {
+		"name": "이름:",
 		"upload": "스티커 업로드"
 	},
 	"submit": "제출",
@@ -495,6 +499,9 @@
 		"removeRole": "역할 제거",
 		"unblock": "사용자 차단 해제",
 		"viewProfile": "프로필 보기"
+	},
+	"webauth": {
+		"keyname": "키 이름:"
 	},
 	"webhook": "웹훅",
 	"webhooks": {
