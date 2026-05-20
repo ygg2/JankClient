@@ -3847,7 +3847,7 @@ fieldset input[type="radio"] {
 	padding: 10px;
 	box-sizing: border-box;
 }
-#discovery-guild-content {
+.discovery-guild-content {
 	flex: 1;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
