@@ -6,7 +6,8 @@
 			"Suleiman the Magnificent Television",
 			"Tensama0415",
 			"YeBoy371",
-			"Ykhwong"
+			"Ykhwong",
+			"解浪"
 		]
 	},
 	"2faCode": "2단계 인증 코드:",
@@ -143,6 +144,9 @@
 		"name:": "이름:",
 		"title": "이모티콘",
 		"upload": "이모티콘 업로드"
+	},
+	"folder": {
+		"name": "폴더 이름:"
 	},
 	"friends": {
 		"addfriend": "친구 추가",
@@ -469,6 +473,7 @@
 		}
 	},
 	"sticker": {
+		"name": "이름:",
 		"upload": "스티커 업로드"
 	},
 	"submit": "제출",
@@ -492,7 +497,11 @@
 		"offline": "오프라인",
 		"online": "온라인",
 		"removeRole": "역할 제거",
-		"unblock": "사용자 차단 해제"
+		"unblock": "사용자 차단 해제",
+		"viewProfile": "프로필 보기"
+	},
+	"webauth": {
+		"keyname": "키 이름:"
 	},
 	"webhook": "웹훅",
 	"webhooks": {
