@@ -1587,7 +1587,7 @@ class User extends SnowFlake {
 				friendSpan.classList.add("svg-hasfriend");
 			}
 		};
-		if (this !== this.localuser.user && !this.bot) {
+		if (this !== this.localuser.user && !this.bot && x !== -1) {
 			friendDiv.append(friendSpan);
 			div.append(friendDiv);
 			updateIcon();
