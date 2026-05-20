@@ -355,7 +355,11 @@ class Message extends SnowFlake {
 
 		let reactiontxt: string;
 		if (emoji instanceof Emoji) {
-			reactiontxt = `${emoji.name}:${emoji.id}`;
+			if (emoji.id) {
+				reactiontxt = `${emoji.name}:${emoji.id}`;
+			} else {
+				reactiontxt = encodeURIComponent(emoji.name);
+			}
 		} else {
 			reactiontxt = encodeURIComponent(emoji);
 		}
