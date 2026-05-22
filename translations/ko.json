@@ -53,7 +53,8 @@
 		"guild_booster_lvl6": "부스트된 길드",
 		"guild_booster_lvl7": "부스트된 길드",
 		"guild_booster_lvl8": "부스트된 길드",
-		"guild_booster_lvl9": "잠시동안 부스트된 길드"
+		"guild_booster_lvl9": "잠시동안 부스트된 길드",
+		"hypesquad": "Vibesquad [자리 표시자]"
 	},
 	"blankMessage": "빈 메시지",
 	"blog": {
@@ -144,6 +145,9 @@
 		"name:": "이름:",
 		"title": "이모티콘",
 		"upload": "이모티콘 업로드"
+	},
+	"folder": {
+		"name": "폴더 이름:"
 	},
 	"friends": {
 		"addfriend": "친구 추가",
@@ -470,6 +474,7 @@
 		}
 	},
 	"sticker": {
+		"name": "이름:",
 		"upload": "스티커 업로드"
 	},
 	"submit": "제출",
@@ -495,6 +500,9 @@
 		"removeRole": "역할 제거",
 		"unblock": "사용자 차단 해제",
 		"viewProfile": "프로필 보기"
+	},
+	"webauth": {
+		"keyname": "키 이름:"
 	},
 	"webhook": "웹훅",
 	"webhooks": {

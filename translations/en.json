@@ -320,6 +320,8 @@
 		"banner:": "Banner:",
 		"bans": "Bans",
 		"boostMessage?": "Send a message when someone boosts your guild!",
+		"banId":"Ban by ID",
+		"idSel":"ID:",
 		"community": "Community",
 		"confirmDelete": "Are you sure you want to delete $1?",
 		"confirmLeave": "Are you sure you want to leave?",
@@ -773,7 +775,8 @@
 		"mut": "Mutual guilds",
 		"mutFriends": "Mutual friends",
 		"permInfo": "Permissions",
-		"userInfo": "User info"
+		"userInfo": "User info",
+		"notes":"User notes"
 	},
 	"profileColor": "Profile color",
 	"pronouns": "Pronouns:",
@@ -825,7 +828,14 @@
 		"nofind": "There seems to be no messages that match your search, maybe trying broadening your search to try and find what you want",
 		"old": "Old",
 		"page": "Page $1",
-		"search": "Search"
+		"search": "Search",
+		"settings":"Search Settings",
+		"before":"Before:",
+		"after":"After:",
+		"includensfw":"Include NSFW:",
+		"authors":"Authors:",
+		"mentions":"Mentions:",
+		"channels":"Channels:"
 	},
 	"searchGifs": "Search $1",
 	"settings": {
